@@ -1,3 +1,4 @@
+п»ї//Hello Unicode World вє. 
 #pragma once
 #include <iostream>
 #include <vector>
@@ -8,7 +9,7 @@
 #include <conio.h>
 #include "GameMatrix/GameStructures.h"
 
-//#define __matrix(point) _matrix[p._x][p._y] //макрос по замене имени, по которому обращаться к матрице
+//#define __matrix(point) _matrix[p._x][p._y] //РјР°РєСЂРѕСЃ РїРѕ Р·Р°РјРµРЅРµ РёРјРµРЅРё, РїРѕ РєРѕС‚РѕСЂРѕРјСѓ РѕР±СЂР°С‰Р°С‚СЊСЃСЏ Рє РјР°С‚СЂРёС†Рµ
 //#define ENDL std::endl;
 //#define COUT_ENDL std::cout << std::endl;
 
@@ -21,8 +22,6 @@ namespace GameMatrix
 
 		std::map<int, RandomMovingEnemy> _random_moving_enemies;
 		
-		//int objects_count = 0;
-
 		Player _player;
 
 		bool IsPointInMatrix(Point p)
@@ -82,7 +81,7 @@ namespace GameMatrix
 				if (new_position_symbol != kEmptySymbol)
 				{
 					std::cout << "Unrecognised symbol: " << (int) new_position_symbol << std::endl;
-					assert(false); //падаем таким образом
+					assert(false); //РїР°РґР°РµРј С‚Р°РєРёРј РѕР±СЂР°Р·РѕРј
 				}
 			}
 			
@@ -138,7 +137,7 @@ namespace GameMatrix
 					else if (ch == kRandomMovingEnemySymbol)
 					{
 						Point p{ i,j };
-						RandomMovingEnemy enemy(p, kRandomMovingEnemySymbol,Color::Red, rand()%10+5);
+						RandomMovingEnemy enemy(p, kRandomMovingEnemySymbol,Color::Red, rand() % 10 + 5);
 						_random_moving_enemies.emplace(enemy.UniqId(), enemy);
 
 						//_random_moving_enemies.emplace(objects_count++, RandomMovingEnemy { Point { i,j } });
@@ -205,7 +204,7 @@ namespace GameMatrix
 
 			Console.Print(end_p._x, end_p._y, '&', Color::Green);
 
-			//int weight_matrix[n][n]; поправить потом на новый тип матрицы
+			//int weight_matrix[n][n]; РїРѕРїСЂР°РІРёС‚СЊ РїРѕС‚РѕРј РЅР° РЅРѕРІС‹Р№ С‚РёРї РјР°С‚СЂРёС†С‹
 			//for (int i = 0; i < n; i++)
 			//{
 			//	for (int j = 0; j < n; j++)
@@ -226,11 +225,11 @@ namespace GameMatrix
 
 			//while (!not_visited_points.empty())
 			//{
-			//	Point cur_point = not_visited_points.front(); //берем первую точку на очереди для удобства
+			//	Point cur_point = not_visited_points.front(); //Р±РµСЂРµРј РїРµСЂРІСѓСЋ С‚РѕС‡РєСѓ РЅР° РѕС‡РµСЂРµРґРё РґР»СЏ СѓРґРѕР±СЃС‚РІР°
 			//
 			//	for (Point delta : kDeltas)
 			//	{
-			//		Point neighbour_p = cur_point + delta; //координата соседа
+			//		Point neighbour_p = cur_point + delta; //РєРѕРѕСЂРґРёРЅР°С‚Р° СЃРѕСЃРµРґР°
 			//		if (!IsPointInMatrix(neighbour_p))
 			//		{
 			//			continue;
@@ -323,15 +322,15 @@ namespace GameMatrix
 		m.Run();
 	}
 
-		//добавить врагов, которые будут сами по себе двигаться
-		//добавить телепоры
-		//добавить счетчик жизней
-		//предметы:
-		//	1. Увеличивает счетчик жизней 
-		//	2. Останавливает врагов 
-		//	3. Убивает случайного врага 
-		//добавить врагам скорость
-		//добавить врагам логику поиска кратчайшего пути к нам
+		//РґРѕР±Р°РІРёС‚СЊ РІСЂР°РіРѕРІ, РєРѕС‚РѕСЂС‹Рµ Р±СѓРґСѓС‚ СЃР°РјРё РїРѕ СЃРµР±Рµ РґРІРёРіР°С‚СЊСЃСЏ
+		//РґРѕР±Р°РІРёС‚СЊ С‚РµР»РµРїРѕСЂС‹
+		//РґРѕР±Р°РІРёС‚СЊ СЃС‡РµС‚С‡РёРє Р¶РёР·РЅРµР№
+		//РїСЂРµРґРјРµС‚С‹:
+		//	1. РЈРІРµР»РёС‡РёРІР°РµС‚ СЃС‡РµС‚С‡РёРє Р¶РёР·РЅРµР№ 
+		//	2. РћСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РІСЂР°РіРѕРІ 
+		//	3. РЈР±РёРІР°РµС‚ СЃР»СѓС‡Р°Р№РЅРѕРіРѕ РІСЂР°РіР° 
+		//РґРѕР±Р°РІРёС‚СЊ РІСЂР°РіР°Рј СЃРєРѕСЂРѕСЃС‚СЊ
+		//РґРѕР±Р°РІРёС‚СЊ РІСЂР°РіР°Рј Р»РѕРіРёРєСѓ РїРѕРёСЃРєР° РєСЂР°С‚С‡Р°Р№С€РµРіРѕ РїСѓС‚Рё Рє РЅР°Рј
 
 
 

@@ -1,3 +1,4 @@
+п»ї//Hello Unicode World вє. 
 #pragma once
 #include <iostream>
 
@@ -10,8 +11,8 @@ namespace GameMatrix
 
 	struct Point
 	{
-		int _x = 0; //движение по увеличению от 0 вправо
-		int _y = 0; //движение по увеличению от 0 вниз
+		int _x = 0; //РґРІРёР¶РµРЅРёРµ РїРѕ СѓРІРµР»РёС‡РµРЅРёСЋ РѕС‚ 0 РІРїСЂР°РІРѕ
+		int _y = 0; //РґРІРёР¶РµРЅРёРµ РїРѕ СѓРІРµР»РёС‡РµРЅРёСЋ РѕС‚ 0 РІРЅРёР·
 
 		friend Point operator+(Point p1, Point p2)
 		{
@@ -37,7 +38,7 @@ namespace GameMatrix
 		}
 	};
 
-	Point kDeltas[4] = { {0,1}, {0,-1}, {1,0},{-1,0} }; //kDeltas - так гугл обозначает константы, в данном примере - обозначение соседей точки
+	Point kDeltas[4] = { {0,1}, {0,-1}, {1,0},{-1,0} }; //kDeltas - С‚Р°Рє РіСѓРіР» РѕР±РѕР·РЅР°С‡Р°РµС‚ РєРѕРЅСЃС‚Р°РЅС‚С‹, РІ РґР°РЅРЅРѕРј РїСЂРёРјРµСЂРµ - РѕР±РѕР·РЅР°С‡РµРЅРёРµ СЃРѕСЃРµРґРµР№ С‚РѕС‡РєРё
 	
 	void Print(Point p, char ch, Color color=Color::White)
 	{
@@ -87,7 +88,7 @@ namespace GameMatrix
 	class ObjectWithAction : public FieldObject
 	{
 	private:
-		int _ticks_before_action=1; //частота принятия решения
+		int _ticks_before_action=1; //С‡Р°СЃС‚РѕС‚Р° РїСЂРёРЅСЏС‚РёСЏ СЂРµС€РµРЅРёСЏ
 		int _current_ticks=0;
 	public:
 		ObjectWithAction(Point p_, char symbol_, Color color_, int ticks_before_action_)
@@ -134,12 +135,12 @@ namespace GameMatrix
 		}
 	};
 
-	struct ShootingObject //ненаследуемый объект
+	struct ShootingObject //РЅРµРЅР°СЃР»РµРґСѓРµРјС‹Р№ РѕР±СЉРµРєС‚
 	{
 
 	};
 
-	struct ObjectWithHealth //ненаследуемый объект
+	struct ObjectWithHealth //РЅРµРЅР°СЃР»РµРґСѓРµРјС‹Р№ РѕР±СЉРµРєС‚
 	{
 		unsigned int _health;
 	};
