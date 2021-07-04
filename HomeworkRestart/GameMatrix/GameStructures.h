@@ -8,6 +8,7 @@ namespace GameMatrix
 	static const char kRandomMovingEnemySymbol = '%';
 	static const char kPlayerSymbol = '@';
 	static const char kEmptySymbol = ' ';
+	static const char kTrapSymbol = '&';
 
 	struct Point
 	{
@@ -43,6 +44,7 @@ namespace GameMatrix
 	void Print(Point p, char ch, Color color=Color::White)
 	{
 		Console.Print(p._y, p._x, ch, color);
+		Console.SetPosition(140, 140);
 	}
 
 	int _field_objects_count = 0;
@@ -154,7 +156,30 @@ namespace GameMatrix
 		}
 	};
 
+	struct Trap : public ObjectWithAction
+	{
+		Trap(Point p_, int ticks_before_action_)
+			:ObjectWithAction(p_, kTrapSymbol, Color::Grey, ticks_before_action_)
+		{
 
+		}
+
+		void IncrementTickAndChangeVisible()
+		{
+			if (IncrementTickAndReturnIsActionShouldBe())
+			{
+				if (_symbol == kTrapSymbol)
+				{
+					_symbol = ' ';
+				}
+				else
+				{
+					_symbol = kTrapSymbol;
+				}
+				Draw();
+			}
+		}
+	};
 
 
 

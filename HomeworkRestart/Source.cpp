@@ -1087,7 +1087,7 @@ void f41()
 
 int main()
 {
-	Console.SetConsolePositionAndSize(10, 10, 800, 1000);
+	Console.SetConsolePositionAndSize(10, 10, 900, 1400);
 	srand(time(0));
 
 	//ServiceClasess::servf1(get_random_vector_max_range_size(10,10), get_random_vector_max_range_size(10, 10));

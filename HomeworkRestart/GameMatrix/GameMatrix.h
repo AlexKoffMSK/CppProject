@@ -21,6 +21,8 @@ namespace GameMatrix
 		std::vector<std::string> _matrix;
 
 		std::map<int, RandomMovingEnemy> _random_moving_enemies;
+
+		std::map<int, Trap> _traps;
 		
 		Player _player;
 
@@ -37,6 +39,14 @@ namespace GameMatrix
 		void MoveEnemies()
 		{
 			MoveRandomMovingEnemies();
+		}
+
+		void UpdateTraps()
+		{
+			for (auto& [id, trap] : _traps)
+			{
+				trap.IncrementTickAndChangeVisible();
+			}
 		}
 
 		void MoveRandomMovingEnemies()
@@ -68,7 +78,7 @@ namespace GameMatrix
 			
 			char new_position_symbol = _matrix[new_position._x][new_position._y];
 
-			if (new_position_symbol == kWallSymbol || new_position_symbol == kRandomMovingEnemySymbol)
+			if (new_position_symbol == kWallSymbol || new_position_symbol == kRandomMovingEnemySymbol || new_position_symbol == kTrapSymbol)
 			{
 				return;
 			}
@@ -94,6 +104,7 @@ namespace GameMatrix
 		{
 			while (true)
 			{
+				Console.SetPosition(140, 140);
 				char ch = _getch();
 
 				switch (ch)
@@ -127,7 +138,6 @@ namespace GameMatrix
 
 				for (int j = 0; j < line.size(); j++)
 				{
-
 					char ch = _matrix[i][j];
 	
 					if (ch == kPlayerSymbol)
@@ -139,8 +149,12 @@ namespace GameMatrix
 						Point p{ i,j };
 						RandomMovingEnemy enemy(p, kRandomMovingEnemySymbol,Color::Red, rand() % 10 + 5);
 						_random_moving_enemies.emplace(enemy.UniqId(), enemy);
-
-						//_random_moving_enemies.emplace(objects_count++, RandomMovingEnemy { Point { i,j } });
+					}
+					else if (ch == kTrapSymbol)
+					{
+						Point p{ i,j };
+						Trap trap(p, rand() % 30 + 10);
+						_traps.emplace(trap.UniqId(), trap);
 					}
 
 					std::cout << _matrix[i][j];
@@ -158,12 +172,16 @@ namespace GameMatrix
 			{
 				MoveEnemies();
 				
+				UpdateTraps();
+
 				Point player_new_position = _player.GetNewPosition();
 
 				if (IsPointInMatrix(player_new_position) && !IsWall(player_new_position))
 				{
-					if (_matrix[player_new_position._x][player_new_position._y] == kRandomMovingEnemySymbol)
+					if (_matrix[player_new_position._x][player_new_position._y] == kRandomMovingEnemySymbol ||
+					    _matrix[player_new_position._x][player_new_position._y] == kTrapSymbol)
 					{
+						//здесь будет логика уменьшения жизней потом
 						exit(0);
 					}
 					
@@ -175,6 +193,7 @@ namespace GameMatrix
 				_player.SetPositionDelta(Point{ 0, 0 });
 
 				Console.SetPosition(140, 140);
+				
 				std::this_thread::sleep_for(std::chrono::milliseconds(10));
 			}
 		}
