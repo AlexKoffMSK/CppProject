@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{92424975-a9fe-4dbc-b392-1c074680ba85}</ProjectGuid>
+    <RootNamespace>HomeworkRestart</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <Optimization>Disabled</Optimization>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Json\json11.cpp" />
+    <ClCompile Include="SHA256 from GitHub\SHA-256 GITHUB.cpp" />
+    <ClCompile Include="Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="2021-02-27.h" />
+    <ClInclude Include="Algorithm.h" />
+    <ClInclude Include="BitOperations\BitOperations.h" />
+    <ClInclude Include="Classes\ButtonStruct.h" />
+    <ClInclude Include="ConsoleFunctions.h" />
+    <ClInclude Include="ConsoleHelper.h" />
+    <ClInclude Include="CorpPosition.h" />
+    <ClInclude Include="Classes\CustomString.h" />
+    <ClInclude Include="DataStructures\BinarySearchTree.h" />
+    <ClInclude Include="DataStructures\BinarySearchTreeMap.h" />
+    <ClInclude Include="DataStructures\BinaryTree.h" />
+    <ClInclude Include="DataStructures\ForwardList.h" />
+    <ClInclude Include="DataStructures\Graph.h" />
+    <ClInclude Include="DataStructures\List.h" />
+    <ClInclude Include="DataStructures\Queue.h" />
+    <ClInclude Include="DynamicMemory.h" />
+    <ClInclude Include="Classes\Fraction.h" />
+    <ClInclude Include="EnumExamples.h" />
+    <ClInclude Include="Functions.h" />
+    <ClInclude Include="GameMatrix\GameStructures.h" />
+    <ClInclude Include="Geometry.h" />
+    <ClInclude Include="GlobalStructureDate.h" />
+    <ClInclude Include="GlobalStructures.h" />
+    <ClInclude Include="GlobalStructuresCarUtils.h" />
+    <ClInclude Include="Hash\SHA256.h" />
+    <ClInclude Include="Inheritance\InheritanceBasic.h" />
+    <ClInclude Include="Inheritance\InheritanceMovingObject.h" />
+    <ClInclude Include="Inheritance\InheritanceSquareAndRectangle.h" />
+    <ClInclude Include="Initializations.h" />
+    <ClInclude Include="Json\json11.hpp" />
+    <ClInclude Include="Json\JsonTests.h" />
+    <ClInclude Include="List.h" />
+    <ClInclude Include="List1.h" />
+    <ClInclude Include="List2.h" />
+    <ClInclude Include="MapStdExamples.h" />
+    <ClInclude Include="GameMatrix\GameMatrix.h" />
+    <ClInclude Include="MaxMinSearchFunctions.h" />
+    <ClInclude Include="Operators.h" />
+    <ClInclude Include="ParallelThreads\ParallelThreads.h" />
+    <ClInclude Include="ParallelThreads\RingBuffer.h" />
+    <ClInclude Include="ParallelThreads\RingBufferTest.h" />
+    <ClInclude Include="Pointers.h" />
+    <ClInclude Include="Recusrion.h" />
+    <ClInclude Include="Sequences.h" />
+    <ClInclude Include="ServiceClasess.h" />
+    <ClInclude Include="SetStdExamples.h" />
+    <ClInclude Include="SHA256 from GitHub\SHA256-GitHub.h" />
+    <ClInclude Include="Sorts.h" />
+    <ClInclude Include="Structures.h" />
+    <ClInclude Include="Classes\VectorWithinEvens.h" />
+    <ClInclude Include="WorkWithBinaryFiles.h" />
+    <ClInclude Include="WorkWithTextFiles.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Bitmap.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="BinaryFiles\File1.bin" />
+    <Text Include="BinaryFiles\File2.txt" />
+    <Text Include="BinaryFiles\Test.bin" />
+    <Text Include="GameMatrix\Levels\Level1.txt" />
+    <Text Include="GraphsFiles\Graph_1.txt" />
+    <Text Include="TextFiles\a.txt" />
+    <Text Include="TextFiles\File1.txt" />
+    <Text Include="TextFiles\File2.txt" />
+    <Text Include="TextFiles\File3.txt" />
+    <Text Include="TextFiles\FileVec.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BinaryFiles\FileVec.bin" />
+    <None Include="BinaryFiles\HomeworkRestart.bin" />
+    <None Include="TextFiles\File1.tsv" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

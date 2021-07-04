@@ -1,0 +1,224 @@
+
+
+#pragma once
+#pragma once
+#include <iostream>
+#include <cassert>
+
+using namespace std;
+
+/*
+На всякий случай, зафиксирую сущности, которые у нас есть:
+1. (card)                    Каноничная запись карты. Это интовское число, например 121. 
+2. (dignity,suit)            Интовая запись карты. Это 2 интовких числа, например 12 1. 
+3. (char_dignity,char_suit)  Чаровская запись карты. Это 2 чаровских переменных. Q p  
+4. dignity.                  Достоинство. (Предлагаю по умолчабнию считать, что достоинство, это инт). Это интовая переменная, принимающая значания [2,14]
+5. char_dignity              Чаровское достоинство. Это чаровская переменная, принимающая {'2','3','4',...,'Z','J','Q','K','A'}
+6. suit                       Масть.   (По аналогии с достоинством, это инт). Это интовая переменная, принимающая [0,3]
+7. char_suit                 Чаровская масть. Чаровская переменная, принимающая {'b','p','k','c'}*/
+
+char masti[] = { 'b', 'p', 'k' ,'c' }; //расположение этого массива внутри файла с функциями - глобальная переменная, доступная там где этот файл инклудится и внутри самого файла
+//создаём массив символов-мастей [0,3], означающий масти карт - для вывода на экран читабельных значений карт
+
+
+void CardsArrayGeneration(int* cards, int n)
+// Функция принимает массив карт и заполняет его картами по возрастанию
+{
+	const int dmin = 2; //минимальное достоинство - минимальная карта в колоде двойка
+	const int dmax = 14; //максимальное достоинство - при этом, с 2 до 10 это числовые карты, 11 - Валет, 12 - Дама, 13 - Король, 14 - Туз
+	const int m = 4; //количество мастей в колоде (Бубны, Пики, Кресты, Червы)
+	int k = 0; //индекс массива а для заполнения его картами
+	
+	for (int i = dmin; i <= dmax; i++) //цикл для заполнения массива - колодой карт, в части - достоинств
+	{
+		for (int j = 0; j < m; j++) //цикл для заполнения массива карт с заполненными достоинствами - мастями
+		{
+			cards[k] = i * 10 + j; //присвоение текущей карте значений достоинств и мастей
+			k++; //переход к следующей карте путём перехода к следующему индексу массива
+		}
+	}
+}
+
+void CardsMixing(int* cards, int n)
+// Функция перемешивает массив из карт
+{
+	int peremesh = 10000; //количество раз перемешиваний колоды (10000 * 52)
+	int PervayaKartaDlyaPeremesh = 0; //индекс какой-то карты в колоде для обмена значением с другой картой
+	int VtorayaKartaDlyaPeremesh = 0; //индекс какой-то другой карты для обмена значением с первой-попавшейся картой
+	int ObmennayaPeremennaya = 0;//временная переменная для обмена значений карт
+
+	for (int i = 0; i <= peremesh; i++)//цикл для заполнения массива - колоды карт
+	{
+		PervayaKartaDlyaPeremesh = rand() % n; //берём наугад индекс какой-то рандомной карты 
+		VtorayaKartaDlyaPeremesh = rand() % n; //берём наугад индекс какой-то другой карты
+		ObmennayaPeremennaya = cards[PervayaKartaDlyaPeremesh];//присваиваем временной переменной значение из массива-колоды, соответствующее индексу, подобранному рандомно
+		cards[PervayaKartaDlyaPeremesh] = cards[VtorayaKartaDlyaPeremesh];//присваиваем значению первой рандомной карты в массиве-колоде - значение другой рандомно-выбранной карты
+		cards[VtorayaKartaDlyaPeremesh] = ObmennayaPeremennaya;//присваиваем значению второй рандомно-подобранной карты - значение из временной переменной, куда мы положили значение первой карты до обмена
+	}
+}
+
+void PrintCardNameInterpretedFromNumber(int card)
+// Функция принимает на вход 1 карту и печатает её в интерпретированном виде
+{
+	assert(card % 10 >= 0 && card % 10 <= 3); //ожидает, что последняя цифра переменной card будет находиться в жестком диапазоне от 0 до 3 включительно, иначе вызывает ошибку и останаливает выполнение программы
+	
+	char dostoinstva[] = { '2', '3', '4' ,'5','6','7','8','9','Z','J','Q','K','A' };
+	//создаём массив символов-достоинств [0,12] - для вывода на экран читабельных значений карт, при этом! 
+	//Так как используем функцию char, которая оперирует только одним символом, необходимо для достоинства 10 прописать исключение!
+
+	/*const char* dostoinstva[] = { "2", "3", "4" ,"5","6","7","8","9","10","J","Q","K","A"};
+	это вариант использования функции char для строки (string, не line), т.е. это не про целую строку отведённую в выводе под эти символы*/
+
+	if (card / 10 == 10) //прописываем исключение для вывода достоинства карты 10, т.к. char оперирует только одним символом
+	{
+		cout << 10 << ' ' << masti[card % 10] << endl; //выводим char-овские массивы на экран (при условии что среди карт попалась 10)
+	}
+	else
+	{
+		cout << dostoinstva[card / 10 - 2] << ' ' << masti[card % 10] << endl; //выводим char-овские массивы на экран (при условии что не попалась 10), при этом:
+	//минус 2 добавлено для того, чтобы не выходить за границы чаровского массива. При этом, работает это так:
+	//если [a[i] / 10 даёт номинал карты 2, то если не написать -2 он обратится ко второму индексу (3 ячейка) массива, т.е. 4
+	//а если будет туз - 14 - он выйдет за границы чаровского массива.
+	}
+}
+
+void PrintCardsArray(int* cards, int n)
+// Функция принимает на вход массив карт и печатает его в неинтерпретированном виде
+{
+	for (int i = 0; i < n; i++)
+	{
+		cout << cards[i] << " - ";
+		PrintCardNameInterpretedFromNumber(cards[i]);
+	}
+}
+
+int Compare2CardsByDostoinstvo(int card1, int card2)
+// Функция принимает на вход 2 карты и возвращает:
+// -1, если первая карта меньше второй
+//  0, если они равны
+//  1, если первая карта больше второй
+// отрицательное число, если первая карта меньше второй - код под комментом
+//  0, если они равны - код под комментом
+// положительное число, если первая карта больше второй - код под комментом
+{
+	//return card1 / 10 - card2 / 10;
+	if (card1 / 10 > card2 / 10)
+	{
+		return 1;
+	}
+	else if (card1 / 10 < card2 / 10)
+	{
+		return -1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+int Compare2CardsByMastiAndDostoinstvaWithTrump(int card1, int card2, int trumpNumber)
+// Функция принимает на вход 2 карты, козырь и возвращает:
+// -1, если первая карта меньше второй
+// 0, если они равны
+// 1, если первая карта больше второй
+{
+	if (card1 % 10 == trumpNumber && card2 % 10 != trumpNumber)
+	{
+		return 1;
+	}
+	else if (card1 % 10 != trumpNumber && card2 % 10 == trumpNumber)
+	{
+		return -1;
+	}
+	else // Либо обе карты козыри, либо никто из них не козырь
+	{
+		return Compare2CardsByDostoinstvo(card1, card2); //возвращает тот интовый результат, который получится после выполнения функции
+	}
+}
+
+int ConvertCharTrumpOfMastiToNumber(char trumpChar)
+// Функция конвертирует пользовательский ввод масти в буквенном значении - в числовое
+{
+	
+	//if (trumpChar == 'b')
+	//{
+	//	return 0;
+	//}
+	//if (trumpChar == 'p')
+	//{
+	//	return 1;
+	//}
+	//if (trumpChar == 'k')
+	//{
+	//	return 2;
+	//}
+	//if (trumpChar == 'c')
+	//{
+	//	return 3;
+	//}
+	
+	switch (trumpChar)
+	{
+	case 'b': return 0; break;
+	case 'p': return 1; break;
+	case 'k': return 2; break;
+	case 'c': return 3; break;
+	}
+}
+
+int ConvertCharDostoinstvoToNumber(char dostoinstvo)
+// Функция конвертирует пользовательский ввод достоинства в буквенном/циферном значении - в числовое
+{
+	switch (dostoinstvo)
+	{
+	case 'A': return 14; break;
+	case 'a': return 14; break;
+	case 'K': return 13; break;
+	case 'k': return 13; break;
+	case 'Q': return 12; break;
+	case 'q': return 12; break;
+	case 'J': return 11; break;
+	case 'j': return 11; break;
+	case 'Z': return 10; break; //а как это сделать чтобы работало? 
+	case 'z': return 10; break;
+	case '9': return 9; break;
+	case '8': return 8; break;
+	case '7': return 7; break;
+	case '6': return 6; break;
+	case '5': return 5; break;
+	case '4': return 4; break;
+	case '3': return 3; break;
+	case '2': return 2; break;
+	}
+}
+
+int ConvertCharOfMastiToNumber(char mast)
+// Функция конвертирует пользовательский ввод достоинства в буквенном/циферном значении - в числовое
+{
+	assert(mast == 'b' || mast == 'p' || mast == 'k' || mast == 'c'); //нельзя ли как-то указать не строгое равенство, а принадлежность к любому числу из массива masti[]? Двойное равенство я нашёл просто наугад, попробовав - а что, если...? Но где точно почитать - что и как надо писать?
+	switch (mast)
+	{
+	case 'b': return 0; break;
+	case 'p': return 1; break;
+	case 'k': return 2; break;
+	case 'c': return 3; break;
+	}
+}
+
+int ConvertToNumberFromIntDostoinstvoAndIntMast(int IntDostoinstvo, int IntMast)
+//имена могут быть не связаны с именами в коде, т.к. в данных скобках создаются и объявляются для данной функции и живут внутри неё.
+//должны быть одинаковые типы передаваемых и принимаемых аргументов! первый переданный аргумент должен быть ожидаемым первым аргументом и в фукнции! 
+{
+	return IntDostoinstvo * 10 + IntMast;
+}
+
+int ConvertToNumberFromCharDostoinstvoAndCharMast(char dostoinstvo, char mast)
+{
+	//return ConvertCharDostoinstvoToNumber(dostoinstvo) * 10 + ConvertCharOfMastiToNumber(mast);
+	//return ConvertToNumberFromIntDostoinstvoAndIntMast(ConvertCharDostoinstvoToNumber(dostoinstvo), ConvertCharOfMastiToNumber(mast));
+	//другой вариант записи того же самого, но незачем второй раз умножение и сложение использовать
+
+	int int_dostoinstvo = ConvertCharDostoinstvoToNumber(dostoinstvo);
+	int int_mast = ConvertCharOfMastiToNumber(mast);
+
+	return ConvertToNumberFromIntDostoinstvoAndIntMast(int_dostoinstvo, int_mast);
