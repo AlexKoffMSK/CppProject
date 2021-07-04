@@ -134,6 +134,10 @@ namespace GameMatrix
 
 			while (std::getline(ifs, line))
 			{
+				if (line == "Info:")
+				{
+					break;
+				}
 				_matrix.push_back(line);
 
 				for (int j = 0; j < line.size(); j++)
@@ -161,6 +165,18 @@ namespace GameMatrix
 				}
 				i++;
 				std::cout << std::endl;
+			}
+
+			return; //не забыть убрать
+
+			char info_type;
+
+			while (ifs >> info_type)
+			{
+				if (info_type == 'T')
+				{
+					//будет инфа для телепорта
+				}
 			}
 		}
 
