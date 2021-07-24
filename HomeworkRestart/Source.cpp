@@ -1132,7 +1132,7 @@ int main()
 	//Inheritance::Test();
 	//InheritanceRectAndSquare::Test();
 
-	//Structures::Test678();
+	//Structures::Test678(); 
 
 	//std::cout << SHA256FromGitHub("Andrey") << std::endl;
 	std::cout << "Process is over!" << std::endl;

@@ -46,7 +46,7 @@ namespace GameMatrix
 		Console.Print(p._y, p._x, ch, color);
 		Console.SetPosition(140, 140);
 	}
-
+	 
 	int _field_objects_count = 0;
 
 	class FieldObject
