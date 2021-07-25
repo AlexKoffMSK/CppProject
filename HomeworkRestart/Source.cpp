@@ -1147,7 +1147,6 @@ int main()
 
 	Polymorphism::Test3();
 
-
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
 }
@@ -1186,6 +1185,7 @@ int main()
 +- Многопоточность, параллельные вычисления
 - Работа с сетью
 - красно-черное дерево
+- шаблоны
 */
 
 //https://github.com/AlexKoffMSK/CppProject.git
