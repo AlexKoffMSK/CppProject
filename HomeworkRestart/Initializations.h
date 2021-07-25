@@ -153,12 +153,12 @@ namespace Initializations
 		}
 	};
 
-	void f7()
-	{
-		H ex("Example");
-		ex.a = 2;
-		H ex1 = ex;
-	}
+	//void f7()
+	//{
+	//	H ex("Example");
+	//	ex.a = 2;
+	//	H ex1 = ex;
+	//}
 
 	struct H
 	{
@@ -180,17 +180,17 @@ namespace Initializations
 
 	};
 		
-	void f8()
-		{
-			G ex;
-			ex.a = 2;
-			ex.b = "EExample";
-
-			G ex1(2, "EExample");
-
-			G ex2(2);
-			ex2.b = "EExample";
-		}
+	//void f8()
+	//	{
+	//		G ex;
+	//		ex.a = 2;
+	//		ex.b = "EExample";
+	//
+	//		G ex1(2, "EExample");
+	//
+	//		G ex2(2);
+	//		ex2.b = "EExample";
+	//	}
 
 	struct K
 	{
@@ -214,15 +214,15 @@ namespace Initializations
 
 	};
 
-	void f9()
-	{
-		J ex;
-		
-		J ex1(2, "EExample");
-
-		J ex2(2);
-
-	}
+	//void f9()
+	//{
+	//	J ex;
+	//	
+	//	J ex1(2, "EExample");
+	//
+	//	J ex2(2);
+	//
+	//}
 
 
 	struct A1

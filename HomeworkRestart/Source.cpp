@@ -17,7 +17,7 @@
 #include "GlobalStructuresCarUtils.h"
 #include "Geometry.h"
 #include "Classes/ButtonStruct.h"
-//#include "Initializations.h"
+#include "Initializations.h"
 #include "CorpPosition.h"
 #include "Operators.h"
 #include "ServiceClasess.h"
