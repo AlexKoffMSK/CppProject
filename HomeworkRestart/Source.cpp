@@ -47,6 +47,8 @@
 #include "Inheritance/InheritanceSquareAndRectangle.h"
 #include "EnumExamples.h"
 #include "Hash/HashTableVector.h"
+#include "Polymorphism/PolymorphismBasic.h"
+#include "PointersAndReferences.h"
 
 using namespace std;
 
@@ -1133,11 +1135,19 @@ int main()
 	//Inheritance::Test();
 	//InheritanceRectAndSquare::Test();
 
-	HashTable::Test2();
+	//HashTable::Test2();
 
 	//Structures::Test678(); 
 
 	//std::cout << SHA256FromGitHub("Andrey") << std::endl;
+
+	//Polymorphism::Test1();
+
+	//PointersAndReferences::Test5();
+
+	Polymorphism::Test3();
+
+
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
 }
@@ -1166,8 +1176,9 @@ int main()
 + бинарное дерево поиска (ассоциативный массив), 
 /////
 +- граф
-- Наследование,полиморфизм
-- хэш-таблица
++- Наследование,полиморфизм
++ хэш-таблица Сделан метод цепочек. 
+- хэш-таблица метод открытой адресации.
 - вектор
 - стринга
 - стек, очередь через список

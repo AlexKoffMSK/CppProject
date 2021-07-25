@@ -3,7 +3,7 @@
 #include <cassert>
 #include <vector>
 
-namespace HashTable //хэш-таблица это таблица с результатами хэширования
+namespace HashTable //хэш-таблица это таблица с результатами хэширования. Метод цепочек. Есть еще метод открытой адресации.
 {
 	static const int word_lenght = 9000;
 	static const int n = 26 * word_lenght;

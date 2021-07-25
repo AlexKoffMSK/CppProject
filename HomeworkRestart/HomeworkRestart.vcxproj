@@ -191,6 +191,8 @@
     <ClInclude Include="ParallelThreads\RingBuffer.h" />
     <ClInclude Include="ParallelThreads\RingBufferTest.h" />
     <ClInclude Include="Pointers.h" />
+    <ClInclude Include="PointersAndReferences.h" />
+    <ClInclude Include="Polymorphism\PolymorphismBasic.h" />
     <ClInclude Include="Recusrion.h" />
     <ClInclude Include="Sequences.h" />
     <ClInclude Include="ServiceClasess.h" />
