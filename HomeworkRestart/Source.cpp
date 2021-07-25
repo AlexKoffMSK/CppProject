@@ -46,6 +46,7 @@
 #include "Inheritance/InheritanceBasic.h"
 #include "Inheritance/InheritanceSquareAndRectangle.h"
 #include "EnumExamples.h"
+#include "Hash/HashTableVector.h"
 
 using namespace std;
 
@@ -1115,7 +1116,7 @@ int main()
 	//DataStructures::BinarySearchTreeTest();
 	//Practice_2021_02_27::Test9();
 	//DataStructures::Test();
-	GameMatrix::Test();
+	//GameMatrix::Test();
 	//JsonTests::Test2();
 	//Hash::Test();
 	//ParallelThreads::Test3();
@@ -1131,6 +1132,8 @@ int main()
 
 	//Inheritance::Test();
 	//InheritanceRectAndSquare::Test();
+
+	HashTable::Test2();
 
 	//Structures::Test678(); 
 

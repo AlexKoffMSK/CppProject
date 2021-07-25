@@ -480,14 +480,21 @@ int get_random_number_from_range(int min, int max)
 	return a;
 }
 
-string get_random_english_string(int lenght)
+
+string get_random_english_string(int lenght, char start, char end)
 {
 	string random_str;
 	for (int i = 0; i < lenght; i++)
 	{
-		random_str.push_back(get_random_number_from_range('a', 'z'));
+		random_str.push_back(get_random_number_from_range(start, end));
 	}
 	return random_str;
+}
+
+string get_random_english_string(int lenght)
+{
+	return get_random_english_string(lenght, 'a', 'z');
+	
 }
 
 char random_gender()
