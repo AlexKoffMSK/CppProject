@@ -194,6 +194,7 @@
     <ClInclude Include="Pointers.h" />
     <ClInclude Include="PointersAndReferences.h" />
     <ClInclude Include="Polymorphism\PolymorphismBasic.h" />
+    <ClInclude Include="Polymorphism\SimplePatternStrategy.h" />
     <ClInclude Include="Recusrion.h" />
     <ClInclude Include="Sequences.h" />
     <ClInclude Include="ServiceClasess.h" />

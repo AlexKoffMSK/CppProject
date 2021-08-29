@@ -194,6 +194,9 @@
     <ClInclude Include="ChronoTime.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Polymorphism\SimplePatternStrategy.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Bitmap.bmp">
