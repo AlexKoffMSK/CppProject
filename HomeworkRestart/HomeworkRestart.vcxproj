@@ -151,6 +151,7 @@
     <ClInclude Include="2021-02-27.h" />
     <ClInclude Include="Algorithm.h" />
     <ClInclude Include="BitOperations\BitOperations.h" />
+    <ClInclude Include="ChronoTime.h" />
     <ClInclude Include="Classes\ButtonStruct.h" />
     <ClInclude Include="ConsoleFunctions.h" />
     <ClInclude Include="ConsoleHelper.h" />

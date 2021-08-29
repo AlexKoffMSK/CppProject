@@ -49,6 +49,7 @@
 #include "Hash/HashTableVector.h"
 #include "Polymorphism/PolymorphismBasic.h"
 #include "PointersAndReferences.h"
+#include "ChronoTime.h"
 
 using namespace std;
 
@@ -1148,6 +1149,8 @@ int main()
 	//PointersAndReferences::Test5();
 
 	//Polymorphism::Test3();
+
+	//ChronoTime::Test2();
 
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры

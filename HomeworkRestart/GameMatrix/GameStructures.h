@@ -34,7 +34,7 @@ namespace GameMatrix
 			return false;
 		}
 
-		friend ostream& operator<<(ostream& os, Point p)
+		friend std::ostream& operator<<(std::ostream& os, Point p)
 		{
 			os << '[' << p._x << ',' << p._y << ']';
 			return os;
@@ -67,7 +67,7 @@ namespace GameMatrix
 	void Print(Point p, char ch, Color color=Color::White)
 	{
 		Console.Print(p._y, p._x, ch, color);
-		Console.SetPosition(140, 140);
+		Console.SetPosition(140, 140); //прячем курсор, установка позиции для курсора
 	}
 	 
 	int _field_objects_count = 0;
@@ -99,10 +99,12 @@ namespace GameMatrix
 		Point Position() { return _position; }
 		int UniqId() { return _uniq_id; }
 		char Symbol() { return _symbol; }
-		void Draw() 
+		
+		virtual void Draw()
 		{ 
 			Print(_position, _symbol, _color); 
 		}
+		virtual ~FieldObject() = default;
 	};
 
 	struct TeleportOneWay : public FieldObject
@@ -188,12 +190,60 @@ namespace GameMatrix
 
 	};
 
-	class Player : public FieldObject
+	//class ObjectWithInvulnerability
+	//{
+	//private:
+	//	BoolWithCounter _counter_of_invulnerability;
+	//
+	//public:
+	//	
+	//	void InvulStart()
+	//	{
+	//		_counter_of_invulnerability.SetCountToDisable(1000);
+	//	}
+	//
+	//	void InvulUpdate()
+	//	{
+	//		_counter_of_invulnerability.DecreaseCounter();
+	//	}
+	//
+	//	bool IsInvulEnabled()
+	//	{
+	//		return _counter_of_invulnerability.IsEnable();
+	//	}
+	//
+	//};
+
+	class ObjectWithInvulnerability
 	{
+	private:
+		std::chrono::nanoseconds _end_invul_time{0};
+	public:
+
+		void InvulStart()
+		{
+			auto start_invul_time = chrono::high_resolution_clock::now().time_since_epoch();
+			_end_invul_time = start_invul_time + chrono::seconds(5);
+		}
+
+		void InvulUpdate()
+		{
+
+		}
+
+		bool IsInvulEnabled()
+		{
+			return std::chrono::high_resolution_clock::now().time_since_epoch() < _end_invul_time;
+		}
+
+	};
+
+	class Player : public FieldObject, public ObjectWithInvulnerability
+	{
+	private:
 		Point _position_delta{ 0,0 };
 
 	public:
-		BoolWithCounter _counter_of_invulnerability;
 		
 		void SetPositionDelta(Point new_position_delta)
 		{
@@ -208,6 +258,18 @@ namespace GameMatrix
 		Player()
 			:FieldObject(Point{ 0,0 }, kPlayerSymbol, Color::Green)
 		{
+		}
+
+		void Draw()
+		{
+			if (IsInvulEnabled())
+			{
+				Print(_position, kPlayerSymbol, Color::Orange);
+			}
+			else
+			{
+				FieldObject::Draw();
+			}
 		}
 	};
 

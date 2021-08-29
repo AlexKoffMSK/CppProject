@@ -3,7 +3,7 @@
 /*
 To do list:
 - сделать неузявимость тремя способами:
-	- счетчик количества тиков игрока, после которых выключается неуязвимость
+	+ счетчик количества тиков игры, после которых выключается неуязвимость
 	- ожидание времени выключения неуязвимости
 	- счетчик количества шагов игрока, после которых выключается неуязвимость
 - стреляющие статичные объекты
@@ -87,7 +87,7 @@ namespace GameMatrix
 			}
 		}
 
-		void SetFieldObjectToMatrixAndPrint(FieldObject field_object)
+		void SetFieldObjectToMatrixAndPrint(FieldObject& field_object)
 		{
 			_matrix[field_object.Position()._x][field_object.Position()._y] = field_object.Symbol();
 			field_object.Draw();
@@ -109,7 +109,7 @@ namespace GameMatrix
 			}
 			else if (new_position_symbol == kPlayerSymbol)
 			{
-				if (_player._counter_of_invulnerability.IsEnable())
+				if (_player.IsInvulEnabled())
 				{
 					return;
 				}
@@ -158,7 +158,7 @@ namespace GameMatrix
 				case 's': _player.SetPositionDelta(kDeltas[2]); break;
 				case '+': sleep_time_milliseconds -= 1; break;
 				case '-': sleep_time_milliseconds += 1; break;
-				case 'i': _player._counter_of_invulnerability.SetCountToDisable(1000);
+				case 'i': _player.InvulStart();
 				}
 			}
 		}
@@ -236,7 +236,7 @@ namespace GameMatrix
 				if (_matrix[player_new_position._x][player_new_position._y] == kRandomMovingEnemySymbol ||
 				    _matrix[player_new_position._x][player_new_position._y] == kTrapSymbol)
 				{
-					if (_player._counter_of_invulnerability.IsEnable())
+					if (_player.IsInvulEnabled())
 					{
 						return;
 					}
@@ -307,7 +307,7 @@ namespace GameMatrix
 
 				Console.SetPosition(140, 140); //искуственно убрали курсор, чтобы не моргал рядом с игроком
 
-				_player._counter_of_invulnerability.DecreaseCounter();
+				_player.InvulUpdate();
 
 				SleepForGameSpeed();
 			}
@@ -466,8 +466,6 @@ namespace GameMatrix
 		//добавить врагам скорость
 		//добавить врагам логику поиска кратчайшего пути к нам
 
-	//делаем оповещение что мы неузвимы, делаем через то, что рисуем игрока другим цветом, чтобы это сделать используем полиморфизм
-	//для этого делаем класс филдобджект полиморфным, метод Draw делаем виртуальным
 
 	
 
