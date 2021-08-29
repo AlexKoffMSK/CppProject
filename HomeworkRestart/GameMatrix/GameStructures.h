@@ -9,6 +9,8 @@ namespace GameMatrix
 	static const char kPlayerSymbol = '@';
 	static const char kEmptySymbol = ' ';
 	static const char kTrapSymbol = '&';
+	static const char kTeleportOneWayInSymbol = 'T';
+	static const char kTeleportOneWayOutSymbol = 't';
 
 	struct Point
 	{
@@ -36,6 +38,27 @@ namespace GameMatrix
 		{
 			os << '[' << p._x << ',' << p._y << ']';
 			return os;
+		}
+
+		friend bool operator<(Point p1, Point p2)
+		{
+			if (p1._x < p2._x)
+			{
+				return true;
+			}
+			else if (p1._x > p2._x)
+			{
+				return false;
+			}
+			else if (p1._y < p2._y)
+			{
+				return true;
+			}
+			else if (p1._y > p2._y)
+			{
+				return false;
+			}
+			return false;
 		}
 	};
 
@@ -85,6 +108,18 @@ namespace GameMatrix
 	struct TeleportOneWay : public FieldObject
 	{
 		Point _position_after_teleport;
+
+		TeleportOneWay()
+			: FieldObject()
+		{
+
+		}
+		
+		TeleportOneWay(Point p_, char symbol_, Color color_, Point position_after_teleport_)
+			: FieldObject (p_, symbol_, color_)
+		{
+			_position_after_teleport = position_after_teleport_;
+		}
 	};
 
 	class ObjectWithAction : public FieldObject
@@ -116,11 +151,50 @@ namespace GameMatrix
 		int TicksBeforeAction() { return _ticks_before_action; }
 	};
 
+	class BoolWithCounter
+	{
+	private:
+
+		int _count_to_disable;
+
+	public:
+		BoolWithCounter()
+		{
+			_count_to_disable = 0;
+		}
+		
+		BoolWithCounter(int count_to_disable_)
+		{
+			_count_to_disable = count_to_disable_;
+		}
+
+		bool IsEnable()
+		{
+			return (_count_to_disable > 0);
+		}
+		
+		void DecreaseCounter()
+		{
+			if (_count_to_disable > 0)
+			{
+				_count_to_disable--;
+			}
+		}
+
+		void SetCountToDisable(int count_to_count_to_disable)
+		{
+			_count_to_disable = count_to_count_to_disable;
+		}
+
+	};
+
 	class Player : public FieldObject
 	{
 		Point _position_delta{ 0,0 };
 
 	public:
+		BoolWithCounter _counter_of_invulnerability;
+		
 		void SetPositionDelta(Point new_position_delta)
 		{
 			_position_delta = new_position_delta;
@@ -180,7 +254,6 @@ namespace GameMatrix
 			}
 		}
 	};
-
 
 
 

@@ -56,6 +56,10 @@
 #include <map>
 #include <memory>
 #include <initializer_list>
+#include <iostream>
+
+#include <sstream>
+#include <fstream>
 
 namespace json11 {
 
@@ -222,5 +226,21 @@ protected:
     virtual const Json &operator[](const std::string &key) const;
     virtual ~JsonValue() {}
 };
+
+static Json ReadJsonFromFile(std::string json_filename)
+{
+    std::ifstream ifs(json_filename);
+    std::ostringstream os;
+    os << ifs.rdbuf();
+    std::string s = os.str();
+    std::string errors;
+    Json js = Json::parse(s, errors);
+    if (!errors.empty())
+    {
+        std::cout << "Errors: " << errors << std::endl;
+        exit(1);
+    }
+    return js;
+}
 
 } // namespace json11

@@ -76,6 +76,12 @@ public:
 		std::cout << a;
 	}
 
+	void PrintString(short x, short y, string str)
+	{
+		SetPosition(x, y);
+		std::cout << str;
+	}
+
 	void Print(short x, short y, char ch, Color color)
 	{
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), static_cast<WORD>(color));

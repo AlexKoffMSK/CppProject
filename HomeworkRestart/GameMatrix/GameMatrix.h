@@ -1,4 +1,25 @@
 ﻿//Hello Unicode World ☺. 
+
+/*
+To do list:
+- сделать неузявимость тремя способами:
+	- счетчик количества тиков игрока, после которых выключается неуязвимость
+	- ожидание времени выключения неуязвимости
+	- счетчик количества шагов игрока, после которых выключается неуязвимость
+- стреляющие статичные объекты
+- стреляющие динамические объекты
+- здоровье игрока
+- бонусы неуязвимости на карте
+- чекпоинты (альтернатива неуязвимости)
+- возможность стрелять самому игроку
+- разрушаемые объекты
+- передвигаемые объекты (неразрушаемые и разрушаемые)
+- уничтожаемые и неуничтожаемые враги
+- умные враги, которые двигаются за игроком
+	
+
+*/
+
 #pragma once
 #include <iostream>
 #include <vector>
@@ -8,6 +29,7 @@
 #include <queue>
 #include <conio.h>
 #include "GameMatrix/GameStructures.h"
+#include "../Json/json11.hpp"
 
 //#define __matrix(point) _matrix[p._x][p._y] //макрос по замене имени, по которому обращаться к матрице
 //#define ENDL std::endl;
@@ -18,6 +40,8 @@ namespace GameMatrix
 	class Game
 	{
 	private:
+		int sleep_time_milliseconds = 10;
+		
 		std::vector<std::string> _matrix;
 
 		std::map<int, RandomMovingEnemy> _random_moving_enemies;
@@ -25,6 +49,8 @@ namespace GameMatrix
 		std::map<int, Trap> _traps;
 		
 		Player _player;
+
+		std::map<Point, TeleportOneWay> _teleports_one_way;
 
 		bool IsPointInMatrix(Point p)
 		{
@@ -55,7 +81,8 @@ namespace GameMatrix
 			{
 				if (enemy.IncrementTickAndReturnIsActionShouldBe())
 				{
-					Move(enemy);
+					Point new_position = enemy.Position() + kDeltas[rand() % std::size(kDeltas)];
+					MoveRandomMovingEnemy(enemy, new_position);
 				}
 			}
 		}
@@ -72,10 +99,8 @@ namespace GameMatrix
 			Print(field_object.Position(), kEmptySymbol);
 		}
 
-		void Move(RandomMovingEnemy& enemy)
+		void MoveRandomMovingEnemy(RandomMovingEnemy& enemy, Point new_position)
 		{
-			Point new_position = enemy.Position() + kDeltas[rand() % std::size(kDeltas)];
-			
 			char new_position_symbol = _matrix[new_position._x][new_position._y];
 
 			if (new_position_symbol == kWallSymbol || new_position_symbol == kRandomMovingEnemySymbol || new_position_symbol == kTrapSymbol)
@@ -84,11 +109,29 @@ namespace GameMatrix
 			}
 			else if (new_position_symbol == kPlayerSymbol)
 			{
-				exit(0);
+				if (_player._counter_of_invulnerability.IsEnable())
+				{
+					return;
+				}
+				else 
+				{
+					std::cout << "Game over!" << std::endl;
+					exit(0);
+					//сюда добавится логика, что после того как на нас наступят - включится неуязвимость при наличии количества жизней>0
+				}
+			}
+			else if (new_position_symbol == kTeleportOneWayInSymbol)
+			{
+				assert(_teleports_one_way.find(new_position) != _teleports_one_way.end()); //ожидаем, что телепорт найден
+
+				new_position = _teleports_one_way[new_position]._position_after_teleport;
+				
+				MoveRandomMovingEnemy(enemy, new_position);
+				return;
 			}
 			else
 			{
-				if (new_position_symbol != kEmptySymbol)
+				if (new_position_symbol != kEmptySymbol && new_position_symbol != kTeleportOneWayOutSymbol)
 				{
 					std::cout << "Unrecognised symbol: " << (int) new_position_symbol << std::endl;
 					assert(false); //падаем таким образом
@@ -113,13 +156,14 @@ namespace GameMatrix
 				case 'a': _player.SetPositionDelta(kDeltas[1]); break;
 				case 'd': _player.SetPositionDelta(kDeltas[0]); break;
 				case 's': _player.SetPositionDelta(kDeltas[2]); break;
+				case '+': sleep_time_milliseconds -= 1; break;
+				case '-': sleep_time_milliseconds += 1; break;
+				case 'i': _player._counter_of_invulnerability.SetCountToDisable(1000);
 				}
 			}
 		}
 
-	public:
-
-		Game(string level_file_name)
+		void ReadMatrix(string level_file_name)
 		{
 			std::ifstream ifs(level_file_name);
 			if (!ifs.is_open())
@@ -127,23 +171,19 @@ namespace GameMatrix
 				std::cout << "Fail" << std::endl;
 				return;
 			}
-			
+
 			std::string line;
 
 			int i = 0;
 
 			while (std::getline(ifs, line))
 			{
-				if (line == "Info:")
-				{
-					break;
-				}
 				_matrix.push_back(line);
 
 				for (int j = 0; j < line.size(); j++)
 				{
 					char ch = _matrix[i][j];
-	
+
 					if (ch == kPlayerSymbol)
 					{
 						_player.SetPosition(Point{ i, j });
@@ -151,7 +191,7 @@ namespace GameMatrix
 					else if (ch == kRandomMovingEnemySymbol)
 					{
 						Point p{ i,j };
-						RandomMovingEnemy enemy(p, kRandomMovingEnemySymbol,Color::Red, rand() % 10 + 5);
+						RandomMovingEnemy enemy(p, kRandomMovingEnemySymbol, Color::Red, rand() % 10 + 5);
 						_random_moving_enemies.emplace(enemy.UniqId(), enemy);
 					}
 					else if (ch == kTrapSymbol)
@@ -166,21 +206,92 @@ namespace GameMatrix
 				i++;
 				std::cout << std::endl;
 			}
+		}
 
-			return; //не забыть убрать
-
-			char info_type;
-
-			while (ifs >> info_type)
+		void ReadSettings(string level_settings_filename)
+		{
+			json11::Json json = json11::ReadJsonFromFile(level_settings_filename);
+			assert(json["TeleportsOneWay"].is_array());
+			json11::Json json_teleports_array = json["TeleportsOneWay"];
+			
+			for (json11::Json json_teleport : json_teleports_array.array_items())
 			{
-				if (info_type == 'T')
+				Point from{ json_teleport["from"].array_items()[0].int_value(), json_teleport["from"].array_items()[1].int_value() };
+				assert(_matrix[from._x][from._y] == 'T');
+
+				Point   to{ json_teleport["to"].array_items()[0].int_value(), json_teleport["to"].array_items()[1].int_value() };
+				assert(_matrix[to._x][to._y] == 't');
+
+				TeleportOneWay teleport_one_way(from, kTeleportOneWayInSymbol, Color::White, to);
+				_teleports_one_way.emplace(from, teleport_one_way);
+			}
+		}
+
+		void MovePlayer()
+		{
+			Point player_new_position = _player.GetNewPosition();
+
+			if (IsPointInMatrix(player_new_position) && !IsWall(player_new_position))
+			{
+				if (_matrix[player_new_position._x][player_new_position._y] == kRandomMovingEnemySymbol ||
+				    _matrix[player_new_position._x][player_new_position._y] == kTrapSymbol)
 				{
-					//будет инфа для телепорта
+					if (_player._counter_of_invulnerability.IsEnable())
+					{
+						return;
+					}
+					
+					//здесь будет логика уменьшения жизней потом
+					exit(0);
+				}
+
+				else if (_matrix[player_new_position._x][player_new_position._y] == kTeleportOneWayInSymbol)
+				{
+					assert(_teleports_one_way.find(player_new_position) != _teleports_one_way.end()); //ожидаем, что телепорт найден
+					
+					player_new_position = _teleports_one_way[player_new_position]._position_after_teleport;
+				}
+				
+				RemoveFieldObjectFromMatrixAndPrint(_player);
+				_player.SetPosition(player_new_position);
+				SetFieldObjectToMatrixAndPrint(_player);
+			}
+
+			_player.SetPositionDelta(Point{ 0, 0 }); //если закомментить строку, то игрок будет двигаться в направлении постоянно
+
+		}
+
+		void SleepForGameSpeed()
+		{
+			if (sleep_time_milliseconds > 0)
+			{
+				std::this_thread::sleep_for(std::chrono::milliseconds(sleep_time_milliseconds));
+			}
+			Console.PrintString(90, 3, "          ");
+			Console.PrintInt(90, 3, sleep_time_milliseconds);
+		}
+
+		void DrawTeleportOutSymbol()
+		{
+			for (auto [from, teleport_one_way] : _teleports_one_way)
+			{
+				if (_matrix[teleport_one_way._position_after_teleport._x][teleport_one_way._position_after_teleport._y] == kEmptySymbol)
+				{
+					Print(teleport_one_way._position_after_teleport, kTeleportOneWayOutSymbol);
+					_matrix[teleport_one_way._position_after_teleport._x][teleport_one_way._position_after_teleport._y] = kTeleportOneWayOutSymbol;
 				}
 			}
 		}
 
-		void Run()
+	public:
+
+		Game(string level_file_name_, string level_settings_filename_) //конструктор, поэтому без возвращаемого значения
+		{
+			ReadMatrix(level_file_name_);
+			ReadSettings(level_settings_filename_);
+		}
+
+		void Run() //метод, поэтому с возвращаемым значением
 		{
 			std::thread input_keyboard_thread(&Game::InputFromKeyboard, this);
 
@@ -190,27 +301,15 @@ namespace GameMatrix
 				
 				UpdateTraps();
 
-				Point player_new_position = _player.GetNewPosition();
-
-				if (IsPointInMatrix(player_new_position) && !IsWall(player_new_position))
-				{
-					if (_matrix[player_new_position._x][player_new_position._y] == kRandomMovingEnemySymbol ||
-					    _matrix[player_new_position._x][player_new_position._y] == kTrapSymbol)
-					{
-						//здесь будет логика уменьшения жизней потом
-						exit(0);
-					}
-					
-					RemoveFieldObjectFromMatrixAndPrint(_player);
-					_player.SetPosition(player_new_position);
-					SetFieldObjectToMatrixAndPrint(_player);
-				}
-
-				_player.SetPositionDelta(Point{ 0, 0 });
-
-				Console.SetPosition(140, 140);
+				MovePlayer();
 				
-				std::this_thread::sleep_for(std::chrono::milliseconds(10));
+				DrawTeleportOutSymbol();
+
+				Console.SetPosition(140, 140); //искуственно убрали курсор, чтобы не моргал рядом с игроком
+
+				_player._counter_of_invulnerability.DecreaseCounter();
+
+				SleepForGameSpeed();
 			}
 		}
 
@@ -353,7 +452,7 @@ namespace GameMatrix
 
 	void Test()
 	{
-		Game m{ "GameMatrix/Levels/Level1.txt" };
+		Game m{ "GameMatrix/Levels/Level1.txt", "GameMatrix/Levels/Level1_settings.json" };
 		m.Run();
 	}
 
@@ -367,9 +466,10 @@ namespace GameMatrix
 		//добавить врагам скорость
 		//добавить врагам логику поиска кратчайшего пути к нам
 
+	//делаем оповещение что мы неузвимы, делаем через то, что рисуем игрока другим цветом, чтобы это сделать используем полиморфизм
+	//для этого делаем класс филдобджект полиморфным, метод Draw делаем виртуальным
 
-
-
+	
 
 
 

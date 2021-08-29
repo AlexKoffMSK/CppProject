@@ -222,6 +222,7 @@
   <ItemGroup>
     <None Include="BinaryFiles\FileVec.bin" />
     <None Include="BinaryFiles\HomeworkRestart.bin" />
+    <None Include="GameMatrix\Levels\Level1_settings.json" />
     <None Include="TextFiles\File1.tsv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
