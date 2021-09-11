@@ -35,18 +35,19 @@ namespace SimplePatternStrategy
 	{
 		//A a;
 		//B b;
-		IInterface* p = new A;
+		IInterface* p; //создаем указатель. сейчас он мусорный, не nullptr
+		p = new A; //создается объект класса А, его адрес линкуется и записывается в объект (указатель) р
 
 
 		while (true)
 		{
-			p->f();
+			p->f(); //указатель на интерфейс, под капотом у него сидит объект класса А
 			std::this_thread::sleep_for(std::chrono::seconds(1));
 			int rnd = rand() % 2;
 			if (rnd > 0)
 			{
-				delete p;
-				p = new B;
+				delete p; //отдаем операционной системе память, которую она нам ранее выделяла
+				p = new B; //здесь указатель меняетс на объект класса В
 			}
 			else
 			{

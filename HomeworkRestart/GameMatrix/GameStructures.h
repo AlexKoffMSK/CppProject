@@ -238,7 +238,45 @@ namespace GameMatrix
 
 	};
 
-	class Player : public FieldObject, public ObjectWithInvulnerability
+	class ObjectWithHealth //ненаследуемый объект
+	{
+	private:
+		unsigned int _health;
+		unsigned int _max_health;
+
+	public:
+		ObjectWithHealth(int health_, int max_health_)
+		{
+			assert(health_ <= max_health_);
+			_health = health_;
+			_max_health = max_health_;
+		}
+
+		void DecreaseHealth()
+		{
+			assert(_health > 0);
+			_health--;
+		}
+
+		void IncreaseHealth()
+		{
+			assert(_health < _max_health);
+			_health++;
+		}
+
+		bool IsAlive()
+		{
+			return _health > 0;
+		}
+
+		unsigned int GetCurrHealth()
+		{
+			return _health;
+		}
+
+	};
+
+	class Player : public FieldObject, public ObjectWithInvulnerability, public ObjectWithHealth 
 	{
 	private:
 		Point _position_delta{ 0,0 };
@@ -256,9 +294,10 @@ namespace GameMatrix
 		}
 
 		Player()
-			:FieldObject(Point{ 0,0 }, kPlayerSymbol, Color::Green)
-		{
-		}
+			:FieldObject(Point{ 0,0 }, kPlayerSymbol, Color::Green),
+			ObjectWithHealth(3, 5)
+			{
+			}
 
 		void Draw()
 		{
@@ -278,10 +317,6 @@ namespace GameMatrix
 
 	};
 
-	struct ObjectWithHealth //ненаследуемый объект
-	{
-		unsigned int _health;
-	};
 
 	struct RandomMovingEnemy : public ObjectWithAction//, public ObjectWithHealth
 	{

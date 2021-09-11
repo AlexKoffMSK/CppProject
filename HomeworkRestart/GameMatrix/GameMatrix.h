@@ -311,7 +311,10 @@ namespace GameMatrix
 
 				_player.InvulUpdate();
 
+				Console.PrintInt(90, 5, _player.GetCurrHealth());
+				
 				SleepForGameSpeed();
+
 			}
 		}
 

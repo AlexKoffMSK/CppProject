@@ -1121,7 +1121,7 @@ int main()
 	//Practice_2021_02_27::Test9();
 	//DataStructures::Test();
 	
-	//GameMatrix::Test();
+	GameMatrix::Test();
 	
 	//JsonTests::Test2();
 	//Hash::Test();
@@ -1152,7 +1152,8 @@ int main()
 	//Polymorphism::Test3();
 
 	//ChronoTime::Test2();
-	SimplePatternStrategy::Test1();
+	// 
+	//SimplePatternStrategy::Test1();
 
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
