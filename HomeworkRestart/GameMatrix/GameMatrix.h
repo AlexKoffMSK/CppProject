@@ -303,11 +303,9 @@ namespace GameMatrix
 
 				Console.SetPosition(140, 140); //искуственно убрали курсор, чтобы не моргал рядом с игроком
 
-				//_player.InvulUpdate(); //должно быть здесь для инвулов по тикам. Для инвула по шагам придется убрать отсюда.
+				_player.InvulUpdate(); //должно быть здесь для инвулов по тикам. Для инвула по шагам придется убрать отсюда.
 				
 				Console.PrintInt(90, 5, _player.GetCurrHealth());
-
-				
 				
 				SleepForGameSpeed();
 
