@@ -348,7 +348,7 @@ namespace GameMatrix
 	struct Trap : public ObjectWithAction
 	{
 		Trap(Point p_, int ticks_before_action_)
-			:ObjectWithAction(p_, kTrapSymbol, Color::Grey, ticks_before_action_)
+			: ObjectWithAction(p_, kTrapSymbol, Color::Grey, ticks_before_action_)
 		{
 
 		}

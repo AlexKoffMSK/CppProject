@@ -223,28 +223,30 @@ namespace GameMatrix
 		void MovePlayer()
 		{
 			Point player_new_position = _player.GetNewPosition();
+			_player.SetPositionDelta(Point{ 0, 0 }); //если закомментить строку, то игрок будет двигаться в направлении постоянно
 
-			if (IsPointInMatrix(player_new_position) && !IsWall(player_new_position))
+			if (!IsPointInMatrix(player_new_position) || IsWall(player_new_position))
 			{
-				if (_matrix[player_new_position._x][player_new_position._y] == kRandomMovingEnemySymbol ||
-				    _matrix[player_new_position._x][player_new_position._y] == kTrapSymbol)
-				{
-					_player.DamageLogic();
-				}
-
-				else if (_matrix[player_new_position._x][player_new_position._y] == kTeleportOneWayInSymbol)
-				{
-					assert(_teleports_one_way.find(player_new_position) != _teleports_one_way.end()); //ожидаем, что телепорт найден
-					
-					player_new_position = _teleports_one_way[player_new_position]._position_after_teleport;
-				}
-				
-				RemoveFieldObjectFromMatrixAndPrint(_player);
-				_player.SetPosition(player_new_position);
-				SetFieldObjectToMatrixAndPrint(_player);
+				return;
 			}
 
-			_player.SetPositionDelta(Point{ 0, 0 }); //если закомментить строку, то игрок будет двигаться в направлении постоянно
+			if (_matrix[player_new_position._x][player_new_position._y] == kRandomMovingEnemySymbol ||
+				_matrix[player_new_position._x][player_new_position._y] == kTrapSymbol)
+			{
+				_player.DamageLogic();
+				return;
+			}
+
+			else if (_matrix[player_new_position._x][player_new_position._y] == kTeleportOneWayInSymbol)
+			{
+				assert(_teleports_one_way.find(player_new_position) != _teleports_one_way.end()); //ожидаем, что телепорт найден
+					
+				player_new_position = _teleports_one_way[player_new_position]._position_after_teleport;
+			}
+				
+			RemoveFieldObjectFromMatrixAndPrint(_player);
+			_player.SetPosition(player_new_position);
+			SetFieldObjectToMatrixAndPrint(_player);
 
 		}
 
