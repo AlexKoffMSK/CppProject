@@ -1157,6 +1157,10 @@ int main()
 
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
+	string a;
+	while (std::cin >> a)
+	{
+	}
 }
 
 

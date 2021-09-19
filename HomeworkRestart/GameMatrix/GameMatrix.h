@@ -111,16 +111,7 @@ namespace GameMatrix
 			}
 			else if (new_position_symbol == kPlayerSymbol)
 			{
-				if (_player.IsInvulEnabled())
-				{
-					return;
-				}
-				else 
-				{
-					std::cout << "Game over!" << std::endl;
-					exit(0);
-					//сюда добавится логика, что после того как на нас наступят - включится неуязвимость при наличии количества жизней>0
-				}
+				_player.DamageLogic();
 			}
 			else if (new_position_symbol == kTeleportOneWayInSymbol)
 			{
@@ -160,7 +151,7 @@ namespace GameMatrix
 				case 's': _player.SetPositionDelta(kDeltas[2]); break;
 				case '+': sleep_time_milliseconds -= 1; break;
 				case '-': sleep_time_milliseconds += 1; break;
-				case 'i': _player.InvulStart();
+				case 'i': _player.InvulStart(kPlayerInvulTimeSeconds);
 				}
 			}
 		}
@@ -238,13 +229,7 @@ namespace GameMatrix
 				if (_matrix[player_new_position._x][player_new_position._y] == kRandomMovingEnemySymbol ||
 				    _matrix[player_new_position._x][player_new_position._y] == kTrapSymbol)
 				{
-					if (_player.IsInvulEnabled())
-					{
-						return;
-					}
-					
-					//здесь будет логика уменьшения жизней потом
-					exit(0);
+					_player.DamageLogic();
 				}
 
 				else if (_matrix[player_new_position._x][player_new_position._y] == kTeleportOneWayInSymbol)

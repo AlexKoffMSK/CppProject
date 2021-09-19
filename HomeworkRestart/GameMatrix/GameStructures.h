@@ -11,6 +11,7 @@ namespace GameMatrix
 	static const char kTrapSymbol = '&';
 	static const char kTeleportOneWayInSymbol = 'T';
 	static const char kTeleportOneWayOutSymbol = 't';
+	static const int kPlayerInvulTimeSeconds = 5;
 
 	struct Point
 	{
@@ -220,10 +221,10 @@ namespace GameMatrix
 		std::chrono::nanoseconds _end_invul_time{0};
 	public:
 
-		void InvulStart()
+		void InvulStart(int invul_time_seconds)
 		{
 			auto start_invul_time = chrono::high_resolution_clock::now().time_since_epoch();
-			_end_invul_time = start_invul_time + chrono::seconds(5);
+			_end_invul_time = start_invul_time + chrono::seconds(invul_time_seconds);
 		}
 
 		void InvulUpdate()
@@ -282,6 +283,10 @@ namespace GameMatrix
 		Point _position_delta{ 0,0 };
 
 	public:
+		Player()
+			: FieldObject(Point{ 0,0 }, kPlayerSymbol, Color::Green)
+			, ObjectWithHealth(3, 5)
+			{}
 		
 		void SetPositionDelta(Point new_position_delta)
 		{
@@ -293,12 +298,6 @@ namespace GameMatrix
 			return _position + _position_delta;
 		}
 
-		Player()
-			:FieldObject(Point{ 0,0 }, kPlayerSymbol, Color::Green),
-			ObjectWithHealth(3, 5)
-			{
-			}
-
 		void Draw()
 		{
 			if (IsInvulEnabled())
@@ -309,6 +308,25 @@ namespace GameMatrix
 			{
 				FieldObject::Draw();
 			}
+		}
+
+		void DamageLogic()
+		{
+			if (IsInvulEnabled())
+			{
+				return;
+			}
+
+			DecreaseHealth();
+
+			if (!IsAlive())
+			{
+				std::cout << "Game over!" << std::endl;
+				exit(0);
+				//сюда добавится логика, что после того как на нас наступят - включится неуязвимость при наличии количества жизней>0
+			}
+
+			InvulStart(kPlayerInvulTimeSeconds);
 		}
 	};
 
