@@ -191,7 +191,7 @@ namespace GameMatrix
 
 	};
 
-	//class ObjectWithInvulnerability
+	//class ObjectWithInvulnerability //работает через тики, т.е. через игровые события
 	//{
 	//private:
 	//	BoolWithCounter _counter_of_invulnerability;
@@ -215,28 +215,55 @@ namespace GameMatrix
 	//
 	//};
 
-	class ObjectWithInvulnerability
+	//class ObjectWithInvulnerability //работает через системное время (секунды)
+	//{
+	//private:
+	//	std::chrono::nanoseconds _end_invul_time{0};
+	//public:
+	//
+	//	void InvulStart(int invul_time_seconds)
+	//	{
+	//		auto start_invul_time = chrono::high_resolution_clock::now().time_since_epoch();
+	//		_end_invul_time = start_invul_time + chrono::seconds(invul_time_seconds);
+	//	}
+	//
+	//	void InvulUpdate()
+	//	{
+	//
+	//	}
+	//
+	//	bool IsInvulEnabled()
+	//	{
+	//		return std::chrono::high_resolution_clock::now().time_since_epoch() < _end_invul_time;
+	//	}
+	//
+	//};
+
+	class ObjectWithInvulnerability //работает через количество шагов игрока
 	{
 	private:
-		std::chrono::nanoseconds _end_invul_time{0};
+		int _cur_steps_to_invul_end = 0;
 	public:
-
-		void InvulStart(int invul_time_seconds)
+	
+		void InvulStart(int steps_to_invul_end)
 		{
-			auto start_invul_time = chrono::high_resolution_clock::now().time_since_epoch();
-			_end_invul_time = start_invul_time + chrono::seconds(invul_time_seconds);
+			_cur_steps_to_invul_end += steps_to_invul_end;
 		}
-
+	
 		void InvulUpdate()
 		{
-
+			if (_cur_steps_to_invul_end > 0)
+			{
+				_cur_steps_to_invul_end--;
+			}
+			Console.PrintInt(90, 15, _cur_steps_to_invul_end);
 		}
-
+	
 		bool IsInvulEnabled()
 		{
-			return std::chrono::high_resolution_clock::now().time_since_epoch() < _end_invul_time;
+			return (_cur_steps_to_invul_end > 0);
 		}
-
+	
 	};
 
 	class ObjectWithHealth //ненаследуемый объект
@@ -291,6 +318,12 @@ namespace GameMatrix
 		void SetPositionDelta(Point new_position_delta)
 		{
 			_position_delta = new_position_delta;
+		}
+
+		bool IsPositionDeltaEmpty()
+		{
+			return (_position_delta._x == 0 && _position_delta._y == 0);
+			//return _position_delta == Point{ 0,0 }; //создается новая пустая точка только для сравнения
 		}
 
 		Point GetNewPosition()

@@ -6,7 +6,7 @@ To do list:
 	+ счетчик количества тиков игры, после которых выключается неуязвимость
 	+ ожидание времени выключения неуязвимости
 	- счетчик количества шагов игрока, после которых выключается неуязвимость
-- здоровье игрока
++ здоровье игрока
 - стреляющие статичные объекты
 - стреляющие динамические объекты
 - бонусы неуязвимости на карте:
@@ -112,6 +112,7 @@ namespace GameMatrix
 			else if (new_position_symbol == kPlayerSymbol)
 			{
 				_player.DamageLogic();
+				return;
 			}
 			else if (new_position_symbol == kTeleportOneWayInSymbol)
 			{
@@ -223,8 +224,14 @@ namespace GameMatrix
 		void MovePlayer()
 		{
 			Point player_new_position = _player.GetNewPosition();
+			
+			if (!_player.IsPositionDeltaEmpty())
+			{
+				_player.InvulUpdate();
+			}
+			
 			_player.SetPositionDelta(Point{ 0, 0 }); //если закомментить строку, то игрок будет двигаться в направлении постоянно
-
+			
 			if (!IsPointInMatrix(player_new_position) || IsWall(player_new_position))
 			{
 				return;
@@ -296,9 +303,11 @@ namespace GameMatrix
 
 				Console.SetPosition(140, 140); //искуственно убрали курсор, чтобы не моргал рядом с игроком
 
-				_player.InvulUpdate();
-
+				//_player.InvulUpdate(); //должно быть здесь для инвулов по тикам. Для инвула по шагам придется убрать отсюда.
+				
 				Console.PrintInt(90, 5, _player.GetCurrHealth());
+
+				
 				
 				SleepForGameSpeed();
 
