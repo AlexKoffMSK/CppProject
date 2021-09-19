@@ -12,6 +12,21 @@ namespace GameMatrix
 	static const char kTeleportOneWayInSymbol = 'T';
 	static const char kTeleportOneWayOutSymbol = 't';
 	static const int kPlayerInvulTimeSeconds = 5;
+	static const int kEnemyPlayerInvulReactionDistance = 6;
+
+
+	int Sign(int x)
+	{
+		if (x > 0)
+		{
+			return 1;
+		}
+		if (x < 0)
+		{
+			return -1;
+		}
+		return 0;
+	}
 
 	struct Point
 	{
@@ -23,6 +38,14 @@ namespace GameMatrix
 			Point result_point{ 0, 0 };
 			result_point._x = p1._x + p2._x;
 			result_point._y = p1._y + p2._y;
+			return result_point;
+		}
+
+		friend Point operator-(Point p1, Point p2)
+		{
+			Point result_point{ 0, 0 };
+			result_point._x = p1._x - p2._x;
+			result_point._y = p1._y - p2._y;
 			return result_point;
 		}
 
@@ -61,7 +84,19 @@ namespace GameMatrix
 			}
 			return false;
 		}
+
+		void Normalize()
+		{
+			_x = Sign(_x);
+			_y = Sign(_y);
+		}
 	};
+
+	double DistanceBetweenPoints(Point p1, Point p2)
+	{
+		return sqrt(pow(p2._x - p1._x, 2) + pow(p2._y - p1._y, 2));
+	}
+
 
 	Point kDeltas[4] = { {0,1}, {0,-1}, {1,0},{-1,0} }; //kDeltas - так гугл обозначает константы, в данном примере - обозначение соседей точки
 	
@@ -257,7 +292,7 @@ namespace GameMatrix
 	//		{
 	//			_cur_steps_to_invul_end--;
 	//		}
-	//		Console.PrintInt(90, 15, _cur_steps_to_invul_end);
+	//		Console.PrintInt(90, 7, _cur_steps_to_invul_end);
 	//	}
 	//
 	//	bool IsInvulEnabled()

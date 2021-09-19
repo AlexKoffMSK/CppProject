@@ -83,7 +83,19 @@ namespace GameMatrix
 			{
 				if (enemy.IncrementTickAndReturnIsActionShouldBe())
 				{
-					Point new_position = enemy.Position() + kDeltas[rand() % std::size(kDeltas)];
+					Point new_position;
+
+					if (_player.IsInvulEnabled() && DistanceBetweenPoints(_player.Position(), enemy.Position()) < kEnemyPlayerInvulReactionDistance)
+					{
+						Point new_position_delta = enemy.Position() - _player.Position();
+						new_position_delta.Normalize();
+						new_position = enemy.Position() + new_position_delta;
+					}
+					else
+					{
+						new_position = enemy.Position() + kDeltas[rand() % std::size(kDeltas)];
+					}
+					
 					MoveRandomMovingEnemy(enemy, new_position);
 				}
 			}
