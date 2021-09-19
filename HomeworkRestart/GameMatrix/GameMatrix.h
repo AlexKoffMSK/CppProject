@@ -7,6 +7,7 @@ To do list:
 	+ ожидание времени выключения неуязвимости
 	- счетчик количества шагов игрока, после которых выключается неуязвимость
 + здоровье игрока
+- сделать игру погонщик овец - загнать врагов в определенную зону
 - стреляющие статичные объекты
 - стреляющие динамические объекты
 - бонусы неуязвимости на карте:
@@ -87,9 +88,30 @@ namespace GameMatrix
 
 					if (_player.IsInvulEnabled() && DistanceBetweenPoints(_player.Position(), enemy.Position()) < kEnemyPlayerInvulReactionDistance)
 					{
-						Point new_position_delta = enemy.Position() - _player.Position();
-						new_position_delta.Normalize();
-						new_position = enemy.Position() + new_position_delta;
+						//Point new_position_delta = enemy.Position() - _player.Position();
+						//new_position_delta.Normalize();
+						//new_position = enemy.Position() + new_position_delta;
+						std::vector<Point> available_new_positions;
+						for (Point delta : kFullDeltas)
+						{
+							if (!IsWall(enemy.Position() + delta))
+							{
+								available_new_positions.push_back(enemy.Position()+delta);
+							}
+						}
+						if (available_new_positions.empty())
+						{
+							continue;
+						}
+						Point farest_point = available_new_positions[0];
+						for (Point p : available_new_positions)
+						{
+							if (DistanceBetweenPoints(p, _player.Position()) > DistanceBetweenPoints(farest_point, _player.Position()))
+							{
+								farest_point = p;
+							}
+						}
+						new_position = farest_point;
 					}
 					else
 					{

@@ -12,7 +12,7 @@ namespace GameMatrix
 	static const char kTeleportOneWayInSymbol = 'T';
 	static const char kTeleportOneWayOutSymbol = 't';
 	static const int kPlayerInvulTimeSeconds = 5;
-	static const int kEnemyPlayerInvulReactionDistance = 6;
+	static const int kEnemyPlayerInvulReactionDistance = 100;
 
 
 	int Sign(int x)
@@ -99,6 +99,7 @@ namespace GameMatrix
 
 
 	Point kDeltas[4] = { {0,1}, {0,-1}, {1,0},{-1,0} }; //kDeltas - так гугл обозначает константы, в данном примере - обозначение соседей точки
+	Point kFullDeltas[8] = { {0,1}, {0,-1}, {1,0},{-1,0}, {1,1}, {1,-1}, {-1,-1},{-1,1} }; //дельта с учетом диагоналей
 	
 	void Print(Point p, char ch, Color color=Color::White)
 	{
