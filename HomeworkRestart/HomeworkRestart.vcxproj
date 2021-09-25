@@ -124,6 +124,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -188,6 +189,9 @@
     <ClInclude Include="MapStdExamples.h" />
     <ClInclude Include="GameMatrix\GameMatrix.h" />
     <ClInclude Include="MaxMinSearchFunctions.h" />
+    <ClInclude Include="Network\Client.h" />
+    <ClInclude Include="Network\Server.h" />
+    <ClInclude Include="Network\Test.h" />
     <ClInclude Include="Operators.h" />
     <ClInclude Include="ParallelThreads\ParallelThreads.h" />
     <ClInclude Include="ParallelThreads\RingBuffer.h" />

@@ -51,6 +51,9 @@
 #include "PointersAndReferences.h"
 #include "ChronoTime.h"
 #include "Polymorphism/SimplePatternStrategy.h"
+#include <sys/types.h>
+#include <winsock.h>
+#include "Network/Test.h"
 
 using namespace std;
 
@@ -1090,11 +1093,34 @@ void f41()
 
 #pragma endregion
 
-int main()
+int main(int argc, char* argv[]) 
+//первый аргумент - это то, сколько аргументов в функцию мы передали argc - arguments count
+//второй аргумент - это массив указателей на строки, указатель на массив строк
 {
-	Console.SetConsolePositionAndSize(10, 10, 900, 1400);
+	//Console.SetConsolePositionAndSize(10, 10, 900, 1400);
+
 	srand(time(0));
 
+	//std::cout << "Count of arguments: " << argc << std::endl;
+	//
+	//std::cout << "Arguments:" << std::endl;
+	//
+	//for (int i = 0; i < argc; ++i)
+	//{
+	//	std::cout << argv[i] << std::endl;
+	//}
+	//
+	//if (std::string(argv[1]) == "0")
+	//{
+	//	std::cout << "Hello" << std::endl;
+	//}
+	//else
+	//{
+	//	std::cout << "World" << std::endl;
+	//}
+	//
+	//return 0;
+	
 	//ServiceClasess::servf1(get_random_vector_max_range_size(10,10), get_random_vector_max_range_size(10, 10));
 	//ServiceClasess::test_set_performance(30000, 100000, 1000000);
 	//ServiceClasess::test_smart_set_performance(30000, 100000, 1000000);
@@ -1120,8 +1146,6 @@ int main()
 	//DataStructures::BinarySearchTreeTest();
 	//Practice_2021_02_27::Test9();
 	//DataStructures::Test();
-	
-	GameMatrix::Test();
 	
 	//JsonTests::Test2();
 	//Hash::Test();
@@ -1154,6 +1178,17 @@ int main()
 	//ChronoTime::Test2();
 	// 
 	//SimplePatternStrategy::Test1();
+	
+	//GameMatrix::Test();
+
+	if (std::string(argv[1]) == "0")
+	{
+		Network::TestServerClass();
+	}
+	else
+	{
+		Network::TestClientClass();
+	}
 
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
