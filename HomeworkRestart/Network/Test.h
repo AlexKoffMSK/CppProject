@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <winsock.h>
+#include <thread>
+#include <mutex>
 #include "Client.h"
 #include "Server.h"
 
@@ -209,12 +211,7 @@ namespace Network
 	void TestServerClass()
 	{
 		Server serv(666);
-		serv.WaitForClient();
-		while (true)
-		{
-			std::string str = serv.RecieveDataBlocked(); //эта функция не будет идти дальше, пока не придут данные
-			std::cout << str << std::endl;
-		}
+		serv.WaitForClients();
 	}
 
 	void TestClientClass()
@@ -222,11 +219,11 @@ namespace Network
 		Client client("127.0.0.1", 666);
 		client.ConnectToServer();
 		std::vector<std::string> log;
-		while (true)
-		{
+		while (true) 
+		{ 
 			std::string str;
 			std::cout << "Input data: ";
-			std::cin >> str;
+			std::getline(std::cin,str);
 			client.SendDataToServer(str);
 			log.push_back(str);
 		}

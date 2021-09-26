@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
 #include <winsock.h>
+#include <thread>
+#include <mutex>
+#include <vector>
 
 namespace Network
 {
@@ -8,7 +11,7 @@ namespace Network
 	{
 	private:
 		SOCKET _sock;
-		SOCKET _client_sock; //это сокет (труба,дырка), через который мы будем общаться с конкретным клиентом, который к нам подключился
+		std::vector<SOCKET> _client_sock; //это сокет (труба,дырка), через который мы будем общаться с конкретным клиентом, который к нам подключился
 
 	public:
 		Server(int port_)
@@ -43,7 +46,7 @@ namespace Network
 			s_address.sin_family = AF_INET;
 
 			//адрес сервера. Т.к. TCP/IP представляет адреса в числовом виде, то для перевода 
-			// адреса используем функцию inet_addr.
+			//адреса используем функцию inet_addr.
 			s_address.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
 
 			// Порт. Используем функцию htons для перевода номера порта из обычного в //TCP/IP представление.
@@ -71,42 +74,63 @@ namespace Network
 			std::cout << "Server init complete" << std::endl;
 		}
 
-		void WaitForClient() //блокирует исполнение до тех пор, пока к нам не подключится клиент
+		void WaitForClients() //блокирует исполнение до тех пор, пока к нам не подключится клиент
 		{
-			sockaddr_in client_address;
-
-			int size_client_adr = sizeof(client_address);
-
-			_client_sock = accept(_sock, (sockaddr*)&client_address, &size_client_adr);
-
-			if (_client_sock == INVALID_SOCKET)
+			while (true)
 			{
-				auto error = WSAGetLastError();
+				sockaddr_in client_address;
 
-				std::cout << "Accept error: " << error << std::endl;
+				int size_client_adr = sizeof(client_address);
 
-				return;
+				SOCKET tmp_client_sock = accept(_sock, (sockaddr*)&client_address, &size_client_adr);
+
+				if (tmp_client_sock == INVALID_SOCKET)
+				{
+					auto error = WSAGetLastError();
+
+					std::cout << "Accept error: " << error << std::endl;
+
+					return;
+				}
+
+				_client_sock.push_back(tmp_client_sock);
+
+				std::cout << "Client connected. ID: " << tmp_client_sock << ". Port: " << client_address.sin_port << std::endl;
+				
+				std::thread client_recieve_data_thread(&Server::RecieveDataBlocked, this, tmp_client_sock);
+				client_recieve_data_thread.detach();
 			}
-
-			std::cout << "Client connected: " << client_address.sin_port << std::endl;
 		}
 
-		std::string RecieveDataBlocked() //блокирует исполнение до тех пор, пока клиент что-то не пришлет
+		void RecieveDataBlocked(SOCKET client_sock) //блокирует исполнение до тех пор, пока клиент что-то не пришлет
 		{
 			char buff[256];
 
-			if (SOCKET_ERROR == recv(_client_sock, buff, 256, 0))
+			while (true)
 			{
-				auto error = WSAGetLastError();
+				if (SOCKET_ERROR == recv(client_sock, buff, 256, 0))
+				{
+					auto error = WSAGetLastError();
 
-				std::cout << "Recieve error: " << error << std::endl;
+					std::cout << "Recieve error: client: " << client_sock << ", error: " << error << std::endl;
 
-				exit(-1);
+					return;
+				}
+				std::cout << "Client ID: " << client_sock << ": recieved data: " << buff << std::endl;
+
+				if (SOCKET_ERROR == send(client_sock, "Pong", 5, 0))
+				{
+					auto error = WSAGetLastError();
+
+					std::cout << "Send error: " << error << std::endl;
+
+					return;
+				}
+
+
 			}
-			std::cout << "Client ID: " << _client_sock << ": recieved data: ";
-			return buff;
 		}
-
+		
 		std::string RecieveDataIfDataExist() //вернет пустую строку, если клиент ничего не прислал, иначе вернет то, что прислал клиент
 		{
 

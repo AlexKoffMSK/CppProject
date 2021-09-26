@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <winsock.h>
+#include <thread>
+#include <mutex>
 
 namespace Network
 {
@@ -65,6 +67,11 @@ namespace Network
 
 		void SendDataToServer(std::string data)
 		{
+			if (data.empty())
+			{
+				return;
+			}
+
 			if (SOCKET_ERROR == send(_sock, data.c_str(), data.size() + 1, 0))
 			{
 				auto error = WSAGetLastError();
@@ -73,6 +80,22 @@ namespace Network
 
 				return;
 			}
+
+			char buff[256];
+
+			if (SOCKET_ERROR == recv(_sock, buff, 256, 0))
+			{
+				auto error = WSAGetLastError();
+
+				std::cout << "Recieve error: client: " << _sock << ", error: " << error << std::endl;
+
+				return;
+			}
+			std::cout << "Client ID: " << _sock << ": recieved data: " << buff << std::endl;
+
+
+
+
 		}
 
 		void Disconnect()
