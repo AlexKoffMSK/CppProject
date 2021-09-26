@@ -3,6 +3,7 @@
 #include <winsock.h>
 #include <thread>
 #include <mutex>
+#include <queue>
 
 namespace Network
 {
@@ -12,7 +13,9 @@ namespace Network
 		SOCKET _sock;
 		//ќбъ€вим переменную дл€ хранени€ адреса 
 		sockaddr_in _s_address;
-	
+
+		std::queue<std::string> _incoming_data_from_server;
+
 	public:
 		Client(std::string ip_, int port_to_connect_)
 		{
@@ -63,6 +66,8 @@ namespace Network
 			}
 
 			std::cout << "Connect established " << std::endl;
+			std::thread recieve_data_from_server_thread(&Client::RecieveDataFromServer, this);
+			recieve_data_from_server_thread.detach();
 		}
 
 		void SendDataToServer(std::string data)
@@ -80,22 +85,36 @@ namespace Network
 
 				return;
 			}
+		}
 
+		std::string GetNextIncomingMessageFromServer() //возвращает текущее пришедшее от сервера сообщение или пустую строку если сообщений нет
+		{
+			if (_incoming_data_from_server.empty())
+			{
+				return "";
+			}
+			std::string tmp = _incoming_data_from_server.front();
+			_incoming_data_from_server.pop();
+			return tmp;
+		}
+
+		void RecieveDataFromServer()
+		{
 			char buff[256];
 
-			if (SOCKET_ERROR == recv(_sock, buff, 256, 0))
+			while (true)
 			{
-				auto error = WSAGetLastError();
+				if (SOCKET_ERROR == recv(_sock, buff, 256, 0))
+				{
+					auto error = WSAGetLastError();
 
-				std::cout << "Recieve error: client: " << _sock << ", error: " << error << std::endl;
+					std::cout << "Recieve error: client: " << _sock << ", error: " << error << std::endl;
 
-				return;
+					return;
+				}
+				_incoming_data_from_server.push(buff);
+				std::cout << "Recieve data from server: " << _incoming_data_from_server.back() << std::endl;
 			}
-			std::cout << "Client ID: " << _sock << ": recieved data: " << buff << std::endl;
-
-
-
-
 		}
 
 		void Disconnect()

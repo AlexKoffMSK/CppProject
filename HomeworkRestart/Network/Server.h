@@ -4,6 +4,7 @@
 #include <thread>
 #include <mutex>
 #include <vector>
+#include <queue>
 
 namespace Network
 {
@@ -11,9 +12,10 @@ namespace Network
 	{
 	private:
 		SOCKET _sock;
+		std::queue<std::string> _incoming_data_from_client;
+	public:
 		std::vector<SOCKET> _client_sock; //это сокет (труба,дырка), через который мы будем общаться с конкретным клиентом, который к нам подключился
 
-	public:
 		Server(int port_)
 		{
 			std::cout << "Run server" << std::endl;
@@ -72,6 +74,8 @@ namespace Network
 				return;
 			}
 			std::cout << "Server init complete" << std::endl;
+			std::thread waiting_for_clients_thread(&Server::WaitForClients, this);
+			waiting_for_clients_thread.detach();
 		}
 
 		void WaitForClients() //блокирует исполнение до тех пор, пока к нам не подключится клиент
@@ -118,19 +122,33 @@ namespace Network
 				}
 				std::cout << "Client ID: " << client_sock << ": recieved data: " << buff << std::endl;
 
-				if (SOCKET_ERROR == send(client_sock, "Pong", 5, 0))
-				{
-					auto error = WSAGetLastError();
-
-					std::cout << "Send error: " << error << std::endl;
-
-					return;
-				}
-
-
+				SendDataToClient(client_sock, buff);
 			}
 		}
 		
+		void SendDataToClient(SOCKET client_sock, std::string str)
+		{
+			if (SOCKET_ERROR == send(client_sock, str.c_str(), str.size()+1, 0))
+			{
+				auto error = WSAGetLastError();
+
+				std::cout << "Can't send data [" << str << "]. Client: " << client_sock << ", error: " << error << std::endl;
+
+				return;
+			}
+		}
+
+		std::string GetNextIncomingMessageFromClient() //возвращает текущее пришедшее от клиента сообщение или пустую строку если сообщений нет
+		{
+			if (_incoming_data_from_client.empty())
+			{
+				return "";
+			}
+			std::string tmp = _incoming_data_from_client.front();
+			_incoming_data_from_client.pop();
+			return tmp;
+		}
+
 		std::string RecieveDataIfDataExist() //вернет пустую строку, если клиент ничего не прислал, иначе вернет то, что прислал клиент
 		{
 

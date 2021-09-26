@@ -211,7 +211,16 @@ namespace Network
 	void TestServerClass()
 	{
 		Server serv(666);
-		serv.WaitForClients();
+		while (true)
+		{
+			std::this_thread::sleep_for(std::chrono::seconds(2));
+			if (serv._client_sock.empty())
+			{
+				continue;
+			}
+			int random_client = std::rand()%serv._client_sock.size();
+			serv.SendDataToClient(serv._client_sock[random_client], "Pong!");
+		}
 	}
 
 	void TestClientClass()
