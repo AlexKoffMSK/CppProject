@@ -16,6 +16,25 @@ namespace Network
 
 		std::queue<std::string> _incoming_data_from_server;
 
+		void RecieveDataFromServer()
+		{
+			char buff[256];
+
+			while (true)
+			{
+				if (SOCKET_ERROR == recv(_sock, buff, 256, 0))
+				{
+					auto error = WSAGetLastError();
+
+					std::cout << "Recieve error: client: " << _sock << ", error: " << error << std::endl;
+
+					return;
+				}
+				_incoming_data_from_server.push(buff);
+				std::cout << "Recieve data from server: " << _incoming_data_from_server.back() << std::endl;
+			}
+		}
+
 	public:
 		Client(std::string ip_, int port_to_connect_)
 		{
@@ -96,25 +115,6 @@ namespace Network
 			std::string tmp = _incoming_data_from_server.front();
 			_incoming_data_from_server.pop();
 			return tmp;
-		}
-
-		void RecieveDataFromServer()
-		{
-			char buff[256];
-
-			while (true)
-			{
-				if (SOCKET_ERROR == recv(_sock, buff, 256, 0))
-				{
-					auto error = WSAGetLastError();
-
-					std::cout << "Recieve error: client: " << _sock << ", error: " << error << std::endl;
-
-					return;
-				}
-				_incoming_data_from_server.push(buff);
-				std::cout << "Recieve data from server: " << _incoming_data_from_server.back() << std::endl;
-			}
 		}
 
 		void Disconnect()

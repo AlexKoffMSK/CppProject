@@ -219,7 +219,23 @@ namespace Network
 				continue;
 			}
 			int random_client = std::rand()%serv._client_sock.size();
+
 			serv.SendDataToClient(serv._client_sock[random_client], "Pong!");
+
+			std::string incoming_message = serv.GetNextIncomingMessageFromClient();
+
+			if (incoming_message.empty())
+			{
+				continue;
+			}
+			else if (incoming_message == "1")
+			{
+				std::cout << "Hello" << std::endl;
+			}
+			else
+			{
+				std::cout << "World" << std::endl;
+			}
 		}
 	}
 
@@ -235,6 +251,20 @@ namespace Network
 			std::getline(std::cin,str);
 			client.SendDataToServer(str);
 			log.push_back(str);
+
+			std::string incoming_message = client.GetNextIncomingMessageFromServer();
+			if (incoming_message.empty())
+			{
+				continue;
+			}
+			else if (incoming_message == "1")
+			{
+				std::cout << "Hello" << std::endl;
+			}
+			else
+			{
+				std::cout << "World" << std::endl;
+			}
 		}
 	}
 }

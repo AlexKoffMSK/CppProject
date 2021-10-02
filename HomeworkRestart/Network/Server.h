@@ -13,6 +13,56 @@ namespace Network
 	private:
 		SOCKET _sock;
 		std::queue<std::string> _incoming_data_from_client;
+
+		void WaitForClients() //блокирует исполнение до тех пор, пока к нам не подключится клиент
+		{
+			while (true)
+			{
+				sockaddr_in client_address;
+
+				int size_client_adr = sizeof(client_address);
+
+				SOCKET tmp_client_sock = accept(_sock, (sockaddr*)&client_address, &size_client_adr);
+
+				if (tmp_client_sock == INVALID_SOCKET)
+				{
+					auto error = WSAGetLastError();
+
+					std::cout << "Accept error: " << error << std::endl;
+
+					return;
+				}
+
+				_client_sock.push_back(tmp_client_sock);
+
+				std::cout << "Client connected. ID: " << tmp_client_sock << ". Port: " << client_address.sin_port << std::endl;
+				
+				std::thread client_recieve_data_thread(&Server::RecieveDataBlocked, this, tmp_client_sock);
+				client_recieve_data_thread.detach();
+			}
+		}
+
+		void RecieveDataBlocked(SOCKET client_sock) //блокирует исполнение до тех пор, пока клиент что-то не пришлет
+		{
+			char buff[256];
+
+			while (true)
+			{
+				if (SOCKET_ERROR == recv(client_sock, buff, 256, 0))
+				{
+					auto error = WSAGetLastError();
+
+					std::cout << "Recieve error: client: " << client_sock << ", error: " << error << std::endl;
+
+					return;
+				}
+
+				std::cout << "Client ID: " << client_sock << ": recieved data: " << buff << std::endl;
+
+				_incoming_data_from_client.push(buff);
+			}
+		}
+
 	public:
 		std::vector<SOCKET> _client_sock; //это сокет (труба,дырка), через который мы будем общаться с конкретным клиентом, который к нам подключился
 
@@ -78,54 +128,6 @@ namespace Network
 			waiting_for_clients_thread.detach();
 		}
 
-		void WaitForClients() //блокирует исполнение до тех пор, пока к нам не подключится клиент
-		{
-			while (true)
-			{
-				sockaddr_in client_address;
-
-				int size_client_adr = sizeof(client_address);
-
-				SOCKET tmp_client_sock = accept(_sock, (sockaddr*)&client_address, &size_client_adr);
-
-				if (tmp_client_sock == INVALID_SOCKET)
-				{
-					auto error = WSAGetLastError();
-
-					std::cout << "Accept error: " << error << std::endl;
-
-					return;
-				}
-
-				_client_sock.push_back(tmp_client_sock);
-
-				std::cout << "Client connected. ID: " << tmp_client_sock << ". Port: " << client_address.sin_port << std::endl;
-				
-				std::thread client_recieve_data_thread(&Server::RecieveDataBlocked, this, tmp_client_sock);
-				client_recieve_data_thread.detach();
-			}
-		}
-
-		void RecieveDataBlocked(SOCKET client_sock) //блокирует исполнение до тех пор, пока клиент что-то не пришлет
-		{
-			char buff[256];
-
-			while (true)
-			{
-				if (SOCKET_ERROR == recv(client_sock, buff, 256, 0))
-				{
-					auto error = WSAGetLastError();
-
-					std::cout << "Recieve error: client: " << client_sock << ", error: " << error << std::endl;
-
-					return;
-				}
-				std::cout << "Client ID: " << client_sock << ": recieved data: " << buff << std::endl;
-
-				SendDataToClient(client_sock, buff);
-			}
-		}
-		
 		void SendDataToClient(SOCKET client_sock, std::string str)
 		{
 			if (SOCKET_ERROR == send(client_sock, str.c_str(), str.size()+1, 0))
@@ -149,11 +151,6 @@ namespace Network
 			return tmp;
 		}
 
-		std::string RecieveDataIfDataExist() //вернет пустую строку, если клиент ничего не прислал, иначе вернет то, что прислал клиент
-		{
-
-		}
-		
 		void ShutDown()
 		{
 
