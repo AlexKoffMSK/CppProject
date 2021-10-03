@@ -23,5 +23,14 @@
     <ClInclude Include="Example1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SortsVisualisation\SortsVisualisztion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SortsVisualisation\BubbleSort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SortsVisualisation\SelectionSort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
