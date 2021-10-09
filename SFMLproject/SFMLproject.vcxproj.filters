@@ -32,5 +32,8 @@
     <ClInclude Include="SortsVisualisation\SelectionSort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SortsVisualisation\CountingSort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

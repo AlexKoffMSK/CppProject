@@ -181,6 +181,7 @@
     <ClInclude Include="Inheritance\InheritanceMovingObject.h" />
     <ClInclude Include="Inheritance\InheritanceSquareAndRectangle.h" />
     <ClInclude Include="Initializations.h" />
+    <ClInclude Include="Iterators.h" />
     <ClInclude Include="Json\json11.hpp" />
     <ClInclude Include="Json\JsonTests.h" />
     <ClInclude Include="List.h" />
@@ -208,6 +209,7 @@
     <ClInclude Include="Sorts.h" />
     <ClInclude Include="Structures.h" />
     <ClInclude Include="Classes\VectorWithinEvens.h" />
+    <ClInclude Include="Templates.h" />
     <ClInclude Include="WorkWithBinaryFiles.h" />
     <ClInclude Include="WorkWithTextFiles.h" />
   </ItemGroup>

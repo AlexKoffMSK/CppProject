@@ -54,6 +54,8 @@
 #include <sys/types.h>
 #include <winsock.h>
 #include "Network/Test.h"
+#include "Iterators.h"
+#include "Templates.h"
 
 using namespace std;
 
@@ -1181,14 +1183,17 @@ int main(int argc, char* argv[])
 	
 	//GameMatrix::Test();
 
-	if (std::string(argv[1]) == "0")
-	{
-		Network::TestServerClass();
-	}
-	else
-	{
-		Network::TestClientClass();
-	}
+	//if (std::string(argv[1]) == "0")
+	//{
+	//	Network::TestServerClass();
+	//}
+	//else
+	//{
+	//	Network::TestClientClass();
+	//}
+
+	//Iterators::Test1();
+	//Templates::Test3();
 
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры

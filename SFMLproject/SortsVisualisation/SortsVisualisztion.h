@@ -5,9 +5,8 @@
 
 namespace SortsVisualisation
 {
-	void DrawArray(const std::vector<int>& vec, int index1_vec_to_color, int index2_vec_to_color, sf::Color color1, sf::Color color2)
+	void DrawArray(sf::RenderWindow& window, const std::vector<int>& vec, int index1_vec_to_color, int index2_vec_to_color, sf::Color color1, sf::Color color2)
 	{
-		static sf::RenderWindow window(sf::VideoMode(1024, 768), "SFML works!", sf::Style::Default);
 		window.clear();
 
 		int column_width = window.getSize().x / vec.size(); //ширина бара
@@ -37,5 +36,12 @@ namespace SortsVisualisation
 		window.display();
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+	}
+
+	void DrawArray(const std::vector<int>& vec, int index1_vec_to_color, int index2_vec_to_color, sf::Color color1, sf::Color color2)
+	{
+		static sf::RenderWindow window(sf::VideoMode(800, 768), "Function works!", sf::Style::Default);
+		window.setPosition(sf::Vector2i(0, 0));
+		DrawArray(window, vec, index1_vec_to_color, index2_vec_to_color, color1, color2);
 	}
 }

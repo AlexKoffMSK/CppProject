@@ -186,6 +186,7 @@
   <ItemGroup>
     <ClInclude Include="Example1.h" />
     <ClInclude Include="SortsVisualisation\BubbleSort.h" />
+    <ClInclude Include="SortsVisualisation\CountingSort.h" />
     <ClInclude Include="SortsVisualisation\SelectionSort.h" />
     <ClInclude Include="SortsVisualisation\SortsVisualisztion.h" />
   </ItemGroup>
