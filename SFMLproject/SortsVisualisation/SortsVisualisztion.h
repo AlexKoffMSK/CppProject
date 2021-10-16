@@ -9,9 +9,13 @@ namespace SortsVisualisation
 	{
 		window.clear();
 
+		if (vec.size() == 0)
+		{
+			return;
+		}
 		int column_width = window.getSize().x / vec.size(); //ширина бара
 		int max_elem = *std::max_element(vec.begin(), vec.end());
-		int draw_area_height = window.getSize().y - 20;
+		int draw_area_height = window.getSize().y;
 
 		int cur_x = 0;
 		for (int i=0; i<vec.size(); ++i)
@@ -35,12 +39,14 @@ namespace SortsVisualisation
 
 		window.display();
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+		//std::this_thread::sleep_for(std::chrono::milliseconds(10));
+		//_getch();
+		//std::cout << '1' << std::endl;
 	}
 
 	void DrawArray(const std::vector<int>& vec, int index1_vec_to_color, int index2_vec_to_color, sf::Color color1, sf::Color color2)
 	{
-		static sf::RenderWindow window(sf::VideoMode(800, 768), "Function works!", sf::Style::Default);
+		static sf::RenderWindow window(sf::VideoMode(800, 600), "Function works!", sf::Style::Default);
 		window.setPosition(sf::Vector2i(0, 0));
 		DrawArray(window, vec, index1_vec_to_color, index2_vec_to_color, color1, color2);
 	}

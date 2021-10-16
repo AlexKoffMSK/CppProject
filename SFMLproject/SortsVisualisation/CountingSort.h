@@ -5,7 +5,7 @@ namespace SortsVisualisation
 {
 	std::vector<int> CountingSort(std::vector<int> arr) //сортировка подсчётом
 	{
-		sf::RenderWindow window(sf::VideoMode(800, 768), "Buckets", sf::Style::Default);
+		sf::RenderWindow window(sf::VideoMode(800, 600), "Buckets", sf::Style::Default);
 		window.setPosition(sf::Vector2i(800, 0));
 		
 		int bucket_count = arr.front();

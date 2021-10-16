@@ -35,5 +35,17 @@
     <ClInclude Include="SortsVisualisation\CountingSort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SortsVisualisation\OnlineSort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Snake.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SortsVisualisation\QuickSort.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SortsVisualisation\SmartVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

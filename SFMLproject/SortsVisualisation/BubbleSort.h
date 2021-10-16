@@ -3,7 +3,6 @@
 
 namespace SortsVisualisation
 {
-
 	std::vector<int> BubbleSort1Iteration(std::vector<int> arr)
 	{
 		//принимает на вход массив, возвращает. Если левый больше чем правый.
@@ -27,15 +26,4 @@ namespace SortsVisualisation
 		}
 		return arr;
 	}
-
-
-
-
-
-
-
-
-
-
-
 }
