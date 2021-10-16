@@ -165,14 +165,15 @@ namespace DataStructures
 			}
 			_size--;
 
-			ListElem* temp_ptr = _ptr_to_front_elem;
+			ListElem* temp_ptr = _ptr_to_front_elem; //!!СМОТРИТ ТУДА ЖЕ, КУДА И... в данном случае - куда смотрит указатель _ptr_to_front_elem
 			for (int i = 0; i < position; i++)
 			{
 				temp_ptr = temp_ptr->_ptr_to_next_elem;
 			}
+
 			temp_ptr->_ptr_to_prev_elem->_ptr_to_next_elem = temp_ptr->_ptr_to_next_elem;
 			temp_ptr->_ptr_to_next_elem->_ptr_to_prev_elem = temp_ptr->_ptr_to_prev_elem;
-			delete temp_ptr;
+			delete temp_ptr; //после этой строки - мы отдаем системе память ту, куда смотрит tmp_ptr
 		}
 
 		int GetValueByPos(int position)
