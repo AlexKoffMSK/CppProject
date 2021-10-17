@@ -182,12 +182,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="sfml_app.cpp" />
+    <ClCompile Include="Snake1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Example1.h" />
     <ClInclude Include="Snake.h" />
     <ClInclude Include="SortsVisualisation\BubbleSort.h" />
     <ClInclude Include="SortsVisualisation\CountingSort.h" />
+    <ClInclude Include="SortsVisualisation\MergeSort.h" />
     <ClInclude Include="SortsVisualisation\OnlineSort.h" />
     <ClInclude Include="SortsVisualisation\QuickSort.h" />
     <ClInclude Include="SortsVisualisation\SelectionSort.h" />

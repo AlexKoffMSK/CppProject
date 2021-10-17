@@ -10,7 +10,8 @@
 #include "SortsVisualisation/CountingSort.h"
 #include "SortsVisualisation/OnlineSort.h"
 #include "SortsVisualisation/QuickSort.h"
-#include "Snake.h"
+//#include "Snake.h"
+#include "SortsVisualisation/MergeSort.h"
 
 void MakeVecForSorts()
 {
@@ -26,11 +27,12 @@ void MakeVecForSorts()
 
 	//SortsVisualisation::BubbleSort(vec);
 	//SortsVisualisation::SelectionSort(vec);
-	//SortsVisualisation::CountingSort(vec);
+	SortsVisualisation::CountingSort(vec);
 	//SortsVisualisation::OnlineSortFunc(vec);
 	//Snake::SnakeGameRun();
 	//Snake::Test222();
-	SortsVisualisation::QuickSort(vec);
+	//SortsVisualisation::QuickSort(vec);
+	//SortsVisualisation::MergeSort(vec);
 
 	getchar();
 }

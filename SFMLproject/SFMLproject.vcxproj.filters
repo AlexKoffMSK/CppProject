@@ -18,6 +18,9 @@
     <ClCompile Include="sfml_app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Snake1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Example1.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SortsVisualisation\SmartVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SortsVisualisation\MergeSort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
