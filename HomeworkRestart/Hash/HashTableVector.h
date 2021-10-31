@@ -6,7 +6,7 @@
 namespace HashTable //хэш-таблица это таблица с результатами хэширования. Метод цепочек. Есть еще метод открытой адресации.
 {
 	static const int word_lenght = 9000;
-	static const int n = 26 * word_lenght;
+	static const int n = 1000;
 
 	int count_of_collisions[n] = { 0 };
 	
@@ -68,10 +68,11 @@ namespace HashTable //хэш-таблица это таблица с результатами хэширования. Метод 
 		}
 
 	public:
+		int _array_finds_count = 0;
 
 		void Add(std::string key, int value)
 		{
-			int hash = HashFunction(key);
+			int hash = HashFunction0(key);
 
 			if (_hash_table[hash].size() != 0)
 			{
@@ -91,7 +92,7 @@ namespace HashTable //хэш-таблица это таблица с результатами хэширования. Метод 
 
 		void Remove(std::string key)
 		{
-			int hash = HashFunction(key);
+			int hash = HashFunction0(key);
 			for (int i=0; i< _hash_table[hash].size(); ++i)
 			{
 				if (_hash_table[hash][i]._key == key)
@@ -104,15 +105,104 @@ namespace HashTable //хэш-таблица это таблица с результатами хэширования. Метод 
 
 		int Find(std::string key)
 		{
-			int hash = HashFunction(key);
+			int hash = HashFunction0(key);
 			for (KeyValue& key_value : _hash_table[hash])
 			{
+				_array_finds_count++;
 				if (key_value._key == key)
 				{
 					return key_value._value;
 				}
 			}
 			return -1;
+		}
+	};
+
+	class  HashTableVectorSet
+	{
+	private:
+
+		std::vector<std::string> _hash_table[n];
+
+		int HashFunction0(std::string key)
+		{
+			return key.size();
+		}
+
+		int HashFunction1(std::string key)
+		{
+			char first_letter = key[0];
+			if (first_letter >= 'A' && first_letter <= 'Z')
+			{
+				return first_letter - 'A';
+			}
+			else if (first_letter >= 'a' && first_letter <= 'z')
+			{
+				return first_letter - 'a';
+			}
+			else
+			{
+				return 0;
+			}
+		}
+
+		int HashFunction(std::string key)
+		{
+			int counter = 0;
+			for (char ch : key)
+			{
+				counter += ch - 'a';
+			}
+			return counter;
+		}
+
+		int HashFunction3(std::string key)
+		{
+			return 1;
+		}
+
+	public:
+		int _array_finds_count = 0;
+
+		void Add(std::string key)
+		{
+			int hash = HashFunction0(key);
+
+			for (std::string& str : _hash_table[hash])
+			{
+				if (str == key)
+				{
+					return;
+				}
+			}
+			_hash_table[hash].push_back(key);
+		}
+
+		void Remove(std::string key)
+		{
+			int hash = HashFunction0(key);
+			for (int i = 0; i < _hash_table[hash].size(); ++i)
+			{
+				if (_hash_table[hash][i] == key)
+				{
+					_hash_table[hash].erase(_hash_table[hash].begin() + i);
+					return;
+				}
+			}
+		}
+
+		bool Find(std::string key)
+		{
+			int hash = HashFunction0(key);
+			for (std::string& str : _hash_table[hash])
+			{
+				_array_finds_count++;
+				if (str == key)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 	};
 

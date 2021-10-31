@@ -29,7 +29,7 @@ namespace HashTable //хэш-таблица это таблица с результатами хэширования. Метод 
 	//6.Аски код первого символа (1 действие)
 	int HashFunctionASCIIFirstLetter(std::string str)
 	{
-		return str.front();
+		return str.front() * 5;
 		//return *str.begin(); аналогично
 		//return str[0]; аналогично
 	}
@@ -39,7 +39,7 @@ namespace HashTable //хэш-таблица это таблица с результатами хэширования. Метод 
 	{
 	private:
 
-		std::vector<std::string> _hash_table = std::vector<std::string>(300);
+		std::vector<std::string> _hash_table = std::vector<std::string>(1000);
 		THashFunction _hash_function;
 
 	public:
@@ -120,9 +120,10 @@ namespace HashTable //хэш-таблица это таблица с результатами хэширования. Метод 
 
 	}
 
-	template <class TFunction>
-	void Test2OA(int uniq_elems_count, int adds_count, int finds_count, int max_str_lenght, TFunction function)
+	template <class THashTable>
+	void Test2OA(int uniq_elems_count, int adds_count, int finds_count, int max_str_lenght, THashTable ht)
 	{
+		srand(0);
 		std::vector<std::string> uniq_elems;
 		
 		for (int i = 0; i < adds_count; ++i)
@@ -132,12 +133,10 @@ namespace HashTable //хэш-таблица это таблица с результатами хэширования. Метод 
 		
 		auto t0 = chrono::system_clock::now(); // Начинаем засекать время
 		
-		HashTableOpenAddress htoa(function);
-
 		for (int i = 0; i < adds_count; ++i)
 		{
 			int rand_elem_index_to_add = rand() % uniq_elems.size();
-			htoa.Add(uniq_elems[rand_elem_index_to_add]);
+			ht.Add(uniq_elems[rand_elem_index_to_add]);
 		}
 		
 		auto t1 = chrono::system_clock::now(); // Начинаем засекать время
@@ -146,7 +145,7 @@ namespace HashTable //хэш-таблица это таблица с результатами хэширования. Метод 
 		for (int i = 0; i<finds_count; ++i)
 		{
 			int rand_elem_index_to_find = rand() % uniq_elems.size();
-			counter_of_find += htoa.Find(uniq_elems[rand_elem_index_to_find]);
+			counter_of_find += ht.Find(uniq_elems[rand_elem_index_to_find]);
 		}
 
 		auto t2 = chrono::system_clock::now(); // Заканчиваем засекать вермя
@@ -161,29 +160,30 @@ namespace HashTable //хэш-таблица это таблица с результатами хэширования. Метод 
 		ofs << setprecision(5) << setw(9) << elapsed_add.count() << ",     "; // Выводим сколько времени засекли
 		ofs << setprecision(5) << setw(9) << elapsed_find.count() << ",     "; // Выводим сколько времени засекли
 		ofs << setprecision(5) << setw(9) << (elapsed_find + elapsed_add).count() << ",     "; // Выводим сколько времени засекли
-		ofs << setw(9) << htoa._array_finds_count << std::endl;
+		ofs << setw(9) << ht._array_finds_count << std::endl;
 		std::cout << counter_of_find << std::endl;
 	}
 
-	template <class TFunction>
-	void Test3OA(TFunction function, std::string message)
+	template <class THashTable>
+	void Test3OA(THashTable ht, std::string message)
 	{
 		ofstream ofs("Hash/OAresults.txt", std::ios_base::app);
 		ofs << endl;
 		ofs << message << endl;
 		ofs.close();
-		Test2OA(100, 50, 100, 10, function);
-		Test2OA(100, 50, 1000, 10, function);
-		Test2OA(100, 50, 10000, 10, function);
-		Test2OA(100, 50, 100000, 10, function);
-		Test2OA(100, 50, 1000000, 10, function);
+		Test2OA(100, 50, 100, 10, ht);
+		Test2OA(100, 50, 1000, 10, ht);
+		Test2OA(100, 50, 10000, 10, ht);
+		Test2OA(100, 50, 100000, 10, ht);
+		Test2OA(100, 50, 1000000, 10, ht);
 		std::cout << "Ready" << std::endl;
 	}
 
 	void Test4OA()
 	{
-		Test3OA(HashFunctionSize, "HashFunctionSize: ");
-		Test3OA(HashFunction0, "HashFunction0: ");
-		Test3OA(HashFunctionASCIIFirstLetter, "HashFunctionASCIIFirstLetter: ");
+		Test3OA(HashTableOpenAddress(HashFunctionSize), "htoa_HashFunctionSize: ");
+		Test3OA(HashTableOpenAddress(HashFunction0), "htoa_HashFunction0: ");
+		Test3OA(HashTableOpenAddress(HashFunctionASCIIFirstLetter), "htoa_HashFunctionASCIIFirstLetter: ");
+		Test3OA(HashTableVectorSet(), "htv_HashTableVector: ");
 	}
 }
