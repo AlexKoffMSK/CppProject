@@ -56,6 +56,7 @@
 #include "Network/Test.h"
 #include "Iterators.h"
 #include "Templates.h"
+#include "Hash/HashTableOpenAddress.h"
 
 using namespace std;
 
@@ -1183,6 +1184,7 @@ int main(int argc, char* argv[])
 	
 	//GameMatrix::Test();
 
+	//проверка для сетевой функции клиент-сервер
 	//if (std::string(argv[1]) == "0")
 	//{
 	//	Network::TestServerClass();
@@ -1191,9 +1193,14 @@ int main(int argc, char* argv[])
 	//{
 	//	Network::TestClientClass();
 	//}
+	////////////////////////////////////////////
+
+	HashTable::Test4OA();
+	
 
 	//Iterators::Test1();
 	//Templates::Test3();
+	//Templates::Test7();
 
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
@@ -1236,7 +1243,17 @@ int main(int argc, char* argv[])
 - написать MachineLearning
 +- Многопоточность, параллельные вычисления
 - красно-черное дерево и много других клевых структур!!
-- шаблоны
++- шаблоны
+
+Важное про структурирование данных:
+Если неважна отсортированность: 
+- если элементов много, то используем хэш-таблицу (std::unordered_map, std:: unordered_set)
+- если элементов мало, то отсортированный массив
+- если элементов мало, дисперсия малая, известна нижняя граница, то использовать массив, где ключом является нижний элемент - маска
+Если важна отсортированность элементов, то:
+- если элементов много - то дерево (std::map, std::set),
+- если мало - отсортированный массив.
+Если нужна отсортированность - мапа, если не нужна - хэш-таблица, а если элементов мало - массив.
 */
 
 //https://github.com/AlexKoffMSK/CppProject.git

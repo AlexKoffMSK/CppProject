@@ -516,3 +516,21 @@ template<class MapKey,class MapValue> void PrintMap(std::map<MapKey, MapValue> m
 	}
 	cout << endl;
 }
+
+template <class T>
+void Print(T t)
+{
+	std::cout << t << std::endl;
+}
+
+template <class T0, class T1>
+void Print(T0 t, T1 y)
+{
+	std::cout << t << ", " << y << std::endl;
+}
+
+template <class T0, class T1, class T2>
+void Print(T0 t, T1 y, T2 z)
+{
+	std::cout << t << ", " << y << ", " << z << std::endl;
+}

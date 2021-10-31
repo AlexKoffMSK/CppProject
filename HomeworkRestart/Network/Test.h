@@ -241,7 +241,7 @@ namespace Network
 
 	void TestClientClass()
 	{
-		Client client("127.0.0.1", 666);
+		Client client("95.171.3.173", 666);
 		client.ConnectToServer();
 		std::vector<std::string> log;
 		while (true) 

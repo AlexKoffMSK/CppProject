@@ -52,6 +52,19 @@ namespace Templates
 	}
 
 	template <class T> 
+	T GetGreater(T x, T y)
+	{
+		if (x > y)
+		{
+			return x;
+		}
+		else
+		{
+			return y;
+		}
+	}
+
+	template <class T> 
 	void PrintGreaterTemplated(T x, T y)
 	{
 		if (x > y)
@@ -89,8 +102,7 @@ namespace Templates
 		}
 	}
 
-	template <class T>
-	void F()
+	template <class T> void F()
 	{
 		T a{};
 		std::cout << typeid(a).name() << std::endl;
@@ -178,13 +190,13 @@ namespace Templates
 		Q _q;
 	};
 	
-	template <int I> void Print(std::tuple<int, int, double, float, string, char, char, char> tpl)
+	template <int I> void PrintTuple(std::tuple<int, int, double, float, string, char, char, char> tpl)
 	{
 		std::cout << std::get<I>(tpl) << std::endl;
-		Print<I-1>(tpl);
+		PrintTuple<I-1>(tpl);
 	}
 	
-	template <> void Print<0>(std::tuple<int, int, double, float, string, char, char, char> tpl)
+	template <> void PrintTuple<0>(std::tuple<int, int, double, float, string, char, char, char> tpl)
 	{
 		std::cout << std::get<0>(tpl) << std::endl;
 	}
@@ -203,6 +215,112 @@ namespace Templates
 		std::tuple<int, int, double, float, string, char, char, char> tpl;
 		std::get<0>(tpl) = 5;
 		
-		Print<7>(tpl);
+		PrintTuple<7>(tpl);
 	}
+
+	template <class T> void PrintTemplateTypeName()
+	{
+		std::cout << typeid(T).name() << std::endl;
+	}
+
+	void Test4()
+	{
+		PrintTemplateTypeName<int>();
+		PrintTemplateTypeName<double>();
+		PrintTemplateTypeName<std::string>();
+	}
+
+	template <class T>
+	void PrintGreaterTemplated2(T x, T y)
+	{
+		if (x > y)
+		{
+			std::cout << x << std::endl;
+		}
+		else
+		{
+			std::cout << y << std::endl;
+		}
+	}
+
+	template <class TFunction>
+	void CallTwice(TFunction function)
+	{
+		function(5);
+		function(5);
+	}
+
+	void PrintHello(int x)
+	{
+		std::cout << "Hello" << ' ' << x << std::endl;
+	}
+
+	void PrintWorld(int x)
+	{
+		std::cout << "World" << ' ' << x << std::endl;
+	}
+
+	void Test6()
+	{
+		CallTwice(PrintHello);
+		CallTwice(PrintWorld);
+	}
+
+	template <class T> 
+	void PrintTwice(T x)
+	{
+		std::cout << x << std::endl;
+		std::cout << x << std::endl;
+	}
+
+	template <class T>
+	bool IsXGreaterY(const T& x, const T& y)
+	{
+		return x>y;
+	}
+
+	template <class T>
+	bool IsXLesserY(const T& x, const T& y)
+	{
+		return x < y;
+	}
+
+	void Test5()
+	{
+		std::vector<int> vec = { 5,6,7,8,3,5,8,3,6,2,8 };
+		
+		std::sort(vec.begin(), vec.end(), IsXGreaterY<int>);
+		print_vector(vec);
+		
+		std::sort(vec.begin(), vec.end(), IsXLesserY<int>);
+		print_vector(vec);
+
+		std::vector<std::string> vecstr = { "asd","def","gasdfa","ihiosdjfkl" };
+
+		std::sort(vecstr.begin(), vecstr.end(), IsXGreaterY<std::string>);
+		print_vector(vecstr);
+
+		std::sort(vecstr.begin(), vecstr.end(), IsXLesserY<std::string>);
+		print_vector(vecstr);
+	}
+
+	template <class TFunction>
+	void IncrementAndPrintEveryNStep(TFunction function, int n)
+	{
+		for (int i = 0; i < 50; ++i)
+		{
+			Print(i);
+			if (i % n == 0)
+			{
+				function(i);
+			}
+		}
+	}
+
+	void Test7()
+	{
+		IncrementAndPrintEveryNStep(PrintHello,10);
+		IncrementAndPrintEveryNStep(PrintWorld,5);
+	}
+	
 }

@@ -99,7 +99,7 @@ namespace Network
 
 			//адрес сервера. Т.к. TCP/IP представляет адреса в числовом виде, то для перевода 
 			//адреса используем функцию inet_addr.
-			s_address.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
+			s_address.sin_addr.S_un.S_addr = inet_addr("192.168.88.183");
 
 			// Порт. Используем функцию htons для перевода номера порта из обычного в //TCP/IP представление.
 			s_address.sin_port = htons(port_);
@@ -108,6 +108,7 @@ namespace Network
 
 			if (bind_error != 0)
 			{
+				auto bind_error = WSAGetLastError();
 				std::cout << "Bind error: " << bind_error << std::endl;
 
 				return;

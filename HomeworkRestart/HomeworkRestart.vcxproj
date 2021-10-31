@@ -175,6 +175,7 @@
     <ClInclude Include="GlobalStructureDate.h" />
     <ClInclude Include="GlobalStructures.h" />
     <ClInclude Include="GlobalStructuresCarUtils.h" />
+    <ClInclude Include="Hash\HashTableOpenAddress.h" />
     <ClInclude Include="Hash\HashTableVector.h" />
     <ClInclude Include="Hash\SHA256.h" />
     <ClInclude Include="Inheritance\InheritanceBasic.h" />
@@ -222,6 +223,7 @@
     <Text Include="BinaryFiles\Test.bin" />
     <Text Include="GameMatrix\Levels\Level1.txt" />
     <Text Include="GraphsFiles\Graph_1.txt" />
+    <Text Include="Hash\OAresults.txt" />
     <Text Include="TextFiles\a.txt" />
     <Text Include="TextFiles\File1.txt" />
     <Text Include="TextFiles\File2.txt" />

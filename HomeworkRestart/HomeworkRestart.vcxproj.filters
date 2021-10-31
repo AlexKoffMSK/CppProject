@@ -215,6 +215,9 @@
     <ClInclude Include="Templates.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Hash\HashTableOpenAddress.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Bitmap.bmp">
@@ -232,6 +235,7 @@
     <Text Include="TextFiles\a.txt" />
     <Text Include="GraphsFiles\Graph_1.txt" />
     <Text Include="GameMatrix\Levels\Level1.txt" />
+    <Text Include="Hash\OAresults.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TextFiles\File1.tsv" />
