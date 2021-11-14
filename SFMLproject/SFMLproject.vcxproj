@@ -186,6 +186,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Example1.h" />
+    <ClInclude Include="LinearRegression\LinearRegression.h" />
+    <ClInclude Include="LinearRegression\LinearRegressionTestInPlot.h" />
+    <ClInclude Include="LinearRegression\TestPrice.h" />
+    <ClInclude Include="Physics\Drawer.h" />
+    <ClInclude Include="Physics\GeometryFormulas.h" />
+    <ClInclude Include="Physics\Objects.h" />
+    <ClInclude Include="Physics\PhysicsOfObjects.h" />
     <ClInclude Include="Snake.h" />
     <ClInclude Include="SortsVisualisation\BubbleSort.h" />
     <ClInclude Include="SortsVisualisation\CountingSort.h" />

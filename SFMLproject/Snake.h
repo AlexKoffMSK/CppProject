@@ -82,6 +82,7 @@ namespace Snake
                 }
                 //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
                 _window.clear();
+                
                 for (int i = 0; i < _snake_parts.size(); ++i)
                 {
                     _window.draw(_snake_parts[i]);

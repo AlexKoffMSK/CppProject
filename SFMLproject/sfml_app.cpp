@@ -12,6 +12,9 @@
 #include "SortsVisualisation/QuickSort.h"
 //#include "Snake.h"
 #include "SortsVisualisation/MergeSort.h"
+#include "LinearRegression/LinearRegressionTestInPlot.h"
+#include "LinearRegression/TestPrice.h"
+#include "Physics/Drawer.h"
 
 void MakeVecForSorts()
 {
@@ -27,17 +30,21 @@ void MakeVecForSorts()
 
 	//SortsVisualisation::BubbleSort(vec);
 	//SortsVisualisation::SelectionSort(vec);
-	SortsVisualisation::CountingSort(vec);
+	//SortsVisualisation::CountingSort(vec);
 	//SortsVisualisation::OnlineSortFunc(vec);
 	//Snake::SnakeGameRun();
 	//Snake::Test222();
 	//SortsVisualisation::QuickSort(vec);
 	//SortsVisualisation::MergeSort(vec);
+	
 
 	getchar();
 }
 
 int main()
 {
-	MakeVecForSorts();
+	//MakeVecForSorts();
+	//LinRegPlot::TestLinReg();
+	//LinRegPlot::TestPrice();
+	Physics::Drawer();
 }
