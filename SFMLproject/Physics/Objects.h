@@ -10,6 +10,7 @@ namespace Physics
 	struct Circle
 	{
 		sf::CircleShape _circle_shape;
+
 		sf::Vector2f _direction_of_move;
 
 		sf::Vector2f CentralPoint()
@@ -37,17 +38,14 @@ namespace Physics
 		}
 	};
 
+	struct Wall
+	{
+		sf::Vector2f _wall_p1;
+		sf::Vector2f _wall_p2;
+	};
+
 	bool IsCirclesIntersect(Circle circ1, Circle circ2)
 	{
 		return GeometryFormulas::DistanceBetweenTwoPoints(circ1.CentralPoint(), circ2.CentralPoint()) < (circ1._circle_shape.getRadius() + circ2._circle_shape.getRadius());
 	}
-
-
-
-
-
-
-
-
-
 }

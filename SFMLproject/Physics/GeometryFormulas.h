@@ -3,6 +3,8 @@
 
 namespace GeometryFormulas
 {
+	const double kPi = acos(-1);
+
 	double DistanceBetweenTwoPoints(sf::Vector2f point_1, sf::Vector2f point_2)
 	{
 		return sqrt(pow(point_1.x - point_2.x, 2) + pow(point_1.y - point_2.y, 2));
@@ -23,7 +25,7 @@ namespace GeometryFormulas
 		//p1 = p1 - centre_of_circle;
 		//p2 = p2 - centre_of_circle;
 		//double a = p1.y - p2.y;
-		//double b = p2.x - p1.y;
+		//double b = p2.x - p1.x;
 		//double c = p1.x * p2.y - p2.x * p1.y;
 		//
 		//double x0 = -a * c / (a * a + b * b); 
@@ -49,5 +51,77 @@ namespace GeometryFormulas
 		//}
 	}
 
+	double GetAngleBetweenLines(sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f q1, sf::Vector2f q2)
+	{
+		double ap = p1.y - p2.y;
+		double bp = p2.x - p1.x;
+		double aq = q1.y - q2.y;
+		double bq = q2.x - q1.x;
+		
+		double num = abs(ap * aq + bp * bq);
+		double den = sqrt(ap * ap + bp * bp) * sqrt(aq * aq + bq * bq);
 
+		return acos(num / den);
+	}
+
+	double RadiansToDegrees(double radians)
+	{
+		return radians * 180 / kPi;
+	}
+
+	sf::Vector2f Rotate(sf::Vector2f v, double angle)
+	{
+		return sf::Vector2f(v.x * cos(angle) - v.y * sin(angle), v.y * cos(angle) + v.x * sin(angle));
+	}
+
+	sf::Vector2f PointOfIntersectofTwoLines(sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f q1, sf::Vector2f q2)
+	{
+		double ap = p1.y - p2.y;
+		double bp = p2.x - p1.x;
+		double aq = q1.y - q2.y;
+		double bq = q2.x - q1.x;
+		double cp = p1.x * p2.y - p2.x * p1.y;
+		double cq = q1.x * q2.y - q2.x * q1.y;
+
+		double y = ((cq * ap) / aq - cp) / ((-bq * ap) / aq + bp);
+		double x = (-cq - bq * y) / aq;
+
+		//x = (bq * cp - bp * cq) / (aq * bp - ap * bq);
+		//y = (ap*cq - aq * cp) / (aq * bp - ap * bq);
+
+		return sf::Vector2f(x, y);
+	}
+
+	double GetPointPositionDependsOfLine(sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f q)
+	{
+		double a = p1.y - p2.y;
+		double b = p2.x - p1.x;
+		double c = p1.x * p2.y - p2.x * p1.y;
+
+		double res = a * q.x + b * q.y + c;
+
+		return res;
+	}
+
+	sf::Vector2f RotateSecondPointDependsFirstPoint(sf::Vector2f p, sf::Vector2f q, double angle)
+	{
+		sf::Vector2f trans_q = q-p; //сдвинули р в начало координат
+		sf::Vector2f rotated_q = Rotate(trans_q, angle);
+		sf::Vector2f result_q = rotated_q + p;
+		return result_q;
+	}
+
+	sf::Vector2f GetPerpendicular(sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f q)
+	{
+		double x1 = p1.x;
+		double x2 = p2.x;
+		double y1 = p1.y;
+		double y2 = p2.y;
+		double x3 = q.x;
+		double y3 = q.y;
+		double k = ((y2 - y1) * (x3 - x1) - (x2 - x1) * (y3 - y1)) / (pow((y2 - y1), 2) + pow((x2 - x1), 2));
+		double x4 = x3 - k * (y2 - y1);
+		double y4 = y3 + k * (x2 - x1);
+		return sf::Vector2f(x4, y4);
+	}
 }
