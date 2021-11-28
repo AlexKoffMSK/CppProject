@@ -26,11 +26,12 @@ namespace Physics
         {
             double fi = (double(rand()) / RAND_MAX) * (2 * GeometryFormulas::kPi);
             int radious = rand() % 50 + 10;
-            physics_of_objects.AddCircle(sf::Vector2f(rand() % (window.getSize().x - radious * 2) + radious, rand() % (window.getSize().y - radious * 2) + radious), radious, PolarToDecart(5, fi));
-            //physics_of_objects.AddCircle(sf::Vector2f(rand() % (window.getSize().x - radious * 2) + radious, rand() % (window.getSize().y - radious * 2) + radious), radious, PolarToDecart(5, -GeometryFormulas::kPi/4));
+            physics_of_objects.AddCircle(sf::Vector2f(rand() % (window.getSize().x - radious * 4) + radious*2, rand() % (window.getSize().y - radious * 4) + radious*2), radious, PolarToDecart(5, fi));
+            //physics_of_objects.AddCircle(sf::Vector2f(rand() % (window.getSize().x - radious * 2) + radious, rand() % (window.getSize().y - radious * 2) + radious), radious, PolarToDecart(0, -GeometryFormulas::kPi/4));
         }
 
-        physics_of_objects.AddWall(sf::Vector2f{ 500, 300 }, sf::Vector2f{ 500, 600 });
+        physics_of_objects.AddWall(sf::Vector2f{ kWidth/2, kHeight/2 }, sf::Vector2f{ kWidth/2, kHeight*0.8 });
+        //physics_of_objects.AddWall(sf::Vector2f{ kWidth/2, kHeight/2 }, sf::Vector2f{ kWidth/2, kHeight*0.95 });
 
         sf::Vector2f mouse_p;
 
@@ -55,6 +56,8 @@ namespace Physics
 
             window.clear();
             
+            std::cout << physics_of_objects.GetCirclesCountInsideField() << std::endl;
+
             for (int i = 0; i < physics_of_objects.GetCirclesCount(); ++i)
             {
                 window.draw(physics_of_objects.GetCircleShapeForDraw(i));

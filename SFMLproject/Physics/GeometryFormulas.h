@@ -3,6 +3,8 @@
 
 namespace GeometryFormulas
 {
+	const double kEps = 0.0000001;
+	
 	const double kPi = acos(-1);
 
 	double DistanceBetweenTwoPoints(sf::Vector2f point_1, sf::Vector2f point_2)
@@ -123,5 +125,69 @@ namespace GeometryFormulas
 		double x4 = x3 - k * (y2 - y1);
 		double y4 = y3 + k * (x2 - x1);
 		return sf::Vector2f(x4, y4);
+	}
+
+	bool IsPointOnSegment(sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f q)
+	{
+		if (p2.x == p1.x)
+		{
+			double t = (q.y - p1.y) / (p2.y - p1.y);
+			return (t >= 0 && t <= 1);
+		}
+		if (p2.y == p1.y)
+		{
+			double t = (q.x - p1.x) / (p2.x - p1.x);
+			return (t >= 0 && t <= 1);
+		}
+		
+		double t1 = (q.x - p1.x) / (p2.x - p1.x);
+		double t2 = (q.y - p1.y) / (p2.y - p1.y);
+
+		//std::cout << t1 << ' ' << t2 << ' ' << q.x << '/' << q.y << std::endl;
+
+		if (abs(t2 - t1) > kEps)
+		{
+			return false;
+		}
+
+		//return (abs(t2 - t1) <= kEps && (t1 >= 0 && t1 <= 1));
+
+		return (t1 >= 0 && t1 <= 1);
+	}
+
+	bool IsCircleIntersectSegment(sf::Vector2f centre_of_circle, double radious, sf::Vector2f p1, sf::Vector2f p2)
+	{
+		p1 = p1 - centre_of_circle;
+		p2 = p2 - centre_of_circle;
+		double a = p1.y - p2.y;
+		double b = p2.x - p1.x;
+		double c = p1.x * p2.y - p2.x * p1.y;
+		
+		double x0 = -a * c / (a * a + b * b); 
+		double y0 = -b * c / (a * a + b * b);
+
+		if (c * c > radious * radious * (a * a + b * b) + kEps)
+		{
+			//std::cout << '1' << std::endl;
+			return false;
+		}
+		else if (abs(c * c - radious * radious * (a * a + b * b)) < kEps) 
+		{
+			//std::cout << '2' << std::endl;
+			return IsPointOnSegment(p1,p2,sf::Vector2f(x0,y0));
+		}
+		else 
+		{
+			//std::cout << '3' << std::endl;
+
+			double d = radious * radious - c * c / (a * a + b * b);
+			double mult = sqrt(d / (a * a + b * b));
+			double ax, ay, bx, by;
+			ax = x0 + b * mult;
+			bx = x0 - b * mult;
+			ay = y0 - a * mult;
+			by = y0 + a * mult;
+			return IsPointOnSegment(p1,p2,sf::Vector2f(ax,ay)) || IsPointOnSegment(p1,p2,sf::Vector2f(bx,by));
+		}
 	}
 }

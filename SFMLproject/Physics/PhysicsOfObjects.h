@@ -70,10 +70,15 @@ namespace Physics
 		{
 			sf::Vector2f circ_center_new_pos = circ.GetNewPosition();
 
-			if (GeometryFormulas::IsCircleIntersectLine(circ_center_new_pos, circ._circle_shape.getRadius(), wall_p1, wall_p2))
+			if (GeometryFormulas::IsCircleIntersectSegment(circ_center_new_pos, circ._circle_shape.getRadius(), wall_p1, wall_p2))
 			{
 				circ._direction_of_move = GetReflectionVector(circ._circle_shape.getPosition(), circ_center_new_pos, wall_p1, wall_p2);
+				//circ._circle_shape.setFillColor(sf::Color::Green);
 			}
+			//else
+			//{
+			//	circ._circle_shape.setFillColor(sf::Color::Red);
+			//}
 		}
 
 	public:
@@ -127,6 +132,21 @@ namespace Physics
 			return _circles.size();
 		}
 
+		int GetCirclesCountInsideField()
+		{
+			int circles_count = 0;
+			for (Circle circ : _circles)
+			{
+				double x = circ.CentralPoint().x;
+				double y = circ.CentralPoint().y;
+				if (x >= 0 && x <= kWidth && y >= 0 && y <= kHeight)
+				{
+					circles_count++;
+				}
+			}
+			return circles_count;
+		}
+
 		int GetWallCount()
 		{
 			return _walls.size();
@@ -135,7 +155,8 @@ namespace Physics
 		void Action()
 		{
 			MoveCircles();
-			_walls[4]._wall_p2 = GeometryFormulas::RotateSecondPointDependsFirstPoint(_walls[4]._wall_p1, _walls[4]._wall_p2, 0.01);
+			_walls[4]._wall_p2 = GeometryFormulas::RotateSecondPointDependsFirstPoint(_walls[4]._wall_p1, _walls[4]._wall_p2, -0.01);
+			//_walls[5]._wall_p2 = GeometryFormulas::RotateSecondPointDependsFirstPoint(_walls[5]._wall_p1, _walls[5]._wall_p2, -0.010);
 		}
 
 		void SetCirclePosition(int index_of_circle, sf::Vector2f new_position)
