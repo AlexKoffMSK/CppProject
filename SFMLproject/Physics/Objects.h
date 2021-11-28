@@ -36,6 +36,11 @@ namespace Physics
 		{
 			_circle_shape.setPosition(_circle_shape.getPosition() + _direction_of_move);
 		}
+
+		void MoveByReverseDelta()
+		{
+			_circle_shape.setPosition(_circle_shape.getPosition() - _direction_of_move);
+		}
 	};
 
 	struct Wall

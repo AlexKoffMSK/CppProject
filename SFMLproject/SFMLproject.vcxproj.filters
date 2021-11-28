@@ -74,5 +74,8 @@
     <ClInclude Include="Physics\GeometryFormulas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Physics\PhysicsOfObjectsPolymorphism.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

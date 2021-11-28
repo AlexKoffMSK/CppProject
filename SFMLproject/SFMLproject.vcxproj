@@ -193,6 +193,7 @@
     <ClInclude Include="Physics\GeometryFormulas.h" />
     <ClInclude Include="Physics\Objects.h" />
     <ClInclude Include="Physics\PhysicsOfObjects.h" />
+    <ClInclude Include="Physics\PhysicsOfObjectsPolymorphism.h" />
     <ClInclude Include="Snake.h" />
     <ClInclude Include="SortsVisualisation\BubbleSort.h" />
     <ClInclude Include="SortsVisualisation\CountingSort.h" />
