@@ -12,10 +12,23 @@ namespace Polymorphism
 	public:
 		virtual double Area()
 		{
-			return 0;
+			return 0; //реализация по умолчанию. Наследники могут и не переопределять ее реализацию
 		}
 		virtual ~Shape() = default;
 	};
+
+	//Класс, у которого есть чистая функция (=0), называется абстрактным
+	class Shape1
+	{
+	private:
+
+	protected:
+
+	public:
+		virtual double Area() = 0; //это называется чистая виртуальная функция - pure virtual function. 
+		virtual ~Shape1() = default;
+	};
+
 
 	class Rectangle :public Shape //использует публичное наследование. 
 	//Приватные поля базового класса недоступны (всегда).

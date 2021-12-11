@@ -48,6 +48,7 @@
 #include "EnumExamples.h"
 #include "Hash/HashTableVector.h"
 #include "Polymorphism/PolymorphismBasic.h"
+#include "Polymorphism/DynamicCast.h"
 #include "PointersAndReferences.h"
 #include "ChronoTime.h"
 #include "Polymorphism/SimplePatternStrategy.h"
@@ -57,6 +58,11 @@
 #include "Iterators.h"
 #include "Templates.h"
 #include "Hash/HashTableOpenAddress.h"
+#include "VariadicTemplates.h"
+#include "MoveSemantics/LvalueRvalue.h"
+#include "MoveSemantics/MoveSemanticsClass.h"
+#include "SmartPointers/UniquePtr.h"
+
 
 using namespace std;
 
@@ -1202,6 +1208,19 @@ int main(int argc, char* argv[])
 	//Templates::Test3();
 	//Templates::Test7();
 
+	//Polymorphism::Test777();
+	
+	//VariadicTemplate::Test1();
+
+	//MoveSemantics::Test3();
+	//std::cout << "================" << std::endl;
+	//MoveSemantics::Test4();
+	//std::cout << "================" << std::endl;
+	//MoveSemantics::Test5();
+
+	//MoveSemantics::Test100();
+
+
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
 }
@@ -1244,6 +1263,25 @@ int main(int argc, char* argv[])
 - красно-черное дерево и много других клевых структур!!
 +- Многопоточность, параллельные вычисления
 +- шаблоны
+
++- переменное число параметров в функции (реализуется через шаблон)
+	
+- абстрактный класс - Класс, у которого есть чистая функция (=0), называется абстрактным
+- интерфейс - иногда это просто абстрактный класс или класс, у которого все функции чистые
+
++- rvalue lvalue
++- move-семантика
++- умные указатели
++- идеальная передача
+
+- таблица виртуальных методов и функций
+- виртуальный деструктор
+- виртуальный конструктор
+- виртуальное наследование
+
+- как умножить разделить на два битовыми операциями - маска?
+
+- mutable mutex симафор
 
 Важное про структурирование данных:
 Если неважна отсортированность: 

@@ -46,5 +46,6 @@ int main()
 	//MakeVecForSorts();
 	//LinRegPlot::TestLinReg();
 	//LinRegPlot::TestPrice();
+	//srand(time(0));
 	Physics::Drawer();
 }

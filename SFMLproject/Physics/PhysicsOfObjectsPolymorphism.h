@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <memory>
 #include "Objects.h"
 
 namespace Physics
@@ -12,49 +13,101 @@ namespace Physics
 	class PhysicsOfObjects
 	{
 	private:
-		std::vector<Circle> _circles;
-		std::vector<Wall> _walls;
+		//std::vector<std::unique_ptr<Object>> _objects;
+		std::vector<Object*> _objects;
 
-		int FindIndexOfIntersectableCircle(Circle& circ)
+		void MoveObjects()
 		{
-			for (int i = 0; i < _circles.size(); ++i)
+			for (Object* object : _objects)
 			{
-				if (IsCirclesIntersect(circ, _circles[i]) && (&circ != &_circles[i]))
+				object->MoveByDelta();
+
+				Object* intersectable_object = AreObjectsIntersectsObjects(object);
+
+				if (intersectable_object == nullptr)
 				{
-					return i;
+					continue;
 				}
+
+				object->MoveByReversedDelta();
+
+				if (dynamic_cast<Circle*>(object))
+				{
+					if (dynamic_cast<Circle*>(intersectable_object))
+					{
+						//круг наткнулся на круг
+						CheckCircleIntersectsCircleAndSetDirection(dynamic_cast<Circle*>(object), dynamic_cast<Circle*>(intersectable_object));
+					}
+					else if (dynamic_cast<Wall*>(intersectable_object))
+					{
+						//круг наткнулся на стену
+						CheckIntersectionWithWallAndSetDirection(dynamic_cast<Circle*>(object), dynamic_cast<Wall*>(intersectable_object)->_wall_p1, dynamic_cast<Wall*>(intersectable_object)->_wall_p2);
+					}
+				}
+				else if (dynamic_cast<Wall*>(object))
+				{
+					if (dynamic_cast<Circle*>(intersectable_object))
+					{
+						//если стена наткнулась на круг
+						intersectable_object->_direction_of_move.x = object->_direction_of_move.x*1.5;
+						intersectable_object->_direction_of_move.y = object->_direction_of_move.y*1.5;
+					}
+					else if (dynamic_cast<Wall*>(intersectable_object))
+					{
+					}
+				}
+
+				//object->MoveByDelta();
+				//
+				//Object* intersectable_object = AreObjectsIntersectsObjects(object);
+				//
+				//if (intersectable_object == nullptr)
+				//{
+				//	continue;
+				//}
+
+				//CheckIntersectionWithCirclesAndSetDirection(circ);
+				
+				//for (Wall wall : _walls)
+				//{
+				//	CheckIntersectionWithWallAndSetDirection(circ, wall._wall_p1, wall._wall_p2);
+				//}
+				//
+				//circ.MoveByDelta();
+				//
+				//if (IsCircleIntersectAnything(circ))
+				//{
+				//	circ.MoveByReverseDelta();
+				//}
 			}
-			return -1;
 		}
 
-		int FindIndexOfIntersectableWall(Circle& circ)
+		bool AreObjectsIntersects(Object* object1, Object* object2)
 		{
-			for (int i = 0; i < _walls.size(); ++i)
+			if (object1 == object2)
 			{
-				if (GeometryFormulas::IsCircleIntersectSegment(circ.CentralPoint(),circ._circle_shape.getRadius(),_walls[i]._wall_p1, _walls[i]._wall_p2))
+				return false;
+			}
+			if (dynamic_cast<Circle*>(object1))
+			{
+				if (dynamic_cast<Circle*>(object2))
 				{
-					return i;
+					return IsCirclesIntersect(dynamic_cast<Circle*>(object1), dynamic_cast<Circle*>(object2));
+				}
+				else if (dynamic_cast<Wall*>(object2))
+				{
+					return GeometryFormulas::IsCircleIntersectSegment(object1->CentralPoint(), dynamic_cast<Circle*>(object1)->_circle_shape.getRadius(), dynamic_cast<Wall*>(object2)->_wall_p1, dynamic_cast<Wall*>(object2)->_wall_p2);
 				}
 			}
-			return -1;
-		}
-
-		void MoveCircles()
-		{
-			for (Circle& circ : _circles)
+			else if (dynamic_cast<Wall*>(object1))
 			{
-				CheckIntersectionWithCirclesAndSetDirection(circ);
-				
-				for (Wall wall : _walls)
+				if (dynamic_cast<Circle*>(object2))
 				{
-					CheckIntersectionWithWallAndSetDirection(circ, wall._wall_p1, wall._wall_p2);
+					return GeometryFormulas::IsCircleIntersectSegment(object2->CentralPoint(), dynamic_cast<Circle*>(object2)->_circle_shape.getRadius(), dynamic_cast<Wall*>(object1)->_wall_p1, dynamic_cast<Wall*>(object1)->_wall_p2);
 				}
-				
-				circ.MoveByDelta();
-				
-				if (IsCircleIntersectAnything(circ))
+				else if (dynamic_cast<Wall*>(object2))
 				{
-					circ.MoveByReverseDelta();
+					return false;
 				}
 			}
 		}
@@ -85,36 +138,48 @@ namespace Physics
 			}
 		}
 
-		void CheckIntersectionWithWallAndSetDirection(Circle& circ, sf::Vector2f wall_p1, sf::Vector2f wall_p2)
+		void CheckIntersectionWithWallAndSetDirection(Circle* circ, sf::Vector2f wall_p1, sf::Vector2f wall_p2)
 		{
-			sf::Vector2f circ_center_new_pos = circ.GetNewPosition();
+			sf::Vector2f new_position = circ->CentralPoint() + circ->_direction_of_move;
 
-			if (GeometryFormulas::IsCircleIntersectSegment(circ_center_new_pos, circ._circle_shape.getRadius(), wall_p1, wall_p2))
+			if (GeometryFormulas::IsCircleIntersectSegment(new_position, circ->_circle_shape.getRadius(), wall_p1, wall_p2))
 			{
-				circ._direction_of_move = GetReflectionVector(circ._circle_shape.getPosition(), circ_center_new_pos, wall_p1, wall_p2);
-				//circ._circle_shape.setFillColor(sf::Color::Green);
+				circ->_direction_of_move = GetReflectionVector(circ->_circle_shape.getPosition(), new_position, wall_p1, wall_p2);
+				//circ->_circle_shape.setFillColor(sf::Color::Green);
 			}
 			//else
 			//{
-			//	circ._circle_shape.setFillColor(sf::Color::Red);
+			//	circ->_circle_shape.setFillColor(sf::Color::Red);
 			//}
 		}
 
-		void CheckIntersectionWithCirclesAndSetDirection(Circle& circ)
+		void CheckCircleIntersectsCircleAndSetDirection(Circle* circ1, Circle* circ2)
 		{
-			Circle new_circle = circ;
-			new_circle.MoveByDelta();
+			float t = circ1->_circle_shape.getRadius() / (circ1->_circle_shape.getRadius() + circ2->_circle_shape.getRadius());
+			float x0 = circ1->_circle_shape.getPosition().x + t * float(circ2->_circle_shape.getPosition().x - circ1->_circle_shape.getPosition().x);
+			float y0 = circ1->_circle_shape.getPosition().y + t * float(circ2->_circle_shape.getPosition().y - circ1->_circle_shape.getPosition().y);
+			float a = circ1->_circle_shape.getPosition().y - circ2->_circle_shape.getPosition().y;
+			float b = circ2->_circle_shape.getPosition().x - circ1->_circle_shape.getPosition().x;
+			
+			sf::Vector2f wall_p1(x0 - 2 * a, (y0 - 2 * b));
+			sf::Vector2f wall_p2(x0 + 2 * a, (y0 + 2 * b));
 
-			int index_of_intersectable_circle = FindIndexOfIntersectableCircle(new_circle);
-			if (index_of_intersectable_circle != -1)
-			{
-				std::swap(circ._direction_of_move, _circles[index_of_intersectable_circle]._direction_of_move);
-			}
+			CheckIntersectionWithWallAndSetDirection(circ1, wall_p1, wall_p2);
+			CheckIntersectionWithWallAndSetDirection(circ2, wall_p1, wall_p2);
+
 		}
 
-		bool IsCircleIntersectAnything(Circle& circ)
+		Object* AreObjectsIntersectsObjects(Object* object)
 		{
-			return (FindIndexOfIntersectableWall(circ) != -1 || FindIndexOfIntersectableCircle(circ) != -1);
+			
+			for (Object* object_inters : _objects)
+			{
+				if (AreObjectsIntersects(object, object_inters))
+				{
+					return object_inters;
+				}
+			}
+			return nullptr;
 		}
 
 	public:
@@ -129,76 +194,40 @@ namespace Physics
 
 		void AddCircle(sf::Vector2f position, double radious, sf::Vector2f direction_of_move)
 		{
-			Circle circle{ sf::CircleShape(radious),direction_of_move };
-			circle._circle_shape.setFillColor(sf::Color(rand() % 255, rand() % 255, rand() % 255, rand() % 100+155));
-			circle._circle_shape.setPosition(position);
+			Circle* circle = new Circle( sf::CircleShape(radious),direction_of_move );
+			circle->_circle_shape.setPosition(position);
 
-			if (FindIndexOfIntersectableCircle(circle) == -1)
+			if (AreObjectsIntersectsObjects(circle) == nullptr)
 			{
-				_circles.push_back(circle);
+				circle->_circle_shape.setFillColor(sf::Color(rand() % 255, rand() % 255, rand() % 255, rand() % 100 + 155));
+				_objects.push_back(circle);
 			}
 		}
 
-		void AddWall(sf::Vector2f wall_p1, sf::Vector2f wall_p2)
+		void AddWall(sf::Vector2f wall_p1, sf::Vector2f wall_p2, sf::Vector2f direction_of_move = sf::Vector2f(0,0))
 		{
-			_walls.push_back(Wall{ wall_p1, wall_p2 });
+			Wall* new_wall = new Wall(wall_p1, wall_p2);
+
+			if (AreObjectsIntersectsObjects(new_wall) == nullptr)
+			{
+				new_wall->_direction_of_move = direction_of_move;
+				_objects.push_back(new_wall);
+			}
 		}
 		
-		//void RemoveCircle()
-
-		sf::CircleShape GetCircleShapeForDraw(int index_of_circle)
-		{
-			return _circles[index_of_circle].GetCircleShapeForDraw();
-		}
-
-		sf::VertexArray GetWallShapeForDraw(int index_of_wall)
-		{
-			sf::VertexArray line(sf::LinesStrip, 2);
-
-			line[0].position.x = _walls[index_of_wall]._wall_p1.x;
-			line[0].position.y = kHeight - _walls[index_of_wall]._wall_p1.y;
-
-			line[1].position.x = _walls[index_of_wall]._wall_p2.x;
-			line[1].position.y = kHeight - _walls[index_of_wall]._wall_p2.y;
-
-			return line;
-		}
-
-		int GetCirclesCount()
-		{
-			return _circles.size();
-		}
-
-		int GetCirclesCountInsideField()
-		{
-			int circles_count = 0;
-			for (Circle circ : _circles)
-			{
-				double x = circ.CentralPoint().x;
-				double y = circ.CentralPoint().y;
-				if (x >= 0 && x <= kWidth && y >= 0 && y <= kHeight)
-				{
-					circles_count++;
-				}
-			}
-			return circles_count;
-		}
-
-		int GetWallCount()
-		{
-			return _walls.size();
-		}
-
 		void Action()
 		{
-			MoveCircles();
-			//_walls[4]._wall_p2 = GeometryFormulas::RotateSecondPointDependsFirstPoint(_walls[4]._wall_p1, _walls[4]._wall_p2, -0.01);
+			MoveObjects();
+			//dynamic_cast<Wall*>(_objects[4])->_wall_p2 = GeometryFormulas::RotateSecondPointDependsFirstPoint(dynamic_cast<Wall*>(_objects[4])->_wall_p1, dynamic_cast<Wall*>(_objects[4])->_wall_p2, -0.01);
 			//_walls[5]._wall_p2 = GeometryFormulas::RotateSecondPointDependsFirstPoint(_walls[5]._wall_p1, _walls[5]._wall_p2, -0.010);
 		}
 
-		void SetCirclePosition(int index_of_circle, sf::Vector2f new_position)
+		void DrawAll(sf::RenderWindow& window)
 		{
-			_circles[index_of_circle]._circle_shape.setPosition(new_position);
+			for (Object* object : _objects)
+			{
+				object->Draw(window);
+			}
 		}
 	};
 

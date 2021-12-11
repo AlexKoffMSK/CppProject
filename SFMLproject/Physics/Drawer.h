@@ -1,11 +1,15 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "PhysicsOfObjects.h"
+#include "PhysicsOfObjectsPolymorphism.h"
 
 namespace Physics
 {
-    
+    //столкновение с неполным перекрытием - ломалось, когда они встречались по касательной
+    //вернуть через полиморфизм логику столкновения и пересечения
+    //
+
     const int kCountOfCircles = 100;
+    const int kCountOfWalls = 0;
 
     sf::Vector2f PolarToDecart(int radious, double angle_fi)
     {
@@ -22,9 +26,17 @@ namespace Physics
 
         PhysicsOfObjects physics_of_objects;
 
-        physics_of_objects.AddCircle(sf::Vector2f(100,500),30,sf::Vector2f(1,-1));
-        physics_of_objects.AddCircle(sf::Vector2f(480,200),30,sf::Vector2f(-1,1));
+        //physics_of_objects.AddCircle(sf::Vector2f(100,500),30,sf::Vector2f(1,-1));
+        //physics_of_objects.AddCircle(sf::Vector2f(480,200),30,sf::Vector2f(-1,1));
+
+        //physics_of_objects.AddCircle(sf::Vector2f(100, 100), 30, sf::Vector2f(2, 0.01));
+        //physics_of_objects.AddCircle(sf::Vector2f(500, 100), 30, sf::Vector2f(-1, 0.01));
+
+        //physics_of_objects.AddCircle(sf::Vector2f(kWidth / 3, kHeight / 2),30,sf::Vector2f(-5,0.01));
         
+
+        physics_of_objects.AddWall(sf::Vector2f{ kWidth / 2, kHeight / 7 }, sf::Vector2f{ kWidth / 2, kHeight / 2 },sf::Vector2f(0,0));
+
         for (int i = 0; i < kCountOfCircles; ++i)
         {
             double fi = (double(rand()) / RAND_MAX) * (2 * GeometryFormulas::kPi);
@@ -33,8 +45,13 @@ namespace Physics
             //physics_of_objects.AddCircle(sf::Vector2f(rand() % (window.getSize().x - radious * 2) + radious, rand() % (window.getSize().y - radious * 2) + radious), radious, PolarToDecart(0, -GeometryFormulas::kPi/4));
         }
 
-        //physics_of_objects.AddWall(sf::Vector2f{ kWidth/2, kHeight/2 }, sf::Vector2f{ kWidth/2, kHeight*0.8 });
-        //physics_of_objects.AddWall(sf::Vector2f{ kWidth/2, kHeight/2 }, sf::Vector2f{ kWidth/2, kHeight*0.95 });
+        for (int i = 0; i < kCountOfWalls; ++i)
+        {
+            double fi = (double(rand()) / RAND_MAX) * (2 * GeometryFormulas::kPi);
+            physics_of_objects.AddWall(sf::Vector2f{ float(rand() % window.getSize().x), float(rand() % window.getSize().y) }, sf::Vector2f{ float(rand() % window.getSize().x), float(rand() % window.getSize().y) }, PolarToDecart(5, fi));
+        }
+        
+        //physics_of_objects.AddWall(sf::Vector2f{ 100, 300 }, sf::Vector2f{ 400, 200 },sf::Vector2f(0,0));
 
         sf::Vector2f mouse_p;
 
@@ -59,16 +76,36 @@ namespace Physics
 
             window.clear();
             
-            //std::cout << physics_of_objects.GetCirclesCountInsideField() << std::endl;
+            physics_of_objects.DrawAll(window);
 
-            for (int i = 0; i < physics_of_objects.GetCirclesCount(); ++i)
-            {
-                window.draw(physics_of_objects.GetCircleShapeForDraw(i));
-            }
-            for (int i = 0; i < physics_of_objects.GetWallCount(); ++i)
-            {
-                window.draw(physics_of_objects.GetWallShapeForDraw(i));
-            }
+            //sf::CircleShape csh = n_circ->_circle_shape;
+            //csh.setPosition(sf::Vector2f(csh.getPosition().x, kHeight - csh.getPosition().y));
+            //window.draw(csh);
+            //
+            //sf::CircleShape csh2 = n_circ2->_circle_shape;
+            //csh2.setPosition(sf::Vector2f(csh2.getPosition().x, kHeight - csh2.getPosition().y));
+            //window.draw(csh2);
+            //
+            //float t = n_circ->_circle_shape.getRadius() / (n_circ->_circle_shape.getRadius() + n_circ2->_circle_shape.getRadius());
+            ////float t = 0.7;
+            //float x0 = n_circ->_circle_shape.getPosition().x + t * float(n_circ2->_circle_shape.getPosition().x - n_circ->_circle_shape.getPosition().x);
+            //float y0 = n_circ->_circle_shape.getPosition().y + t * float(n_circ2->_circle_shape.getPosition().y - n_circ->_circle_shape.getPosition().y);
+            ////physics_of_objects.AddCircle(sf::Vector2f(x0, y0), 10, PolarToDecart(0, 0));
+            //float a = n_circ->_circle_shape.getPosition().y - n_circ2->_circle_shape.getPosition().y;
+            //float b = n_circ2->_circle_shape.getPosition().x - n_circ->_circle_shape.getPosition().x;
+            //
+            //sf::VertexArray lines1(sf::LinesStrip, 2);
+            //lines1[0].position.x = x0 - 2 * a;
+            //lines1[0].position.y = kHeight - (y0 - 2 * b);
+            //lines1[1].position.x = x0 + 2 * a;
+            //lines1[1].position.y = kHeight - (y0 + 2 * b);
+            //window.draw(lines1);
+
+            //sf::CircleShape csh3 = n_circ2->_circle_shape;
+            //csh3.setPosition(sf::Vector2f(x0, kHeight - y0));
+            //window.draw(csh3);
+
+            //physics_of_objects.AddWall(sf::Vector2f{ x0-2*a, y0-2*b }, sf::Vector2f{ x0 + 2 * a, y0 + 2 * b },sf::Vector2f(0,0));
 
             /*
             sf::VertexArray lines1(sf::LinesStrip, 2);
@@ -132,6 +169,7 @@ namespace Physics
             }
             */
             window.display();
+
             std::this_thread::sleep_for(std::chrono::microseconds(10));
         }
 	}

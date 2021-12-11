@@ -149,9 +149,10 @@ void print_without_spaces(string str)
 	cout << get_without_spaces(str) << endl;
 }
 
-template <class T> void print_vector(vector<T> arr)
+template <class T> void print_vector(const vector<T>& arr, std::string prefix = "")
 {
-	for (T elem : arr)
+	std::cout << prefix;
+	for (const T& elem : arr)
 	{
 		cout << setw(2) << elem << ' ';
 	}

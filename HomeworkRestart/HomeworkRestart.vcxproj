@@ -120,7 +120,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
@@ -193,6 +193,8 @@
     <ClInclude Include="MapStdExamples.h" />
     <ClInclude Include="GameMatrix\GameMatrix.h" />
     <ClInclude Include="MaxMinSearchFunctions.h" />
+    <ClInclude Include="MoveSemantics\LvalueRvalue.h" />
+    <ClInclude Include="MoveSemantics\MoveSemanticsClass.h" />
     <ClInclude Include="Network\Client.h" />
     <ClInclude Include="Network\Server.h" />
     <ClInclude Include="Network\Test.h" />
@@ -202,6 +204,7 @@
     <ClInclude Include="ParallelThreads\RingBufferTest.h" />
     <ClInclude Include="Pointers.h" />
     <ClInclude Include="PointersAndReferences.h" />
+    <ClInclude Include="Polymorphism\DynamicCast.h" />
     <ClInclude Include="Polymorphism\PolymorphismBasic.h" />
     <ClInclude Include="Polymorphism\SimplePatternStrategy.h" />
     <ClInclude Include="Recusrion.h" />
@@ -209,10 +212,12 @@
     <ClInclude Include="ServiceClasess.h" />
     <ClInclude Include="SetStdExamples.h" />
     <ClInclude Include="SHA256 from GitHub\SHA256-GitHub.h" />
+    <ClInclude Include="SmartPointers\UniquePtr.h" />
     <ClInclude Include="Sorts.h" />
     <ClInclude Include="Structures.h" />
     <ClInclude Include="Classes\VectorWithinEvens.h" />
     <ClInclude Include="Templates.h" />
+    <ClInclude Include="VariadicTemplates.h" />
     <ClInclude Include="WorkWithBinaryFiles.h" />
     <ClInclude Include="WorkWithTextFiles.h" />
   </ItemGroup>

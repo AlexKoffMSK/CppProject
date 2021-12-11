@@ -54,7 +54,7 @@ namespace Physics
 				
 				if (IsCircleIntersectAnything(circ))
 				{
-					circ.MoveByReverseDelta();
+					circ.MoveByReversedDelta();
 				}
 			}
 		}
