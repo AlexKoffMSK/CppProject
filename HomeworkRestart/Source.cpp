@@ -60,8 +60,10 @@
 #include "Hash/HashTableOpenAddress.h"
 #include "VariadicTemplates.h"
 #include "MoveSemantics/LvalueRvalue.h"
-#include "MoveSemantics/MoveSemanticsClass.h"
-#include "SmartPointers/UniquePtr.h"
+//#include "MoveSemantics/MoveSemanticsClass.h"
+//#include "SmartPointers/UniquePtr.h"
+#include "SmartPointers/SharedPtr.h"
+#include "MoveSemantics/PerfectForwarding.h"
 
 
 using namespace std;
@@ -1220,6 +1222,9 @@ int main(int argc, char* argv[])
 
 	//MoveSemantics::Test100();
 
+	//PerfectForwarding::Test2();
+	SmartPointers::TestSharedPointer();
+
 
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
@@ -1266,13 +1271,13 @@ int main(int argc, char* argv[])
 
 +- переменное число параметров в функции (реализуется через шаблон)
 	
-- абстрактный класс - Класс, у которого есть чистая функция (=0), называется абстрактным
-- интерфейс - иногда это просто абстрактный класс или класс, у которого все функции чистые
++ абстрактный класс - Класс, у которого есть чистая функция (=0), называется абстрактным
++ интерфейс - иногда это просто абстрактный класс или класс, у которого все функции чистые
 
-+- rvalue lvalue
-+- move-семантика
-+- умные указатели
-+- идеальная передача
+++ rvalue lvalue
+++ move-семантика
+++ умные указатели
+++ идеальная передача
 
 - таблица виртуальных методов и функций
 - виртуальный деструктор

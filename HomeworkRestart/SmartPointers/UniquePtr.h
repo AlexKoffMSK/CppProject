@@ -131,10 +131,69 @@ namespace SmartPointers
 			_arr = std::move(parametr._arr);
 		}
 	};
+	
+	/*=============================================================================*/
 
+	template <typename T>
+	class UniquePointer
+	{
+		T* _data = nullptr;
 
+	public:
 
+		UniquePointer() = default;
 
+		UniquePointer(T* data_)
+		{
+			_data = data_;
+			std::cout << "Constr with param " << _data << std::endl;
+		}
+
+		~UniquePointer()
+		{
+			std::cout << "Destr " << _data << std::endl;
+			if (_data != nullptr)
+			{
+				delete _data;
+			}
+		}
+
+		void operator=(const UniquePointer& other) = delete;
+
+		void operator=(UniquePointer&& other)
+		{
+			std::cout << "Move  " << other._data << " To " << _data << std::endl;
+			if (!IsEmpty())
+			{
+				std::cout << "Delete " << _data << std::endl;
+				delete _data; //delete отдает операционной системе память, куда указывает указатель _data. Сам указатель _data продолжает на нее смотреть.
+			}
+			_data = other._data;
+			other._data = nullptr;
+		}
+		
+		bool IsEmpty()
+		{
+			return _data == nullptr;
+		}
+	};
+
+	void TestUniquePointer()
+	{
+		if (true)
+		{
+			UniquePointer up(new int);
+		}
+		UniquePointer up1(new int);
+		UniquePointer up2(new int);
+		UniquePointer<double> up3;
+		//up2 = up1;
+		assert(!up2.IsEmpty());
+		assert(!up1.IsEmpty());
+		up2 = std::move(up1);
+		assert(up1.IsEmpty());
+		assert(!up2.IsEmpty());
+	}
 
 
 

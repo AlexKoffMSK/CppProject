@@ -195,6 +195,7 @@
     <ClInclude Include="MaxMinSearchFunctions.h" />
     <ClInclude Include="MoveSemantics\LvalueRvalue.h" />
     <ClInclude Include="MoveSemantics\MoveSemanticsClass.h" />
+    <ClInclude Include="MoveSemantics\PerfectForwarding.h" />
     <ClInclude Include="Network\Client.h" />
     <ClInclude Include="Network\Server.h" />
     <ClInclude Include="Network\Test.h" />
@@ -212,6 +213,7 @@
     <ClInclude Include="ServiceClasess.h" />
     <ClInclude Include="SetStdExamples.h" />
     <ClInclude Include="SHA256 from GitHub\SHA256-GitHub.h" />
+    <ClInclude Include="SmartPointers\SharedPtr.h" />
     <ClInclude Include="SmartPointers\UniquePtr.h" />
     <ClInclude Include="Sorts.h" />
     <ClInclude Include="Structures.h" />

@@ -135,8 +135,8 @@ namespace MoveSemantics
 		Test10(5);
 	}
 
-
-
+	
+	
 
 
 
