@@ -64,6 +64,7 @@
 //#include "SmartPointers/UniquePtr.h"
 #include "SmartPointers/SharedPtr.h"
 #include "MoveSemantics/PerfectForwarding.h"
+#include "BitOperations/BitOperationsBasic.h"
 
 
 using namespace std;
@@ -1104,9 +1105,9 @@ void f41()
 
 #pragma endregion
 
-int main(int argc, char* argv[]) 
 //первый аргумент - это то, сколько аргументов в функцию мы передали argc - arguments count
 //второй аргумент - это массив указателей на строки, указатель на массив строк
+int main(int argc, char* argv[]) 
 {
 	//Console.SetConsolePositionAndSize(10, 10, 900, 1400);
 
@@ -1223,8 +1224,8 @@ int main(int argc, char* argv[])
 	//MoveSemantics::Test100();
 
 	//PerfectForwarding::Test2();
-	SmartPointers::TestSharedPointer();
-
+	//SmartPointers::TestSharedPointer();
+BitOperationsBasic::TestSetBits();
 
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
@@ -1285,6 +1286,7 @@ int main(int argc, char* argv[])
 - виртуальное наследование
 
 - как умножить разделить на два битовыми операциями - маска?
+- битовые операции
 
 - mutable mutex симафор
 

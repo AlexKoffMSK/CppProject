@@ -239,6 +239,12 @@
     <ClInclude Include="SmartPointers\SharedPtr.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="BitOperations\BitOperationsBasic.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="BitOperations\PropertiesByBitOperations.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Bitmap.bmp">
