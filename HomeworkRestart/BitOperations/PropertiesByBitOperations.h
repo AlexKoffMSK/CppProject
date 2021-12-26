@@ -129,11 +129,9 @@ namespace PropertiesByBitOperations
 	{
 		if (op._properties == op1._properties)
 		{
-
 		}
 		else
 		{
-
 		}
 	}
 
@@ -145,5 +143,11 @@ namespace PropertiesByBitOperations
 		else if (op._properties == kAll)
 		{
 		}
+	}
+
+	void Test5(ObjectPropertiesByBits op)
+	{
+		op._properties |= (kBig | kFast); // |= поднимает единицы, которые указаны справа в переменной, которая указана слева, не трогая остальные биты
+		op._properties = (kBig | kFast); //   = перетирает всё и делает так, что в _properties становится значение только kBig | kFast (0000 0101). Это аналог a=13 
 	}
 }

@@ -245,6 +245,15 @@
     <ClInclude Include="BitOperations\PropertiesByBitOperations.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Union.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\DataFromInternet.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="BinanceDataAPI\DataFromInternet.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Bitmap.bmp">
@@ -273,5 +282,8 @@
       <Filter>Файлы ресурсов</Filter>
     </None>
     <None Include="GameMatrix\Levels\Level1_settings.json" />
+    <None Include="BinanceDataAPI\avgPrice.json" />
+    <None Include="BinanceDataAPI\curl.exe" />
+    <None Include="BinanceDataAPI\klines.json" />
   </ItemGroup>
 </Project>

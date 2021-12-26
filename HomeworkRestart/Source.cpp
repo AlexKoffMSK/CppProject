@@ -65,6 +65,8 @@
 #include "SmartPointers/SharedPtr.h"
 #include "MoveSemantics/PerfectForwarding.h"
 #include "BitOperations/BitOperationsBasic.h"
+#include "Union.h"
+#include "BinanceDataAPI/DataFromInternet.h"
 
 
 using namespace std;
@@ -1225,7 +1227,11 @@ int main(int argc, char* argv[])
 
 	//PerfectForwarding::Test2();
 	//SmartPointers::TestSharedPointer();
-BitOperationsBasic::TestSetBits();
+	//BitOperationsBasic::TestSetBits();
+
+	//Union::Test6();
+
+	Binance::Test();
 
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
