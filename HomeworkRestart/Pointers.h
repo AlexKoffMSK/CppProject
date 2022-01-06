@@ -304,4 +304,21 @@ namespace Pointers
 		}
 		return pointer_of_min_elem;
 	}
+
+	//пример передачи в функцию указателя и ссылки
+	void Test666(std::vector<int>& vec, std::vector<int>* vec1)
+	{
+		int a = 5;
+		int* b = &a;
+		int arr[10];
+		int* c = arr;
+		//c[4] = 8;
+		//arr[11] = 8;
+		c[21] = 8;
+		int* d = &arr[0];
+		b[5] = 3;
+
+		vec[1];
+		*(vec1 + 1);
+	}
 }

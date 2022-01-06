@@ -116,6 +116,8 @@ namespace Polymorphism
 		Shape sh;
 		Rectangle rect(10,20);
 		Circle circ(1);
+		Circle circ1(5);
+		RightTriangle rt1(2, 5);
 
 		A1(sh);		   //0
 		A1(rect);	   //0
