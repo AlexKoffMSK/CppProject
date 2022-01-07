@@ -67,6 +67,7 @@
 #include "BitOperations/BitOperationsBasic.h"
 #include "Union.h"
 #include "BinanceDataAPI/DataFromInternet.h"
+#include "LambdaFunctions.h"
 
 
 using namespace std;
@@ -1213,7 +1214,7 @@ int main(int argc, char* argv[])
 	//Templates::Test3();
 	//Templates::Test7();
 
-	Polymorphism::Test1();
+	//Polymorphism::Test1();
 	
 	//VariadicTemplate::Test1();
 
@@ -1232,6 +1233,8 @@ int main(int argc, char* argv[])
 	//Union::Test6();
 
 	//Binance::Test();
+
+	LambdaFunctions::Test6();
 
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
@@ -1271,7 +1274,7 @@ int main(int argc, char* argv[])
 - вектор
 - стринга
 - стек, очередь через список
-- написать MachineLearning
+- написать MachineLearning NeuralNet AI
 - красно-черное дерево и много других клевых структур!!
 +- Многопоточность, параллельные вычисления
 +- шаблоны
@@ -1291,10 +1294,14 @@ int main(int argc, char* argv[])
 - виртуальный деструктор
 - виртуальное наследование
 
-+ как умножить разделить на два битовыми операциями
-+ битовые операции
+- лямбда-функции
+- исключения
+- алгоритмы стандартной библиотеки
 
 - mutable mutex симафор
+
++ как умножить разделить на два битовыми операциями
++ битовые операции
 
 Важное про структурирование данных:
 Если неважна отсортированность: 
@@ -1321,7 +1328,10 @@ int main(int argc, char* argv[])
 
 */
 
-//https://github.com/AlexKoffMSK/CppProject.git
-//git@github.com:AlexKoffMSK/CppProject.git
+/*
+// https://github.com/AlexKoffMSK/CppProject.git
+// git@github.com:AlexKoffMSK/CppProject.git
+// https://miro.com/app/board/o9J_lFH_iBs=/
+*/
 
 //ReSharper C++

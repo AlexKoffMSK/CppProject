@@ -190,6 +190,7 @@
     <ClInclude Include="Iterators.h" />
     <ClInclude Include="Json\json11.hpp" />
     <ClInclude Include="Json\JsonTests.h" />
+    <ClInclude Include="LambdaFunctions.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="List1.h" />
     <ClInclude Include="List2.h" />

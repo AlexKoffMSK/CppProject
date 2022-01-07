@@ -254,6 +254,9 @@
     <ClInclude Include="BinanceDataAPI\DataFromInternet.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="LambdaFunctions.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Bitmap.bmp">
