@@ -69,8 +69,17 @@ namespace LambdaFunctions
 		}
 	}
 
+#define Endl std::endl;
+#define Print(a) std::cout << a << ' ' << __FILE__ << ' ' << __LINE__ << Endl;
+#define PrintVariableName(a) std::cout << #a << Endl;
+
+//#define PRINT_LOGS
+
 	bool IsGreater5(int a)
 	{
+#ifdef PRINT_LOGS
+		std::cout << '!' << a << Endl;
+#endif
 		return a > 5;
 	}
 
@@ -88,12 +97,12 @@ namespace LambdaFunctions
 		return a > 0;
 	}
 
-	void Test3()
+	void Test3(int z)
 	{
 		PrintElemIfItMatchToPredicate(3, 8, IsGreater5);
 		PrintElemIfItMatchToPredicate(3, 8, IsOdd);
 		PrintElemIfItMatchToPredicate(3, 8, IsPositive);
-		PrintElemIfItMatchToPredicate(2, 4, ([](int a) {return a == 2;}) );
+		PrintElemIfItMatchToPredicate(2, 4, ([z](int a) {return a == 2 && a > z;}) );
 	}
 
 	void Test4()
@@ -103,7 +112,7 @@ namespace LambdaFunctions
 		
 		auto IsGreaterP = [p](int a) {return a > p; };
 		std::cout << IsGreaterP(5) << std::endl;
-		std::cout << IsGreaterP(2) << std::endl;
+		std::cout << IsGreaterP(2) << Endl;
 	}
 	
 	void Test5()
@@ -119,7 +128,7 @@ namespace LambdaFunctions
 
 	void Test6()
 	{
-		int p;
+		int p=3;
 		std::cin >> p;
 		int q;
 		std::cin >> q;
@@ -128,8 +137,93 @@ namespace LambdaFunctions
 
 		std::cout << IsGreaterPAndLesserQ(5) << std::endl;
 		std::cout << IsGreaterPAndLesserQ(2) << std::endl;
+
+		Print(p);
+		PrintVariableName(p);
 	}
 
+	void Test7()
+	{
+		auto IsSizeGreater5 = [](std::string str) {return str.size() > 5;	};
+		auto IsFirstLetterIsA = [](std::string str) {return str[0] == 'A' || str[0] == 'a'; };
+		auto IsLastLetterIsA = [](std::string str) {return str.back() == 'A' || str.back() == 'a'; };
+
+		std::cout << IsSizeGreater5("Hello") << std::endl;
+		std::cout << IsSizeGreater5("Hello1") << std::endl;
+		std::cout << IsFirstLetterIsA("Hello") << std::endl;
+		std::cout << IsFirstLetterIsA("Aello") << std::endl;
+
+		auto IsSizeGreater5AndFirstLetterIsA = [IsSizeGreater5, IsFirstLetterIsA](std::string str) {return IsSizeGreater5(str) && IsFirstLetterIsA(str); };
+
+		std::cout << IsSizeGreater5AndFirstLetterIsA("Hello") << std::endl;
+		std::cout << IsSizeGreater5AndFirstLetterIsA("Hello1") << std::endl;
+		std::cout << IsSizeGreater5AndFirstLetterIsA("Aello") << std::endl;
+		std::cout << IsSizeGreater5AndFirstLetterIsA("Aello1") << std::endl;
+
+		auto IsMatchBothPredicates = [](auto AnyLambdaPredicate0, auto AnyLambdaPredicate1)
+		{
+			return [AnyLambdaPredicate0, AnyLambdaPredicate1](std::string str)
+			{
+				return AnyLambdaPredicate0(str) && AnyLambdaPredicate1(str); //вернуть тру если применение к этим предикатам данной строки оба вернули тру 
+			};
+		};
+
+		auto IsSizeGreater5AndFirstLetterIsA_1 = IsMatchBothPredicates(IsSizeGreater5, IsFirstLetterIsA);
+		auto IsSizeGreater5AndLastLetterIsA_1 = IsMatchBothPredicates(IsSizeGreater5, IsLastLetterIsA);
+		auto IsSizeGreater5AndFirstLetterIsAAndLastLetterIsA_1 = IsMatchBothPredicates(IsSizeGreater5AndLastLetterIsA_1, IsFirstLetterIsA);
+
+		std::cout << IsSizeGreater5AndFirstLetterIsA_1("Hello") << std::endl;
+		std::cout << IsSizeGreater5AndFirstLetterIsA_1("Hello1") << std::endl;
+		std::cout << IsSizeGreater5AndFirstLetterIsA_1("Aello") << std::endl;
+		std::cout << IsSizeGreater5AndFirstLetterIsA_1("Aello1") << std::endl;
+
+		std::cout << IsSizeGreater5AndFirstLetterIsAAndLastLetterIsA_1("Aello1") << std::endl;
+		std::cout << IsSizeGreater5AndFirstLetterIsAAndLastLetterIsA_1("Aelloa") << std::endl;
+
+
+	}
+
+	void Test8()
+	{
+		//auto CallTwice = [](auto AnyLambda) {AnyLambda(); AnyLambda(); }; //принимает лямбду и вызывает ее два раза
+		
+		auto CallTwice = [](auto AnyLambda) //принимает лямбду и вызывает ее два раза
+		{
+			AnyLambda(); 
+			AnyLambda(); 
+		}; 
+
+		auto PrintHello = []() {std::cout << "Hello" << std::endl; };
+		auto PrintWorld = []() {std::cout << "World" << std::endl; };
+		
+		CallTwice(PrintHello);
+		CallTwice(PrintWorld);
+
+	}
+
+	void Test9()
+	{
+		//принимает на вход число а и возвращает лямбду которая представляет предикат, принимающий на вход инт и возвращающий тру если инт больше чем а
+
+		auto GetPredicate = [](int a) 
+		{
+			return [a](int b) {return a < b; };
+		};
+
+		std::cout << GetPredicate(5)(9) << std::endl;
+
+		bool is_true_if_predicate_greater_5 = GetPredicate(5)(9);
+
+		auto IsGreater5Lambda = GetPredicate(5);
+		auto IsGreater6Lambda = GetPredicate(6);
+
+		bool good = IsGreater5Lambda(4);
+		bool good1 = IsGreater5Lambda(8);
+
+		bool good2 = IsGreater6Lambda(5);
+		bool good3 = IsGreater6Lambda(7);
+
+	}
 
 
 

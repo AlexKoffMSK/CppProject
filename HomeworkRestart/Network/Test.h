@@ -1,4 +1,5 @@
 #pragma once
+#ifdef DEBUG
 #include <iostream>
 #include <winsock.h>
 #include <thread>
@@ -270,3 +271,5 @@ namespace Network
 }
 
 //сокет - это абстрацкия, условная дырка, в которую или из которой можно что-то послать/получить
+
+#endif

@@ -1,4 +1,5 @@
 #pragma once
+#ifdef DEBUG
 #include <iostream>
 #include <winsock.h>
 #include <thread>
@@ -123,3 +124,4 @@ namespace Network
 		}
 	};
 }
+#endif
