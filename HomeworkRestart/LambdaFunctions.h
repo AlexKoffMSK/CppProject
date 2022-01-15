@@ -1,5 +1,6 @@
 #pragma once
 #include<iostream>
+#include<functional>
 
 //Лямбда-функции(выражения)
 
@@ -225,7 +226,31 @@ namespace LambdaFunctions
 
 	}
 
+	template<typename TFunction>
+	void CallThreeTimes(TFunction function)
+	{
+		function(3);
+		function(4);
+		function(5);
+	}
 
+	void CallThreeTimes1(std::function<void(int)> function)
+	{
+		function(3);
+		function(4);
+		function(5);
+	}
 
+	void Foo(int x)
+	{
+		std::cout << x << std::endl;
+	}
 
+	void Test10()
+	{
+		std::function<void(int)> function = Test3;
+		function(42);
+		function = Foo;
+		function(42);
+	}
 }

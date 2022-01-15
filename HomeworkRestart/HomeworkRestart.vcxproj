@@ -188,6 +188,7 @@
     <ClInclude Include="Inheritance\InheritanceBasic.h" />
     <ClInclude Include="Inheritance\InheritanceMovingObject.h" />
     <ClInclude Include="Inheritance\InheritanceSquareAndRectangle.h" />
+    <ClInclude Include="Initialization.h" />
     <ClInclude Include="Initializations.h" />
     <ClInclude Include="Iterators.h" />
     <ClInclude Include="Json\json11.hpp" />

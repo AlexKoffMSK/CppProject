@@ -83,20 +83,20 @@ namespace Exceptions
 		print_vector(vec_for_exc);
 	}
 
-	template <typename TFunction>
+	template <typename TFunction> //статический полиморфизм, а есть еще std::function - это динамический полиморфизм
 	void CallFunctionNTimes(TFunction function, int n)
 	{
 		std::vector<int> vec_for_exc;
-		
+
 		for (int i = 0; i < n; ++i)
 		{
 			try
 			{
 				function(i);
 			}
-			catch (int a)
+			catch (int exception)
 			{
-				vec_for_exc.push_back(a);
+				vec_for_exc.push_back(exception);
 			}
 		}
 		print_vector(vec_for_exc);
@@ -124,6 +124,7 @@ namespace Exceptions
 	{
 		if (a == 4)
 		{
+			//throw 3.14;
 			throw a; //если код попадает сюда, то выполнение данной функции останавливается и бросается исключение с типом инт и значением а.
 		}
 		if (str == "Hello")
@@ -133,18 +134,82 @@ namespace Exceptions
 		std::cout << "Work with: " << a << " and " << str << std::endl;
 	}
 
-	void Test5()
+	void Test6()
 	{
-		
+		try
+		{
+			WorkWithValue1(1, "sdf");
+			WorkWithValue1(2, "asd");
+			WorkWithValue1(4, "Olleh");
+			WorkWithValue1(3, "Hello");
+			WorkWithValue1(5, "pop");
+		}
+		//catch (...)
+		//{
+		//	std::cout << "Exception has been caught!" << std::endl;
+		//}
+		catch (int exception)
+		{
+			std::cout << "Exception with int = " << exception << std::endl;
+		}
+		catch (std::string exception)
+		{
+			std::cout << "Exception with string = " << exception << std::endl;
+		}
+		catch (...)
+		{
+			std::cout << "Some exception, don't know - which one! All I know - it isn't int or str!" << std::endl;
+		}
 	}
 
+	void WorkWithValue2(int x)
+	{
+		if (x == 0)
+		{
+			throw x;
+		}
+		std::cout << x << std::endl;
+	}
 
+	void WorkWithValue3(int x, std::string str)
+	{
+		if (str == "Hello")
+		{
+			throw str;
+		}
+		WorkWithValue2(x - 1);
+		WorkWithValue2(x + 1);
+	}
 
+	void Test7()
+	{
+		try
+		{
+			WorkWithValue3(1, "World");
+		}
+		catch (int exception)
+		{
+			std::cout << exception << std::endl;
+		}
+		catch (std::string exception)
+		{
+			std::cout << exception << std::endl;
+		}
+	}
 
-
-
-
-
+	void Test8()
+	{
+		std::vector<int> vec = {1,2,3,4,5};
+		//std::cout << vec[7] << std::endl;
+		try
+		{
+			std::cout << vec.at(7) << std::endl;
+		}
+		catch (std::out_of_range exception)
+		{
+			std::cout << exception.what() << std::endl;
+		}
+	}
 
 
 }
