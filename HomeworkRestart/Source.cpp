@@ -69,6 +69,7 @@
 #include "BinanceDataAPI/DataFromInternet.h"
 #include "LambdaFunctions.h"
 #include "Exceptions.h"
+#include "StdAlgorithms/StdAlgorithms.h"
 
 using namespace std;
 
@@ -1235,7 +1236,8 @@ int main(int argc, char* argv[])
 	//Binance::Test();
 
 	//LambdaFunctions::Test7();
-	Exceptions::Test8();
+	//Exceptions::Test8();
+	StdAlgorithms::TestPrintMatches();
 
 std::cout << "Process is over!" << std::endl;
 getchar(); //ожидание ввода с клавиатуры
