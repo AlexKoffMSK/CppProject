@@ -19,7 +19,7 @@ namespace StdAlgorithms
 		}
 	}
 
-	bool IsElemGreater5(int x)
+	bool IsElemGreater5(int x) //Ёто предикат. ѕредикат - это функци€, котора€ принимает объект и возвращает bool
 	{
 		return x > 5;
 	}
@@ -48,6 +48,7 @@ namespace StdAlgorithms
 		//std::partition(vec.begin(), vec.end(), [](int x) {return x < 5; });
 		//std::stable_partition(vec.begin(), vec.end(), [](int x) {return x < 5; });
 		std::stable_partition(vec.begin(), vec.end(), [](int x) {return x % 2 == 0; });
+		//перегруппировывает значени€ контейнера так, что в первой половине - элементы удовлетвор€ющие предикату, во второй - неудовлетвор€ющие
 		print_vector(vec);
 	}
 
@@ -114,7 +115,7 @@ namespace StdAlgorithms
 		}
 	}
 
-	void PrintMatches(std::string str, std::string pattern)
+	void PrintMatchesPattern2Chars(std::string str, std::string pattern)
 	{
 		assert(pattern.size() == 2);
 		//бежим по строке до нахождени€ совпадений первого символа pattern и текущего символа в str
@@ -132,9 +133,181 @@ namespace StdAlgorithms
 		}
 	}
 
+	void PrintMatchesWithFor(std::string str, std::string pattern)
+	{
+		for (int i = 0; i < str.size() - (pattern.size()-1); ++i)
+		{
+			//if (str.substr(i, pattern.size()) == pattern)
+			//{
+			//	std::cout << i << std::endl;
+			//}
+
+			int char_matches_count = 0;
+			int k = i;
+
+			for (int j = 0; j < pattern.size(); ++j)
+			{
+				if (pattern[j] == str[k])
+				{
+					char_matches_count++;
+					k++;
+				}
+				else
+				{
+					char_matches_count = 0;
+				}
+			}
+
+			if (char_matches_count == pattern.size())
+			{
+				std::cout << k - pattern.size() << std::endl;
+				std::cout << i << std::endl;
+				i += (pattern.size()-1);
+			}
+		}
+	}
+
+	void PrintMatchesWith_K(std::string str, std::string pattern)
+	{
+		int i = 0;
+		while (i != str.size())
+		{
+			int k = i;
+			int char_matches_count = 0;
+			for (int j = 0; j < pattern.size(); ++j)
+			{
+				if (pattern[j] == str[k])
+				{
+					char_matches_count++;
+					k++;
+				}
+				else
+				{
+					char_matches_count = 0;
+				}
+			}
+			if (char_matches_count == pattern.size())
+			{
+				std::cout << i << std::endl;
+				i += (pattern.size());
+			}
+			else
+			{
+				i++;
+			}
+		}
+	}
+
+	void PrintMatches(std::string str, std::string pattern)
+	{
+		int i = 0;
+		while (i < str.size()- (pattern.size()-1))
+		{
+			bool is_all_matches = true;
+			for (int j = 0; j < pattern.size(); ++j)
+			{
+				if (pattern[j] != str[i])
+				{
+					is_all_matches = false;
+				}
+				i++;
+			}
+			if (is_all_matches)
+			{
+				std::cout << i - pattern.size() << std::endl;
+				//i -= (pattern.size() - 1); //тогда сравнение будет внахлест
+			}
+			else
+			{
+				i-= (pattern.size()-1);
+			}
+		}
+	}
+
+	// abbbba
+	// bb
+
+	void FindLenghtOfEqualSequences()
+	{
+		std::vector<int> vec = { 1,1,2,2,2,3,3 };
+		int sequence_of_match = 0;
+		int max_count_of_matches = 0;
+		int count_of_matches = 0;
+		for (int i = 1; i < vec.size(); ++i)
+		{
+			if (vec[i] == vec[i - 1])
+			{
+				count_of_matches++;
+				if (count_of_matches > max_count_of_matches)
+				{
+					max_count_of_matches = count_of_matches;
+					sequence_of_match = i;
+				}
+			}
+			else
+			{
+				count_of_matches = 0;
+			}
+		}
+		std::cout << max_count_of_matches+1 << std::endl;
+		std::cout << vec[sequence_of_match] << std::endl;
+	}
+
+	void RemoveNegativeFromArrayWithSort(std::vector<int>& vec)
+	{
+		std::sort(vec.begin(), vec.end());
+		auto iterator = std::find_if(vec.begin(), vec.end(), [](int x) {return x >= 0; });
+		vec.erase(vec.begin(), iterator);
+	}
+
+	void RemoveNegativeFromArrayNoSort(std::vector<int>& vec)
+	{
+		for (int i = 0; i < vec.size(); ++i)
+		{
+			if (vec[i] < 0)
+			{
+				vec.erase(vec.begin()+i);
+				//vec.erase(std::find(vec.begin(),vec.end(),4));
+				--i;
+			}
+		}
+		//vec.erase(vec.begin(), iterator);
+		//print_vector(vec);
+	}
+
+
+	void TestVecRemoves()
+	{
+		std::vector<int> vec;
+		for (int i = 0; i < 1000000; ++i)
+		{
+			vec.push_back(std::rand() % 20 - 10);
+		}
+
+		auto begin = std::chrono::steady_clock::now();
+		//RemoveNegativeFromArrayWithSort(vec);
+		RemoveNegativeFromArrayNoSort(vec);
+		auto end = std::chrono::steady_clock::now();
+
+		std::cout << vec[5] << std::endl;
+
+		auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
+		std::cout << "The time: " << elapsed_ms.count() << " ms\n";
+
+	}
+
 	void TestPrintMatches()
 	{
-		PrintMatches("ssssss aadsaa asar a abc safhaljhlskjhdf lasdlajh l lkahsl al jkh l bc cbc cc", "bc");
+		PrintMatches("abbbbbba", "bbb");
 	}
+
+
+
+
+
+
+
+
+
 
 }

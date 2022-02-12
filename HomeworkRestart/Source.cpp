@@ -1237,7 +1237,7 @@ int main(int argc, char* argv[])
 
 	//LambdaFunctions::Test7();
 	//Exceptions::Test8();
-	StdAlgorithms::TestPrintMatches();
+	StdAlgorithms::TestVecRemoves();
 
 std::cout << "Process is over!" << std::endl;
 getchar(); //ожидание ввода с клавиатуры
