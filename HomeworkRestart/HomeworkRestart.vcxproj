@@ -216,6 +216,8 @@
     <ClInclude Include="Polymorphism\DynamicCast.h" />
     <ClInclude Include="Polymorphism\PolymorphismBasic.h" />
     <ClInclude Include="Polymorphism\SimplePatternStrategy.h" />
+    <ClInclude Include="Polymorphism\VirtualConstructor.h" />
+    <ClInclude Include="Polymorphism\VirtualDestructor.h" />
     <ClInclude Include="Recusrion.h" />
     <ClInclude Include="Sequences.h" />
     <ClInclude Include="ServiceClasess.h" />
