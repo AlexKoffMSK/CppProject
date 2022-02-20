@@ -218,6 +218,7 @@
     <ClInclude Include="Polymorphism\SimplePatternStrategy.h" />
     <ClInclude Include="Polymorphism\VirtualConstructor.h" />
     <ClInclude Include="Polymorphism\VirtualDestructor.h" />
+    <ClInclude Include="Polymorphism\VirtualInheritance.h" />
     <ClInclude Include="Recusrion.h" />
     <ClInclude Include="Sequences.h" />
     <ClInclude Include="ServiceClasess.h" />

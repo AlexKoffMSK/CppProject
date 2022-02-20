@@ -72,6 +72,7 @@
 #include "StdAlgorithms/StdAlgorithms.h"
 #include "Polymorphism/VirtualDestructor.h"
 #include "Polymorphism/VirtualConstructor.h"
+#include "Polymorphism/VirtualInheritance.h"
 
 using namespace std;
 
@@ -1240,7 +1241,8 @@ int main(int argc, char* argv[])
 	//LambdaFunctions::Test7();
 	//Exceptions::Test8();
 	//StdAlgorithms::TestVecRemoves();
-	PolymorphismVirtual::Test4();
+	//PolymorphismVirtual::Test4();
+VirtualInheritance::TestVirtInher();
 
 
 

@@ -272,6 +272,9 @@
     <ClInclude Include="Polymorphism\VirtualConstructor.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Polymorphism\VirtualInheritance.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Bitmap.bmp">
