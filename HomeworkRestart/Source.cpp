@@ -73,6 +73,7 @@
 #include "Polymorphism/VirtualDestructor.h"
 #include "Polymorphism/VirtualConstructor.h"
 #include "Polymorphism/VirtualInheritance.h"
+#include "ParallelThreads/Mutexes.h"
 
 using namespace std;
 
@@ -1242,7 +1243,8 @@ int main(int argc, char* argv[])
 	//Exceptions::Test8();
 	//StdAlgorithms::TestVecRemoves();
 	//PolymorphismVirtual::Test4();
-VirtualInheritance::TestVirtInher();
+	//VirtualInheritance::TestVirtInher();
+	Mutexes::Test();
 
 
 
@@ -1302,7 +1304,7 @@ getchar(); //ожидание ввода с клавиатуры
 +- таблица виртуальных методов и функций
 + виртуальный деструктор (Есть виртуальная функция - должен быть виртуальный деструктор)
 + виртуальный конструктор
-- виртуальное наследование
++ виртуальное наследование
 
 +- лямбда-функции
 + исключения

@@ -275,6 +275,9 @@
     <ClInclude Include="Polymorphism\VirtualInheritance.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="ParallelThreads\Mutexes.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Bitmap.bmp">

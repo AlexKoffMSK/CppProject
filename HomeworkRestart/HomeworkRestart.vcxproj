@@ -208,6 +208,7 @@
     <ClInclude Include="Network\Server.h" />
     <ClInclude Include="Network\Test.h" />
     <ClInclude Include="Operators.h" />
+    <ClInclude Include="ParallelThreads\Mutexes.h" />
     <ClInclude Include="ParallelThreads\ParallelThreads.h" />
     <ClInclude Include="ParallelThreads\RingBuffer.h" />
     <ClInclude Include="ParallelThreads\RingBufferTest.h" />
