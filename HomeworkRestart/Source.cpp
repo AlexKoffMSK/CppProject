@@ -4,12 +4,16 @@
 #include <string>
 #include <vector>
 #include <chrono>
+#include <sys/types.h>
+#include <winsock.h>
+#include "Pointers.h"
+
+#ifdef INCLUDES
 #include "DataStructures/Queue.h"
 #include "Sequences.h"
 #include "Functions.h"
 #include "ConsoleFunctions.h"
 #include "Sorts.h"
-#include "Pointers.h"
 #include "DynamicMemory.h"
 #include "Recusrion.h"
 #include "Structures.h"
@@ -52,8 +56,6 @@
 #include "PointersAndReferences.h"
 #include "ChronoTime.h"
 #include "Polymorphism/SimplePatternStrategy.h"
-#include <sys/types.h>
-#include <winsock.h>
 #include "Network/Test.h"
 #include "Iterators.h"
 #include "Templates.h"
@@ -74,9 +76,13 @@
 #include "Polymorphism/VirtualConstructor.h"
 #include "Polymorphism/VirtualInheritance.h"
 #include "ParallelThreads/Mutexes.h"
+#include "Polymorphism/Polymorphism_1.h"
+#endif
+#include "Polymorphism/Polymorphism_2.h"
 
 using namespace std;
 
+#ifdef INCLUDES
 #pragma region
 
 void f0()
@@ -1112,6 +1118,8 @@ void f41()
 }
 
 #pragma endregion
+#endif
+
 
 //первый аргумент - это то, сколько аргументов в функцию мы передали argc - arguments count
 //второй аргумент - это массив указателей на строки, указатель на массив строк
@@ -1140,14 +1148,11 @@ int main(int argc, char* argv[])
 	//}
 	//
 	//return 0;
-	
 	//ServiceClasess::servf1(get_random_vector_max_range_size(10,10), get_random_vector_max_range_size(10, 10));
 	//ServiceClasess::test_set_performance(30000, 100000, 1000000);
 	//ServiceClasess::test_smart_set_performance(30000, 100000, 1000000);
-
 	//f41();
 	//compare_two_equal_lenght_strings_1();
-
 	//DataStructures::QueueTesting4();
 	//Sequences::PrintMostFrequent();
 	//MapStdExamples::CountOfWords();
@@ -1156,17 +1161,14 @@ int main(int argc, char* argv[])
 	//WorkWithBinaryFiles::ExampleWrite2();
 	//WorkWithBinaryFiles::ExampleRead1();
 	//WorkWithBinaryFiles::TestSaveVectorToBinaryFile();
-
 	//Practice_2021_02_27::test_8();
 	//ContainerList::FindMiddle();
 	//ContainerList1::Test5();
 	//WorkWithTextFiles::ReadMapFromTextFile();
-
 	//DataStructures::BinarySearchTreeMapTest();
 	//DataStructures::BinarySearchTreeTest();
 	//Practice_2021_02_27::Test9();
 	//DataStructures::Test();
-	
 	//JsonTests::Test2();
 	//Hash::Test();
 	//ParallelThreads::Test3();
@@ -1176,31 +1178,20 @@ int main(int argc, char* argv[])
 	//ParallelThreads::Test5(4);
 	//ParallelThreads::Test5(5);
 	//ParallelThreads::Test7();
-
 	//RingBufferTest::Test1_RingBufferContainer();
 	//RingBufferTest::Test_Queue();
-
 	//Inheritance::Test();
 	//InheritanceRectAndSquare::Test();
-
 	//HashTable::Test2();
-
 	//Structures::Test678(); 
-
 	//std::cout << SHA256FromGitHub("Andrey") << std::endl;
-
 	//Polymorphism::Test1();
-
 	//PointersAndReferences::Test5();
-
 	//Polymorphism::Test3();
-
 	//ChronoTime::Test2();
 	// 
 	//SimplePatternStrategy::Test1();
-	
 	//GameMatrix::Test();
-
 	//проверка для сетевой функции клиент-сервер
 	//if (std::string(argv[1]) == "0")
 	//{
@@ -1211,40 +1202,33 @@ int main(int argc, char* argv[])
 	//	Network::TestClientClass();
 	//}
 	////////////////////////////////////////////
-
 	//HashTable::Test4OA();
-	
-
 	//Iterators::Test1();
 	//Templates::Test3();
 	//Templates::Test7();
-
 	//Polymorphism::Test1();
-	
 	//VariadicTemplate::Test1();
-
 	//MoveSemantics::Test3();
 	//std::cout << "================" << std::endl;
 	//MoveSemantics::Test4();
 	//std::cout << "================" << std::endl;
 	//MoveSemantics::Test5();
-
 	//MoveSemantics::Test100();
-
 	//PerfectForwarding::Test2();
 	//SmartPointers::TestSharedPointer();
 	//BitOperationsBasic::TestSetBits();
-
 	//Union::Test6();
-
 	//Binance::Test();
-
 	//LambdaFunctions::Test7();
 	//Exceptions::Test8();
 	//StdAlgorithms::TestVecRemoves();
 	//PolymorphismVirtual::Test4();
 	//VirtualInheritance::TestVirtInher();
-	Mutexes::Test();
+	//Mutexes::Test();
+	
+	//Polymorphism_2::Test();
+	//Polymorphism_2::Test777();
+Pointers::Test777();
 
 
 

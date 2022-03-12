@@ -7,7 +7,6 @@
 namespace Mutexes
 {
 	std::mutex mutex_for_print;
-	std::mutex mutex_for_print1;
 	
 	//bool is_allow_to_go_a = true;
 
@@ -20,7 +19,6 @@ namespace Mutexes
 			//{
 			//	continue;
 			//}
-			mutex_for_print1.lock(); 
 			mutex_for_print.lock(); 
 			//Если mutex до этого был зелёный, то функция проходит через эту строку и закрывает за собой (делает красным). 
 			//Если до этой строки mutex красный, то ждём (тред спит) пока станет зеленым и продолжаем выполнение функции, проходя через mutex делая его красным.
@@ -54,7 +52,6 @@ namespace Mutexes
 			//	continue;
 			//}
 			mutex_for_print.lock();
-			mutex_for_print1.lock();
 			//if (is_allow_to_go == false)
 			//{
 			//	continue;
@@ -64,8 +61,7 @@ namespace Mutexes
 			std::cout << ch;
 			std::cout << std::endl;
 			//is_allow_to_go_a = true;
-			//mutex_for_print.unlock();
-			mutex_for_print1.unlock();
+			mutex_for_print.unlock();
 			summ++;
 		}
 		std::cout << summ << std::endl;

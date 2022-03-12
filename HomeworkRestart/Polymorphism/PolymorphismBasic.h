@@ -123,6 +123,9 @@ namespace Polymorphism
 		A1(rect);	   //0
 		A1(circ);	   //0
 		
+		Shape& sh = circ;
+		Shape* sh = &circ;
+
 		//A2(sh); //םו סבטכהטעסÿ
 		A2(rect); //סבטכהטעסÿ //200
 		//A2(circ); //םו סבטכהטעסÿ

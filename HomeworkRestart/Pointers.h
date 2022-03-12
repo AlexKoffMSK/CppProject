@@ -95,7 +95,7 @@ namespace Pointers
 			//(int)(*(char*)&arr[i]) - воспринимай это всё как int (это int)
 		//
 		//}
-		std::cout << *(int*)((char*)&arr[0] - 1) << endl;
+		std::cout << *(int*)((char*)&arr[0] - 1) << std::endl;
 	}
 
 	void f2()
@@ -119,10 +119,10 @@ namespace Pointers
 		//}
 
 		//for (int* pointer = &arr[0]; pointer <= &arr[size(arr) - 1]; pointer++)
-		for (int* pointer = &arr[0]; pointer < arr + size(arr); pointer++)
+		for (int* pointer = &arr[0]; pointer < arr + std::size(arr); pointer++)
 		{
-			cout << pointer << ' ';
-			cout << *pointer << endl;
+			std::cout << pointer << ' ';
+			std::cout << *pointer << std::endl;
 		}
 	}
 
@@ -184,18 +184,18 @@ namespace Pointers
 		//	std::cout << *pointer << std::endl;
 		//}
 
-		int* pointer_p = &arr[rand()%size(arr)]; //создан указатель на случайный элемент массива
-		if (pointer_p < &arr[size(arr) / 2])
+		int* pointer_p = &arr[rand()%std::size(arr)]; //создан указатель на случайный элемент массива
+		if (pointer_p < &arr[std::size(arr) / 2])
 		{
-			std::cout << "True" << endl;
+			std::cout << "True" << std::endl;
 			std::cout << pointer_p << std::endl; //debug-вывод
-			std::cout << &arr[size(arr) / 2] << std::endl; //debug-вывод
+			std::cout << &arr[std::size(arr) / 2] << std::endl; //debug-вывод
 		}
 		else
 		{
-			std::cout << "False" << endl;
+			std::cout << "False" << std::endl;
 			std::cout << pointer_p << std::endl; //debug-вывод
-			std::cout << &arr[size(arr) / 2] << std::endl; //debug-вывод
+			std::cout << &arr[std::size(arr) / 2] << std::endl; //debug-вывод
 		}
 	}
 
@@ -321,4 +321,67 @@ namespace Pointers
 		vec[1];
 		*(vec1 + 1);
 	}
+
+	//=============================
+
+	void ForTest777(int* x)
+	{
+		(*x)++;
+	}
+	
+	void Test777()
+	{
+		int a=5;
+		int* pt_a = &a;
+		std::cout << pt_a << std::endl;
+		std::cout << *pt_a << std::endl;
+
+		ForTest777(&a);
+		
+		std::cout << a << std::endl;
+		std::cout << &a << std::endl;
+
+		int arr[6]={ 1,2,3,4,5,6 };// массив на стеке
+		//int* arr1 = new int[6]; //массив в куче
+		int c;
+		int* pt_arr = &arr[3];
+
+		std::cout << *pt_arr << std::endl;
+		*pt_arr = 0;
+		std::cout << arr[3] << std::endl;
+
+		pt_arr = &arr[4];
+		//pt_arr++;
+		std::cout << *pt_arr << std::endl;
+		//pt_arr-=3;
+		int* pt_arr0 = &arr[rand()%std::size(arr)];
+		
+		std::cout << &arr[4] << std::endl;
+		std::cout << pt_arr << std::endl;
+		//std::cout << &pt_arr0 << std::endl;
+
+	
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
