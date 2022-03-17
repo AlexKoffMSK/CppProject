@@ -5,8 +5,8 @@ namespace Pointers
 {
 	void f()
 	{
-		int a=3;
-		int b=4;
+		int a = 3;
+		int b = 4;
 		//char c;
 
 		std::cout << &a << std::endl;
@@ -26,9 +26,9 @@ namespace Pointers
 		//std::cout << &adr_a << std::endl;
 		std::cout << pointer_to_a << std::endl; //выводим значение, т.е. адрес
 		std::cout << *pointer_to_a << std::endl; //выводим уже не сам адрес, а то - что под ним живёт, называется - разыменовывание
-		
+
 		*pointer_to_a = 5; //стучимся внутрь (в контексте в коде, а не при объявлении)
-		
+
 		std::cout << b << std::endl;
 	}
 
@@ -63,7 +63,7 @@ namespace Pointers
 
 	void f15()
 	{
-		int arr[10] = {1,2,3,4,5,6,7,8,9,10};
+		int arr[10] = { 1,2,3,4,5,6,7,8,9,10 };
 		//int* pointer = &arr[0];
 		//pointer = (int*)((char*)pointer + 1); 
 		//(char*)pointer - воспринимай pointer как указатель на char, char - это 1 байт
@@ -73,7 +73,7 @@ namespace Pointers
 		//std::cout << *pointer << std::endl;
 
 		//вывести на экран все байты, которые входят в массив. байты выводить в виде числа
-		
+
 		//for (int z = 0; z < 65535; z++)
 		//{
 		//	std::cout << z << " - ";
@@ -110,7 +110,7 @@ namespace Pointers
 
 		//int* pointer = &arr[0];
 		//int* pointer_of_end = &arr[size(arr)-1];
-		
+
 		//while (pointer <= pointer_of_end)
 		//{
 		//	cout << pointer << ' ';
@@ -128,26 +128,26 @@ namespace Pointers
 
 	/*
 	Создать массив {10,11,12,13,14,15,16,17,18,19};
-	
+
 	1. Вывести на экран адрес 3, 6 и 7 ячеек.
-	
+
 	2. Создать указатель p, который будет смотреть на  2 ячейку массива.
 		Передвинуть его так, чтоб он смотрел на 6 ячейку массива.
 		Выести на экран значение, на которое указывает p.
-	
+
 	3. Создать 2 указателя. p - смотрит на 3ю ячейку, q - на препоследнюю.
 		Вывести количество ячеек между ними (не включая их самих). В данном приме это 4 (14,15,16,17).
-	
+
 	4. Создать 2 указателя. p - смотрит на 3ю ячейку, q - на препоследнюю.
 		Вывести содержимое всех ячеек, ключая их самих. (Т.е. 13, 14,15,16,17, 18).
-	
+
 	4.1. Тоже самое, но в обратном порядке (18, 17, 16, 15,14,13).
-	
+
 	5. Записать в указатель p адрес случайной ячейки массива.
 		Вывести true, если эта ячейка находится в левой части массива, false иначе.
 
 	*/
-	
+
 	void task1()
 	{
 		int arr[10] = { 10,11,12,13,14,15,16,17,18,19 };
@@ -157,7 +157,7 @@ namespace Pointers
 		//std::cout << pointer_3 << std::endl; //выводится на экран адрес элемента массива в памяти
 		//std::cout << pointer_6 << std::endl;
 		//std::cout << pointer_7 << std::endl;
-		
+
 		//int* pointer_a = &arr[2]; //создан указатель на элемент массива
 		//std::cout << pointer_a << std::endl; //выводится на экран адрес элемента массива в памяти
 		//pointer_a = pointer_a + 4; //указатель сдвинут на +4 относительно стартового элемента массива
@@ -184,7 +184,7 @@ namespace Pointers
 		//	std::cout << *pointer << std::endl;
 		//}
 
-		int* pointer_p = &arr[rand()%std::size(arr)]; //создан указатель на случайный элемент массива
+		int* pointer_p = &arr[rand() % std::size(arr)]; //создан указатель на случайный элемент массива
 		if (pointer_p < &arr[std::size(arr) / 2])
 		{
 			std::cout << "True" << std::endl;
@@ -200,7 +200,7 @@ namespace Pointers
 	}
 
 	/*
-	  8 
+	  8
 	  9
 	1 0
 	1 1
@@ -290,7 +290,7 @@ namespace Pointers
 		return pointer_of_max_elem;
 	}
 
-	int* find_min_elem_in_segment_and_return_pointer(int* pointer_left_bound, int* pointer_right_bound) 
+	int* find_min_elem_in_segment_and_return_pointer(int* pointer_left_bound, int* pointer_right_bound)
 		//указатель на левую и правую границу массива,
 		//возвращает указатель на миним альный элемент диапазона
 	{
@@ -328,20 +328,20 @@ namespace Pointers
 	{
 		(*x)++;
 	}
-	
+
 	void Test777()
 	{
-		int a=5;
+		int a = 5;
 		int* pt_a = &a;
 		std::cout << pt_a << std::endl;
 		std::cout << *pt_a << std::endl;
 
 		ForTest777(&a);
-		
+
 		std::cout << a << std::endl;
 		std::cout << &a << std::endl;
 
-		int arr[6]={ 1,2,3,4,5,6 };// массив на стеке
+		int arr[6] = { 1,2,3,4,5,6 };// массив на стеке
 		//int* arr1 = new int[6]; //массив в куче
 		int c;
 		int* pt_arr = &arr[3];
@@ -354,19 +354,106 @@ namespace Pointers
 		//pt_arr++;
 		std::cout << *pt_arr << std::endl;
 		//pt_arr-=3;
-		int* pt_arr0 = &arr[rand()%std::size(arr)];
-		
+		int* pt_arr0 = &arr[rand() % std::size(arr)];
+
 		std::cout << &arr[4] << std::endl;
 		std::cout << pt_arr << std::endl;
 		//std::cout << &pt_arr0 << std::endl;
-
-	
 	}
 
+	void Ff(const char* a)
+	{
+		//std::cout << std::size(a) << std::endl;
+		std::cout << std::strlen(a) << std::endl;
+	}
 
+	void Test787()
+	{
+		char a='g';
+		char* pt_a = &a;
+		std::cout << pt_a << std::endl;
 
+		std::cout << a << std::endl;
+		std::cout << (int)a << std::endl;
 
+		std::cout << &pt_a << std::endl;
+		std::cout << *pt_a << std::endl;
 
+		const char* as = "dgjo";
+		const char* as2 = "dgjop\0";
+		const char astr2[] = { 'd','g','j','o', 'i','\0'};
+		const char astr3[] = { 'd','g','j','o', 0};
+		const char astr[] = { 'd','g','j','o'};
+
+		int y=0x2a2a2a2a; //в шестандцатиричной системе 2 цифры числа = 1 байт. int это 4 байта, поэтому написано 8 цифр, заполнили все разряды
+		int x=0x23232323;
+
+		std::cout << std::strlen(as) << std::endl;
+		std::cout << std::strlen(as2) << std::endl;
+
+		std::cout << std::size(astr) << std::endl;
+		std::cout << std::size(astr2) << std::endl;
+		std::cout << std::size(astr3) << std::endl;
+
+		std::cout << std::strlen(astr) << std::endl;
+		std::cout << std::strlen(astr2) << std::endl;
+		std::cout << std::strlen(astr3) << std::endl;
+
+		std::cout << " \"\" " << std::endl;
+		std::cout << " \\ " << std::endl;
+
+		std::cout << as << std::endl;
+		std::cout << as2 << std::endl;
+		std::cout << astr << std::endl;
+		std::cout << astr2 << std::endl;
+		std::cout << astr3 << std::endl;
+	}
+
+	void Test9449()
+	{
+		int x = 0x2a2b2a2a;
+		int* pt_x = &x;
+		std::cout << x << std::endl;
+		std::cout << pt_x << std::endl;
+		std::cout << *pt_x << std::endl;
+
+		char* pt_c = (char*)&x;
+
+		std::cout << pt_c << std::endl;
+		std::cout << *pt_c << std::endl;
+	}
+
+	void Test9889()
+	{
+		int v = -1;
+		char a = 'b';
+		int b = -1;
+		//char ch3s[] = { 'g','h','\0' };
+		
+		char* pt_a = &a;
+		
+		//std::cout << a << std::endl;
+		//std::cout << pt_a << std::endl;
+		//std::cout << *pt_a << std::endl;
+
+		int64_t* pt_ia = (int64_t*)&a;
+		
+		std::cout << &v << std::endl;
+		std::cout << pt_ia << std::endl;
+		std::cout << &b << std::endl;
+		
+		std::cout << *pt_ia << std::endl;
+
+		const char* chstr = "hello";
+
+		std::cout << sizeof(long) << std::endl;
+		std::cout << sizeof(int) << std::endl;
+		std::cout << sizeof(long long) << std::endl;
+		std::cout << sizeof(long int) << std::endl;
+		std::cout << sizeof(short) << std::endl;
+		std::cout << sizeof(long*) << std::endl;
+		std::cout << *(long*)chstr << std::endl;
+	}
 
 
 
