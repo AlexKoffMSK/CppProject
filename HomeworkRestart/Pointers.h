@@ -1,5 +1,6 @@
 #pragma once
 #include<iostream>
+#include<thread>
 
 namespace Pointers
 {
@@ -333,8 +334,10 @@ namespace Pointers
 	{
 		int a = 5;
 		int* pt_a = &a;
-		std::cout << pt_a << std::endl;
+		std::cout << pt_a << std::endl; //печатаем адрес того - куда смотрит указатель
 		std::cout << *pt_a << std::endl;
+
+		int b = *pt_a;
 
 		ForTest777(&a);
 
@@ -409,10 +412,37 @@ namespace Pointers
 		std::cout << astr3 << std::endl;
 	}
 
+	void Test94491()
+	{
+		int x = 0x61626364; //код буквы а маленькая в 16 системе = 61, в - 62 и так далее
+		int r = 0x65666768; //код буквы а маленькая в 16 системе = 61, в - 62 и так далее
+		int* pt_x = &x;
+		std::cout << x << std::endl;
+		std::cout << pt_x << std::endl;
+		std::cout << *pt_x << std::endl;
+
+		char* pt_c = (char*)&x;
+
+		std::cout << pt_c << std::endl;
+		std::cout << *pt_c << std::endl;
+	}
+
+	void f(uint64_t x)
+	{
+		std::cout << x << std::endl;
+	}
+
 	void Test9449()
 	{
-		int x = 0x2a2b2a2a;
-		int* pt_x = &x;
+		uint64_t w = 0x7172737475767778;
+		uint64_t x = 0x6162636465666768; //код буквы а маленькая в 16 системе = 61, в - 62 и так далее
+		uint64_t r = 0x696a6b6c6d6e6f70; //код буквы а маленькая в 16 системе = 61, в - 62 и так далее
+		
+		std::cout << &w << std::endl;
+		std::cout << &x << std::endl;
+		std::cout << &r << std::endl;
+
+		uint64_t* pt_x = &x;
 		std::cout << x << std::endl;
 		std::cout << pt_x << std::endl;
 		std::cout << *pt_x << std::endl;
@@ -453,9 +483,43 @@ namespace Pointers
 		std::cout << sizeof(short) << std::endl;
 		std::cout << sizeof(long*) << std::endl;
 		std::cout << *(long*)chstr << std::endl;
+
+		std::cout << sizeof(int8_t) << std::endl;
+		std::cout << sizeof(int16_t) << std::endl;
+		std::cout << sizeof(int32_t) << std::endl;
+		std::cout << sizeof(int64_t) << std::endl;
+
+		std::cout << sizeof(uint8_t) << std::endl;
+		std::cout << sizeof(uint16_t) << std::endl;
+		std::cout << sizeof(uint32_t) << std::endl;
+		std::cout << sizeof(uint64_t) << std::endl;
+
+		std::cout << sizeof(INT) << std::endl;
+		std::cout << sizeof(LONG) << std::endl;
+		std::cout << sizeof(DOUBLE) << std::endl;
+		std::cout << sizeof(FLOAT) << std::endl;
 	}
 
+	void Test8990(int x)
+	{
+		const int n = 100000;
+		int arr[n];
 
+		//int arr[x];
+
+		int* arr1 = new int[x];
+		int* arr2 = new int[1000000000];
+
+		std::this_thread::sleep_for(std::chrono::seconds(2));
+
+		delete[] arr1;
+
+		std::this_thread::sleep_for(std::chrono::seconds(2));
+
+		delete[] arr2;
+
+		std::this_thread::sleep_for(std::chrono::seconds(2));
+	}
 
 
 

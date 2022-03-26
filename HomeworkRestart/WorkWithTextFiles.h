@@ -2,28 +2,211 @@
 #include <iostream>
 #include <fstream>
 #include "GlobalStructures.h"
+#include <map>
+#include <string>
+#include <vector>
 
 namespace WorkWithTextFiles
 {
-	void ExampleRead1()
+	//void ExampleRead1()
+	//{
+	//	std::ifstream ifs("TextFiles/File1.txt");
+	//	if (!ifs.is_open())
+	//	{
+	//		std::cout << "File not found!" << std::endl;
+	//		return;
+	//	}
+
+	//	std::string s;
+	//	ifs >> s; 
+	//	//из файла первое слово (до пробела) в переменную s. —читали первое слово, подвинули курсор. 
+	//	//—читывает до пробельного символа (пробел, табул€ци€, переход на новую строку)
+	//	cout << s << endl;
+	//	ifs >> s; //из файла второе слово (до пробела) в переменную s
+	//	cout << s << endl;
+	//}
+
+	void ExampleRead11()
 	{
+		std::string str;
+		
 		std::ifstream ifs("TextFiles/File1.txt");
 		if (!ifs.is_open())
 		{
 			std::cout << "File not found!" << std::endl;
 			return;
 		}
-
-		std::string s;
-		ifs >> s; 
-		//из файла первое слово (до пробела) в переменную s. —читали первое слово, подвинули курсор. 
-		//—читывает до пробельного символа (пробел, табул€ци€, переход на новую строку)
-		cout << s << endl;
-		ifs >> s; //из файла второе слово (до пробела) в переменную s
-		cout << s << endl;
+		int counter = 0;
+		for (int i = 0; i < 30; ++i)
+		{
+			char ch;
+			ch = ifs.get();
+			if (ch == ' ')
+			{
+				counter++;
+			}
+		}
 	}
 
-	void ExampleRead2()
+	void StringToWordsByBUKVYWithMap()
+	{
+		std::map<int, std::string> decomposed_str;
+		std::string str;
+
+		std::ifstream ifs("TextFiles/File1.txt");
+		if (!ifs.is_open())
+		{
+			std::cout << "File not found!" << std::endl;
+			return;
+		}
+		std::getline(ifs,str);
+		std::cout << str;
+
+		int word_start_pos=0;
+
+		for (int i = 0; i < str.size(); ++i)
+		{
+			if (i == 0 && str[i] != ' ')
+			{
+				word_start_pos = i;
+			}
+			if (i>0 && str[i - 1] == ' ' && str[i] != ' ')
+			{
+				word_start_pos = i;
+			}
+			if (str[i] != ' ')
+			{
+			decomposed_str[word_start_pos] += str[i];
+			}
+		}
+
+		for (auto [key, value] : decomposed_str)
+		{
+			std::cout << key << '-' << '[' << value << ']' << std::endl;
+		}
+	}
+
+	void StringToWordsByBUKVYWithVector()
+	{
+		std::vector<std::string> vec;
+		std::string str;
+
+		std::ifstream ifs("TextFiles/File1.txt");
+		if (!ifs.is_open())
+		{
+			std::cout << "File not found!" << std::endl;
+			return;
+		}
+		std::getline(ifs, str);
+		std::cout << str;
+
+		for (int i = 0; i < str.size(); ++i)
+		{
+			if (i == 0 && str[i] != ' ')
+			{
+				vec.emplace_back();
+				//vec.back() += str[i];
+			}
+			if (i > 0 && str[i - 1] == ' ' && str[i] != ' ')
+			{
+				vec.emplace_back();
+				//vec.back() += str[i];
+			}
+			if (str[i] != ' ')
+			{
+				vec.back() += str[i];
+			}
+		}
+
+		for (auto value : vec)
+		{
+			std::cout << '[' << value << ']' << std::endl;
+		}
+	}
+
+	void StringToWordsByBUKVYWithVector1()
+	{
+		std::vector<std::string> vec;
+		std::string str;
+
+		std::ifstream ifs("TextFiles/File1.txt");
+		if (!ifs.is_open())
+		{
+			std::cout << "File not found!" << std::endl;
+			return;
+		}
+		std::getline(ifs, str);
+		std::cout << str << std::endl;
+
+		vec.emplace_back();
+
+		for (int i = 0; i < str.size(); ++i)
+		{
+			if (str[i] == ' ')
+			{
+				if (!vec.back().empty())
+				{
+					vec.emplace_back();
+				}
+			}
+			else
+			{
+				vec.back() += str[i];
+			}
+		}
+		if (vec.back().empty())
+		{
+			vec.pop_back();
+		}
+
+		for (auto value : vec)
+		{
+			std::cout << '[' << value << ']' << std::endl;
+		}
+	}
+	
+	void StringToWordsByBUKVYWithMap1()
+	{
+		std::map<int, std::string> decomposed_str;
+		std::string str;
+
+		std::ifstream ifs("TextFiles/File1.txt");
+		if (!ifs.is_open())
+		{
+			std::cout << "File not found!" << std::endl;
+			return;
+		}
+		std::getline(ifs, str);
+		std::cout << str;
+
+		int word_start_pos = 0;
+
+		if (str[0] != ' ')
+		{
+			decomposed_str[word_start_pos] += str[0];
+		}
+		
+		for (int i = 1; i < str.size(); ++i)
+		{
+			if (str[i - 1] == ' ' && str[i] != ' ')
+			{
+				word_start_pos = i;
+			}
+			if (str[i] != ' ')
+			{
+				decomposed_str[word_start_pos] += str[i];
+			}
+		}
+
+		for (auto [key, value] : decomposed_str)
+		{
+			std::cout << key << '-' << '[' << value << ']' << std::endl;
+		}
+	}
+
+	//апдейт - исключить символы (например восклицательный знак), сделать счетчик количества раз использовани€ слов, сохран€ть только уникальные слова, исключить падежи, окончани€
+
+	/*void ExampleRead2()
 	{
 		std::ifstream ifs("TextFiles/File1.txt");
 		if (!ifs.is_open())
@@ -305,5 +488,5 @@ namespace WorkWithTextFiles
 		ifs >> h.gender;
 		ifs >> h.str_name;
 	}
-
+	*/
 }

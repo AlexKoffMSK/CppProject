@@ -102,8 +102,19 @@ point * point (скалярное произведение = p1.x * p2.x + p1.y*p2.y) = int
 point * int = point
 */
 
+class A
+{
+private:
+	int x;
+	friend void Summ(A a, A b);
+public:
 
+};
 
+void Summ(A a, A b)
+{
+	std::cout << a.x << std::endl;
+}
 
 
 

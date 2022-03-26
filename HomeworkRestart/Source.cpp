@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <winsock.h>
 #include "Pointers.h"
+#include "WorkWithTextFiles.h"
 
 #ifdef INCLUDES
 #include "DataStructures/Queue.h"
@@ -29,7 +30,6 @@
 #include "Classes/VectorWithinEvens.h"
 #include "MapStdExamples.h"
 #include "SetStdExamples.h"
-#include "WorkWithTextFiles.h"
 #include "WorkWithBinaryFiles.h"
 #include "2021-02-27.h"
 #include "List.h"
@@ -1228,7 +1228,8 @@ int main(int argc, char* argv[])
 	
 	//Polymorphism_2::Test();
 	//Polymorphism_2::Test777();
-Pointers::Test9889();
+	//Pointers::Test8990(1000000000);
+WorkWithTextFiles::StringToWordsByBUKVYWithMap1();
 
 
 
@@ -1248,11 +1249,11 @@ getchar(); //ожидание ввода с клавиатуры
 + Работа с динамической паматью
 + Рекурсии
 + Структуры (классы):
-+ конструкторы
-+ методы
-+ уровни доступа
-+ операторы (кастомные операторы внутри класса)
-(1-3 - инкапсуляция)
++ 1.конструкторы
++ 2.методы
++ 3.уровни доступа
++ 4.операторы (кастомные операторы внутри класса)
+(1-4 - инкапсуляция)
 +- работа с CommonLanguageInterface, .net
 +- работа с текстовыми файлами
 +- работа с бинарными файлами
