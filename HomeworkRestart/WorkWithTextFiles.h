@@ -5,6 +5,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <set>
 
 namespace WorkWithTextFiles
 {
@@ -201,6 +202,55 @@ namespace WorkWithTextFiles
 		for (auto [key, value] : decomposed_str)
 		{
 			std::cout << key << '-' << '[' << value << ']' << std::endl;
+		}
+	}
+
+	bool IsLetter(char ch)
+	{
+		return (ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z');
+	}
+
+	void ReadTextFileAndGetLexems()
+	{
+		std::ifstream ifs("TextFiles/File1.txt");
+		std::string temp_str;
+		std::set<std::string> words_set;
+
+		char ch_prev;
+		ch_prev = ifs.get();
+		char ch_curr;
+		if (IsLetter(ch_prev))
+		{
+			std::cout << '!';
+			temp_str += ch_prev;
+		}
+
+		while (ifs)
+		{
+			ch_curr = ifs.get();
+			//std::cout << '[' << ch_prev << ' ' << ch_curr << ']';
+			if (IsLetter(ch_curr) && !IsLetter(ch_prev))
+			{
+				//std::cout << '!';
+			}
+			
+			if (IsLetter(ch_curr))
+			{
+				temp_str += ch_curr;
+			}
+			
+			if (!IsLetter(ch_curr) && IsLetter(ch_prev))
+			{
+				//std::cout << '@';
+				words_set.emplace(temp_str);
+				temp_str.clear();
+			}
+			//std::cout << ch_curr;
+			ch_prev = ch_curr;
+		}
+		for (auto str : words_set)
+		{
+			std::cout << '[' << str << ']' << std::endl;
 		}
 	}
 

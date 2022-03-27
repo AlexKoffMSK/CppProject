@@ -1229,9 +1229,7 @@ int main(int argc, char* argv[])
 	//Polymorphism_2::Test();
 	//Polymorphism_2::Test777();
 	//Pointers::Test8990(1000000000);
-WorkWithTextFiles::StringToWordsByBUKVYWithMap1();
-
-
+WorkWithTextFiles::ReadTextFileAndGetLexems();
 
 std::cout << "Process is over!" << std::endl;
 getchar(); //ожидание ввода с клавиатуры
