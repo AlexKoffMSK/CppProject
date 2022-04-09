@@ -78,6 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\AlekseyRozhkov\source\repos\opencv\build\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\AlekseyRozhkov\source\repos\opencv\build\x64\vc15\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -122,11 +124,13 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <Optimization>Disabled</Optimization>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <AdditionalIncludeDirectories>C:\Users\AlekseyRozhkov\source\repos\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opencv_world455d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\AlekseyRozhkov\source\repos\opencv\build\x64\vc15\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -207,6 +211,8 @@
     <ClInclude Include="Network\DataFromInternet.h" />
     <ClInclude Include="Network\Server.h" />
     <ClInclude Include="Network\Test.h" />
+    <ClInclude Include="OpenCV\MouseTest.h" />
+    <ClInclude Include="OpenCV\OpenCVTest.h" />
     <ClInclude Include="Operators.h" />
     <ClInclude Include="ParallelThreads\Mutexes.h" />
     <ClInclude Include="ParallelThreads\ParallelThreads.h" />
@@ -222,6 +228,7 @@
     <ClInclude Include="Polymorphism\VirtualConstructor.h" />
     <ClInclude Include="Polymorphism\VirtualDestructor.h" />
     <ClInclude Include="Polymorphism\VirtualInheritance.h" />
+    <ClInclude Include="RandomTasks.h" />
     <ClInclude Include="Recusrion.h" />
     <ClInclude Include="Sequences.h" />
     <ClInclude Include="ServiceClasess.h" />
@@ -240,7 +247,8 @@
     <ClInclude Include="WorkWithTextFiles.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Bitmap.bmp" />
+    <Image Include="Pictures\Bitmap.bmp" />
+    <Image Include="Pictures\1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="BinaryFiles\File1.bin" />
@@ -250,6 +258,7 @@
     <Text Include="GraphsFiles\Graph_1.txt" />
     <Text Include="Hash\OAresults.txt" />
     <Text Include="TextFiles\a.txt" />
+    <Text Include="TextFiles\BigText.txt" />
     <Text Include="TextFiles\File1.txt" />
     <Text Include="TextFiles\File2.txt" />
     <Text Include="TextFiles\File3.txt" />

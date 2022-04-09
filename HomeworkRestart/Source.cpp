@@ -79,6 +79,7 @@
 #include "Polymorphism/Polymorphism_1.h"
 #endif
 #include "Polymorphism/Polymorphism_2.h"
+#include "OpenCV/OpenCVTest.h"
 
 using namespace std;
 
@@ -1123,6 +1124,7 @@ void f41()
 
 //первый аргумент - это то, сколько аргументов в функцию мы передали argc - arguments count
 //второй аргумент - это массив указателей на строки, указатель на массив строк
+
 int main(int argc, char* argv[]) 
 {
 	//Console.SetConsolePositionAndSize(10, 10, 900, 1400);
@@ -1229,10 +1231,10 @@ int main(int argc, char* argv[])
 	//Polymorphism_2::Test();
 	//Polymorphism_2::Test777();
 	//Pointers::Test8990(1000000000);
-WorkWithTextFiles::ReadTextFileAndGetLexems();
+	//WorkWithTextFiles::ReadTextFileAndGetLexems();
 
-std::cout << "Process is over!" << std::endl;
-getchar(); //ожидание ввода с клавиатуры
+	std::cout << "Process is over!" << std::endl;
+	getchar(); //ожидание ввода с клавиатуры
 }
 
 
