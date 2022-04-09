@@ -77,9 +77,10 @@
 #include "Polymorphism/VirtualInheritance.h"
 #include "ParallelThreads/Mutexes.h"
 #include "Polymorphism/Polymorphism_1.h"
+#include "OpenCV/OpenCVTest.h"
 #endif
 #include "Polymorphism/Polymorphism_2.h"
-#include "OpenCV/OpenCVTest.h"
+#include "RandomTasks.h"
 
 using namespace std;
 
@@ -1232,6 +1233,7 @@ int main(int argc, char* argv[])
 	//Polymorphism_2::Test777();
 	//Pointers::Test8990(1000000000);
 	//WorkWithTextFiles::ReadTextFileAndGetLexems();
+RandomTasks::Task1();
 
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
