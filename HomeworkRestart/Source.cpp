@@ -1233,7 +1233,7 @@ int main(int argc, char* argv[])
 	//Pointers::Test8990(1000000000);
 	//WorkWithTextFiles::ReadTextFileAndGetLexems();
 
-	std::cout << "Process  is over!" << std::endl;
+	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
 }
 
