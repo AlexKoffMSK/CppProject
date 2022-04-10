@@ -81,6 +81,7 @@
 #endif
 #include "Polymorphism/Polymorphism_2.h"
 #include "RandomTasks.h"
+#include "AlgoTasks/Loops.h"
 
 using namespace std;
 
@@ -1233,8 +1234,8 @@ int main(int argc, char* argv[])
 	//Polymorphism_2::Test777();
 	//Pointers::Test8990(1000000000);
 	//WorkWithTextFiles::ReadTextFileAndGetLexems();
-RandomTasks::Task1();
-
+	//RandomTasks::Task1();
+AlgoTasks::Loops::Task4();
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
 }
@@ -1330,6 +1331,9 @@ RandomTasks::Task1();
 Важное про классы:
 Есть new - должен быть delete
 Есть виртуальная функция - должен быть виртуальный деструктор
+
+Алгоритмические задачи:
+- 
 
 */
 

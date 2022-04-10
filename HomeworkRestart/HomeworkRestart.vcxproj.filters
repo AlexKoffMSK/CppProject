@@ -293,6 +293,12 @@
     <ClInclude Include="RandomTasks.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="AlgoTasks\Conditions.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="AlgoTasks\Loops.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Pictures\Bitmap.bmp">
@@ -315,6 +321,8 @@
     <Text Include="GameMatrix\Levels\Level1.txt" />
     <Text Include="Hash\OAresults.txt" />
     <Text Include="TextFiles\BigText.txt" />
+    <Text Include="AlgoTasks\Conditions.txt" />
+    <Text Include="AlgoTasks\Loops.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TextFiles\File1.tsv" />

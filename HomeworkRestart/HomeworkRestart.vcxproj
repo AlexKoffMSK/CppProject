@@ -158,6 +158,8 @@
   <ItemGroup>
     <ClInclude Include="2021-02-27.h" />
     <ClInclude Include="Algorithm.h" />
+    <ClInclude Include="AlgoTasks\Conditions.h" />
+    <ClInclude Include="AlgoTasks\Loops.h" />
     <ClInclude Include="BinanceDataAPI\DataFromInternet.h" />
     <ClInclude Include="BitOperations\BitOperations.h" />
     <ClInclude Include="BitOperations\BitOperationsBasic.h" />
@@ -251,6 +253,8 @@
     <Image Include="Pictures\1.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="AlgoTasks\Conditions.txt" />
+    <Text Include="AlgoTasks\Loops.txt" />
     <Text Include="BinaryFiles\File1.bin" />
     <Text Include="BinaryFiles\File2.txt" />
     <Text Include="BinaryFiles\Test.bin" />
