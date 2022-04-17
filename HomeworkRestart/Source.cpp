@@ -82,6 +82,7 @@
 #include "Polymorphism/Polymorphism_2.h"
 #include "RandomTasks.h"
 #include "AlgoTasks/Loops.h"
+#include "STL/Vector/StlVectorExamples.h"
 
 using namespace std;
 
@@ -1237,7 +1238,8 @@ int main(int argc, char* argv[])
 	//RandomTasks::Task1();
 	//AlgoTasks::Loops::PrintPermutation("", { 1,2,3,4,5,6 });
 	//std::cout << AlgoTasks::Loops::count << std::endl;
-	AlgoTasks::Loops::TaskTest();
+	//AlgoTasks::Loops::TaskTest();
+StlVector::CheckAll();
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
 }

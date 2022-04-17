@@ -299,6 +299,9 @@
     <ClInclude Include="AlgoTasks\Loops.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="STL\Vector\StlVectorExamples.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Pictures\Bitmap.bmp">

@@ -328,6 +328,7 @@ namespace AlgoTasks::Loops
 	std::vector<int> RemoveElementFromVector(std::vector<int> vector, int index_to_remove)
 	{
 		vector.erase(vector.begin() + index_to_remove);
+
 		return vector;
 	}
 

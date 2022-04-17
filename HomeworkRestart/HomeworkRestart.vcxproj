@@ -240,6 +240,7 @@
     <ClInclude Include="SmartPointers\UniquePtr.h" />
     <ClInclude Include="Sorts.h" />
     <ClInclude Include="StdAlgorithms\StdAlgorithms.h" />
+    <ClInclude Include="STL\Vector\StlVectorExamples.h" />
     <ClInclude Include="Structures.h" />
     <ClInclude Include="Classes\VectorWithinEvens.h" />
     <ClInclude Include="Templates.h" />
