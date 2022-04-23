@@ -254,13 +254,279 @@ namespace StlVector
 		assert(it == vec.end());
 	}
 
+	void IteratorsExample2()
+	{
+		std::vector<int> vec = { 5,7,89,3,4,5 };
+		std::vector<int>::iterator it = vec.begin(); //begin() возвращает итератор! и end() тоже.
 
+		assert(*(it + 2) == 89);
+		assert(it == vec.begin());
+		
+		it += 4;
 
+		assert(*(it - 1) == 3);
 
+		it = vec.begin();
+		assert(it[0] == 5);
+		assert(it[1] == 7);
+		assert(it[2] == 89); //полный синоним строки assert(*(it + 2) == 89) - сместиться на 2 от ТЕКУЩЕЙ позиции итератора и разыменовать
+		
+		it = vec.begin();
+		it++;
+		assert(it[0] == 7);
+		assert(it[1] == 89);
+		//разница между it[1] и vec[1] в том, что vec[1] смотрит на 1 элемент массива, а it[1] смотрит на следующий элемент от текущего значения итератора
+		
+		assert(vec.begin()[1] == 7);
+	}
 
+	void insert()
+	{
+		std::vector<int> vec = { 5,7,89,3,4,5 };
+		std::vector<int>::iterator it = vec.begin(); //begin() возвращает итератор! и end() тоже.
 
+		assert(vec[3] == 3);
+		vec.insert(it + 3, 8); //insert принимает итератор на элемент контейнера, ПЕРЕД которым необходимо добавить еще один элемент
+		assert(vec[3] == 8);
+		assert(vec[4] == 3);
 
+		vec = { 5,7,89,3,4,5 };
+		vec.insert(vec.begin() + 3, 8);
+	}
 
+	void emplace()
+	{
+		std::vector<TestStruct> vec;
+		vec.emplace_back(4, 5); //аналогично insert добавляет перед элементом другой элемент
+		vec.emplace_back(5, 5);
+		vec.emplace_back(6, 5);
+		vec.emplace(vec.begin() + 1, 7, 5);
+		assert(vec[1]._a == 7 && vec[1]._b == 5);
+	}
+
+	void erase()
+	{
+		std::vector<int> vec = { 5,7,89,3,4,5 };
+		assert(vec[2] == 89);
+		vec.erase(vec.begin() + 2); //удаляет элемент из массива, принимает указатель на тот элемент, который надо удалить
+		assert(vec[2] == 3);
+		assert(vec.size() == 5);
+
+		vec = { 5,7,89,3,4,5 };
+		vec.erase(vec.begin() + 1, vec.begin() + vec.size() - 1);
+		assert(vec.size() == 2 && vec[0] == 5 && vec[1] == 5);
+	}
+
+	void assign()
+	{
+		std::vector<int> vec;
+		vec.assign(10, 5);
+		for (int c : vec)
+		{
+			assert(c == 5);
+		}
+		assert(vec.size() == 10);
+
+		//vec.resize(2,7) сократит размер массива до 2, 7 не будут вставлены, т.к. 7 были бы только для новых элементов, т.е. если бы vec.resize(12,7)
+
+		vec.assign(2, 7); // сократит размер массива до 2 и первые два элемента будут переписаны 7
+		for (auto c : vec)
+		{
+			assert(c == 7);
+		}
+		assert(vec.size() == 2);
+		
+		//vec.resize(5, 3); //7 7 3 3 3
+		vec.assign(5, 3); //3 3 3 3 3
+		for (auto c : vec)
+		{
+			assert(c == 3);
+		}
+		assert(vec.size() == 5);
+	}
+
+	void at()
+	{
+		std::vector<int> vec = { 5,7,89,3,4,5 };
+		//vec[10] = 8;
+		vec.at(2) = 8; //достучаться до элемента массива. Разница с vec[x] в том, что в случае выхода за границы массива, то при at будет выкинуто исключение, а через [] будет UB или segfault если повезет
+	}
+	
+	void back_front()
+	{
+		std::vector<int> vec = { 5,7,89,3,4,5 };
+		vec.back() = 8; //back возвращает последний элемент в массиве. Если массив пустой и запрошен back - будет UB
+		std::cout << vec.front() << std::endl; //front возвращает первый элемент в массиве
+
+		std::vector<std::string> vecstr = { "Hello", "World" };
+		vecstr.front()[4] = '!';
+		vecstr.back()[4] = '?';
+		assert(vecstr[0][4] == '!');
+		assert(vecstr[0] == "Hell!");
+		assert(vecstr[1][4] == '?');
+		assert(vecstr[1] == "Worl?");
+	}
+
+	void TestGetters()
+	{
+		std::vector<std::string> vecstr = { "Hello", "World" };
+		vecstr[0][4] = '!';
+		vecstr.at(0).at(4) = '!';
+		vecstr[0].at(4) = '!';
+		vecstr.at(0)[4] = '!';
+
+		vecstr.front()[4] = '!';
+		(*(vecstr.begin()))[4] = '!';
+		vecstr.begin()[0][4] = '!';
+	}
+
+	void swap()
+	{
+		std::vector<int> vec = { 5,7,89,3,4,5 };
+		std::vector<int> vec1 = { 87,4,6,3,6,3,7,8,6,5,3,3 };
+		vec.swap(vec1); //свап меняет местами два массива, фактически меняет указатели на массивы между собой
+	}
+
+	void STD_sort()
+	{
+		std::vector<int> vec = { 5,7,89,3,4,5 };
+		std::sort(vec.begin(), vec.end()); //quickSort всего массива
+		std::vector<int> sorted_vec = {3,4,5,5,7,89 };
+		for (int i=0; i < vec.size(); ++i)
+		{
+			assert(vec[i] == sorted_vec[i]);
+		}
+	}
+
+	void STD_sort1()
+	{
+		std::vector<int> vec = { 5,7,89,3,4,5 };
+		std::sort(vec.begin()+1, vec.begin()+vec.size()-1); //quickSort диапазона внутри массива
+		std::vector<int> sorted_vec = { 5,3,4,7,89,5 };
+		for (int i = 0; i < vec.size(); ++i)
+		{
+			assert(vec[i] == sorted_vec[i]);
+		}
+	}
+
+	void STD_find()
+	{
+		std::vector<int> vec = { 5,7,89,3,4,5 };
+		auto it = std::find(vec.begin(), vec.end(), 89); //возвращает итератор на найденный элемент и на end если элемент не найден
+		assert(*it == 89);
+		it = std::find(vec.begin(), vec.end(), 10); //возвращает итератор на найденный элемент и на end если элемент не найден
+		assert(it == vec.end());
+		it = std::find(vec.begin(), vec.end(), 5); //возвращает итератор на найденный элемент и на end если элемент не найден
+		assert(it == vec.begin());
+	}
+
+	//дан массив чисел, найти в нем первую 4 и первую 9 в оставшейся части массива, и отсортировать в массиве все, что между ними включая их самих
+	void Test1()
+	{
+		std::vector<int> vec = { 5,7,89,999,4,5,6,3,8,7,145,5,3,4,4,9,1,99,44,342,9,33,11 };
+		auto it_f = std::find(vec.begin(), vec.end(), 4);
+		auto it_l = std::find(it_f, vec.end(), 9);
+		std::sort(it_f, (it_l == vec.end()) ? it_l : it_l+1);
+		for (auto c : vec)
+		{
+			std::cout << c << ' ';
+		}
+		std::cout << std::endl;
+	}
+
+	//дан массив чисел, найти в нем первую 4 и первую 9 в оставшейся части массива, и отсортировать в массиве все, что между ними исключая их самих
+	void Test2()
+	{
+		std::vector<int> vec = { 5,7,89,999,4,5,6,3,8,7,145,5,3,4,4,9,1,99,44,342,9,33,11 };
+		auto it_f = std::find(vec.begin(), vec.end(), 4);
+		auto it_l = std::find(it_f, vec.end(), 9);
+		
+		std::sort(it_f+1, it_l);
+		
+		for (auto c : vec)
+		{
+			std::cout << c << ' ';
+		}
+		std::cout << std::endl;
+	}
+
+	//дан массив чисел, удалить из него первую 4
+	void Test3()
+	{
+		std::vector<int> vec = { 5,7,89,999,4,5,6,3,8,7,145,5,3,4,4,9,1,99,44,342,9,33,11 };
+
+		auto it = std::find(vec.begin(), vec.end(), 4);
+		vec.erase(it);
+		for (auto c : vec)
+		{
+			std::cout << c << ' ';
+		}
+		std::cout << std::endl;
+	}
+
+	//дан массив чисел, удалить из него все 4
+	void Test4()
+	{
+		std::vector<int> vec = { 4,5,7,89,999,4,5,6,3,8,7,145,5,3,4,4,9,1,99,44,342,9,33,11 };
+
+		//for (auto it = vec.begin(); it != vec.end(); ++it)
+		while(true)
+		{
+			auto it1 = std::find(vec.begin(), vec.end(), 4);
+			
+			if (it1 == vec.end())
+			{
+				break;
+			}
+			vec.erase(it1);
+			//Invalidates iterators and references at or after the point of the erase, including the end() iterator.
+			for (auto c : vec)
+			{
+				std::cout << c << ' ';
+			}
+			std::cout << std::endl;
+		}
+	}
+
+	void STD_partition()
+	{
+		std::vector<int> vec = { 4,5,7,89,999,4,5,6,3,8,7,145,5,3,4,4,9,1,99,44,342,9,33,11 };
+		std::partition(vec.begin(), vec.end(), [](int x) {return x % 2 == 0; }); 
+		//группирует элементы таким образом, что вначале идут те элементы, которые удовлетворяют условию. 
+		//при этом, порядок группированных элементов может отличаться от исходного
+		//возвращает итератор на начало второй кучи
+		
+		for (auto c : vec)
+		{
+			std::cout << c << ' ';
+		}
+		std::cout << std::endl;
+	}
+
+	void STD_stable_partition()
+	{
+		std::vector<int> vec = { 4,5,7,89,999,4,5,6,3,8,7,145,5,3,4,4,9,1,99,44,342,9,33,11 };
+		std::stable_partition(vec.begin(), vec.end(), [](int x) {return x % 2 == 0; });
+		//то же, что и partition, но порядок группированных элементов сохраняется по отношению к исходному
+
+		for (auto c : vec)
+		{
+			std::cout << c << ' ';
+		}
+		std::cout << std::endl;
+	}
+
+	void Test5()
+	{
+		std::vector<int> vec = {4,5,7,89,999,4,5,6,3,8,7,145,5,3,4,4,9,1,99,44,342,9,33,11 };
+		auto it1 = std::stable_partition(vec.begin(), vec.end(), [](int x) {return x != 4; });
+		vec.erase(it1, vec.end()); //end так как правая граница не включается в удаляемый диапазон
+		for (auto c : vec)
+		{
+			std::cout << c << ' ';
+		}
+		std::cout << std::endl;
+	}
 
 	void CheckAll()
 	{
@@ -273,17 +539,24 @@ namespace StlVector
 		resize();
 		IteratorsIterate();
 		IteratorsExample1();
-
-
-
-
-
-
-
-
-
-
-
+		insert();
+		emplace();
+		erase();
+		assign();
+		at();
+		back_front();
+		TestGetters();
+		swap();
+		STD_sort();
+		STD_sort1();
+		STD_find();
+		Test1();
+		Test2();
+		Test3();
+		Test4();
+		STD_partition();
+		STD_stable_partition();
+		Test5();
 	}
 
 }
