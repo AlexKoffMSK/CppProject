@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+#include <numeric>
 
 namespace StlVector
 {
@@ -526,6 +527,36 @@ namespace StlVector
 			std::cout << c << ' ';
 		}
 		std::cout << std::endl;
+	}
+
+	void STD_accumulate()
+	{
+		std::vector<int> vec = { 1,2,3,4,5 };
+		std::cout << std::accumulate(vec.begin(), vec.end(), 0) << std::endl;
+	}
+
+	void Test6()
+	{
+		std::vector<int> vec = {1,2,3,4,5};
+		auto it = vec.end();
+		int a = 0;
+		it--;
+		//std::cout << *it << std::endl;
+
+		for (auto it = vec.begin(); it!=vec.end()-1; it++)
+		{
+			std::cout << *it << std::endl;
+		}
+
+		std::set<int> st = { 1,2,3,4,5 };
+		
+		auto r_it = st.rbegin();
+		r_it++;
+		
+		for (auto it = st.begin(); it != r_it.base(); it++)
+		{
+			std::cout << *it << std::endl;
+		}
 	}
 
 	void CheckAll()

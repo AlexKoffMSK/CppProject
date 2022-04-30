@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <algorithm>
+#include <numeric>
 
 namespace AlgoTasks::Loops
 {
@@ -361,5 +362,205 @@ namespace AlgoTasks::Loops
 		do {
 			std::cout << s << '\n';
 		} while (std::next_permutation(s.begin(), s.end()));
+	}
+
+	//17. ѕользователь вводит 2 числа n,m. ¬ывести m m+1 m+2 ... n или n n+1 n+2 ... m. »спользуйте пожалуйста один цикл.
+	void Task17()
+	{
+		int n;
+		int m;
+		std::cin >> n >> m;
+		int max_elem = max(n, m);
+		int min_elem = min(n, m);
+
+		for (int i = min_elem; i <= max_elem; ++i)
+		{
+			std::cout << i << std::endl;
+		}
+	}
+
+
+	//18. ¬ывести все делители числа
+	void Task18()
+	{
+		int x;
+		std::cin >> x;
+		for (int i = 1; i <= x/2; ++i)
+		{
+			if (x % i == 0)
+			{
+				std::cout << i << std::endl;
+			}
+		}
+		std::cout << x << std::endl; //так как делитс€ на самого себ€
+
+	}
+
+	//19. Ќайти наибольший нетривиальный делитель_без_остатка натурального числа
+	void Task19()
+	{
+		int x;
+		std::cin >> x;
+		if (x % 2 == 0)
+		{
+			std::cout << x / 2 << std::endl;
+		}
+		else
+		{
+			for (int i = x/2; i >= 2; --i)
+			{
+				if (x % i == 0)
+				{
+					std::cout << i << std::endl;
+					break;
+				}
+			}
+		}
+	}
+
+	//20. Ќайти наименьший нетривиальный делитель натурального числа 
+	void Task20()
+	{
+		int x;
+		std::cin >> x;
+		if (x % 2 == 0)
+		{
+			std::cout << 2 << std::endl;
+		}
+		else
+		{
+			for (int i = 2; i <= x / 2; ++i)
+			{
+				if (x % i == 0)
+				{
+					std::cout << i << std::endl;
+					break;
+				}
+			}
+		}
+	}
+
+	int GetMinimalDenominator(int x)
+	{
+		if (x == 2)
+		{
+			return 1;
+		}
+		else if (x % 2 == 0)
+		{
+			return 2;
+		}
+		else
+		{
+			for (int i = 2; i <= x / 2; ++i)
+			{
+				if (x % i == 0)
+				{
+					return i;
+					break;
+				}
+			}
+		}
+		return 1;
+	}
+
+	//22. ѕолучить каноническое разложение числа на простые сомножители 27 = 3 * 9, 9 = 3 * 3, 3 * 3 * 3
+	void Task22()
+	{
+		int n;
+		std::cin >> n;
+		int mult = 0;
+		while (mult!=1)
+		{
+			mult = GetMinimalDenominator(n); //n=4, mult=2; n=2, mult=1;
+			if (mult == 1)
+			{
+				std::cout << n << std::endl;
+			}
+			else
+			{
+				std::cout << mult << std::endl;
+			}
+			n = n / mult;
+		}
+	}
+	//23. Ќайти наименьший нетривиальный делитель двух заданных чисел
+	void Task23()
+	{
+		int n;
+		int m;
+		std::cin >> n >> m;
+		for (int i = 2; i <= min(n, m) / 2; ++i)
+		{
+			if (n % i == 0 && m % i == 0)
+			{
+				std::cout << i << std::endl;
+				break;
+			}
+		}
+	}
+
+	std::vector<int> GetDenominators(int x)
+	{
+		std::vector<int> vec;
+		for (int i = 1; i <= x / 2; ++i)
+		{
+			if (x % i == 0)
+			{
+				vec.push_back(i);
+			}
+		}
+		return vec;
+	}
+
+	int GetSummOfElementsOfVector(std::vector<int> vec)
+	{
+		return std::accumulate(vec.begin(), vec.end(), 0);
+	}
+
+	int GetSummOfDenominators(int x)
+	{
+		return GetSummOfElementsOfVector(GetDenominators(x));
+	}
+
+	//24.  ѕроверить, €вл€етс€ ли заданное натуральное число совершенным /равное сумме всех своих собственных делителей
+	void Task24()
+	{
+		int n;
+		std::cin >> n; 
+		
+		std::vector<int> vec;
+
+		for (int i = 1; i <= n / 2; ++i)
+		{
+			if (n % i == 0)
+			{
+				vec.push_back(i);
+				std::cout << i << std::endl;
+			}
+		}
+		int summ = 0;
+		
+		for (int a : vec)
+		{
+			summ += a;
+		}
+		//делители 28 = 1,2,4,7,14
+		std::cout << (summ == n) << std::endl; //+1 так как она €вл€етс€ первым элементом перемножени€
+	}
+
+	void Task24_one_row()
+	{
+		int n;
+		std::cin >> n;
+		std::cout << (GetSummOfDenominators(n) == n) << std::endl;
+	}
+
+	//25. ѕроверить, €вл€ютс€ ли два натуральных числа дружественными 
+	void Task25()
+	{
+		int n,m;
+		std::cin >> n >> m;
+		std::cout << ((GetSummOfDenominators(n) == m) && (GetSummOfDenominators(m) == n)) << std::endl;
 	}
 }
