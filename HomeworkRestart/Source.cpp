@@ -83,6 +83,7 @@
 #include "RandomTasks.h"
 #include "AlgoTasks/Loops.h"
 #include "STL/Vector/StlVectorExamples.h"
+#include "STL/Map/STLMapExamples.h"
 
 using namespace std;
 
@@ -1240,8 +1241,9 @@ int main(int argc, char* argv[])
 	//std::cout << AlgoTasks::Loops::count << std::endl;
 	//AlgoTasks::Loops::TaskTest();
 	//StlVector::CheckAll();
-	StlVector::Test6();
+	//StlVector::Test6();
 	//AlgoTasks::Loops::Task25();
+StlMap::Test();
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
 }
