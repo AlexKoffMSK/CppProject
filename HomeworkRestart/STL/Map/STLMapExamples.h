@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
-
+#include <vector>
+#include <cassert>
+#include <numeric>
+#include <map>
 
 namespace StlMap
 {
@@ -175,7 +178,7 @@ namespace StlMap
 		{
 			std::cout << '[' << key << ',' << value << ']';
 		}
-		std::cout << endl;
+		std::cout << std::endl;
 
 		bool was_erased = true;
 		while (was_erased == true)
@@ -199,7 +202,7 @@ namespace StlMap
 		{
 			std::cout << '[' << key << ',' << value << ']';
 		}
-		std::cout << endl;
+		std::cout << std::endl;
 	}
 
 	void TestEmplaceErase1()

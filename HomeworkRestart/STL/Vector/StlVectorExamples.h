@@ -3,6 +3,7 @@
 #include <vector>
 #include <cassert>
 #include <numeric>
+#include <set>
 
 namespace StlVector
 {
@@ -66,7 +67,7 @@ namespace StlVector
 		5.f;//float
 		'5';//char
 		"abs";//const char* - массив, символов, который нельзя изменять
-		"abs"s;//string
+		//"abs"s;//string
 	}
 
 	void IterateOfAllElementsForAutoLoop()

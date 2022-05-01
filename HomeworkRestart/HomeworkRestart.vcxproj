@@ -214,6 +214,7 @@
     <ClInclude Include="Network\DataFromInternet.h" />
     <ClInclude Include="Network\Server.h" />
     <ClInclude Include="Network\Test.h" />
+    <ClInclude Include="OldEasyTasks.h" />
     <ClInclude Include="OpenCV\MouseTest.h" />
     <ClInclude Include="OpenCV\OpenCVTest.h" />
     <ClInclude Include="Operators.h" />
