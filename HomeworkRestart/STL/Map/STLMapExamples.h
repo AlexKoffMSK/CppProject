@@ -87,6 +87,7 @@ namespace StlMap
 		int _x;
 		double _y;
 
+		Test() = default;
 		Test(int x_, double y_)
 		{
 			_x = x_;
@@ -291,24 +292,344 @@ namespace StlMap
 		std::cout << std::endl;
 	}
 
-	void Test()
+	//задача сделать цикл условно 100 итераций. на каждой итерации генерится
+	//Два числа - цена, второе объем. задача для каждой цены сказать наибольший объем. Найти максимум по каждой цене.
+	//вариант с вектором: память - N, действие - N+Nlogn+N
+	//вариант с мапой первый: память - М(сколько уникальных цен), действие - 2*Nlogn
+	//вариант с мапой второй: память - М(сколько уникальных цен), действие - Nlogn
+	//вариант с мапой третий: память - М(сколько уникальных цен), действие - Nlogn
+	void TestOnlineMap()
 	{
-		emplace();
-		emplace_and_check();
-		emplace_twice();
-		emplace_twice_and_check();
-		emplace_string_key();
-		emplace_key_double_value_string();
-		emplace_key_char_value_vector();
-		emplace_key_int_value_struct();
-		find();
-		clear();
-		erase_by_key();
-		erase_by_iterator();
-		TestEmplaceErase();
-		TestEmplaceErase1();
-		operator_squares();
-		TestEmplaceErase2();
+		std::map<int, int> m;
+		for (int i = 0; i < 10; ++i)
+		{
+			int price = rand() % 5 + 1;
+			int value = rand() % 10 + 1;
+			std::cout << '[' << price << ',' << value << ']' << std::endl;
+			
+			//int& curmax_value = m[price];
+			//if (curmax_value < value)
+			//{
+			//	curmax_value = value;
+			//}
+
+			//auto it = m.find(price);
+			//
+			//if (it == m.end())
+			//{
+			//	m.emplace(price, value);
+			//}
+			//else
+			//{
+			//	if (it->second < value)
+			//	{
+			//		it->second = value;
+			//	}
+			//}
+
+			auto [it, is_success_emplace] = m.emplace(price, value);
+			if (it->second < value)
+			{
+				it->second = value;
+			}
+
+		}
+
+		std::cout << std::endl;
+
+		for (auto [key,value] : m)
+		{
+			std::cout << '[' << key << ',' << value << ']' << std::endl;
+		}
+	}
+	
+	//задача 
+	//первая пара 3,5 - 5 это зависимый ордер 3. У 3 есть ребенок 5
+	//первая пара 4,5
+	//первая пара 5,6
+	//первая пара 2,4
+	//первая пара 6,7
+	//первая пара 3,7 - это мы должны проигнорировать, потому что у 3 уже было соответствие
+	//для каждого ордера вывести цепочку его зависимых ордеров:
+	//2-4-5-6-7
+	//3-5-6-7
+	//4-5-6-7
+	//5-6-7
+	//6-7
+	//7
+	//у одного родителя может быть не более одного ребенка, у одного ребенка может быть много родителей и может не быть родителей
+	void TestSequence()
+	{
+		std::map<int, int> m;
+		for (int i = 0; i < 10; ++i)
+		{
+			int id_parent_order = rand() % 5 + 1;
+			int id_child_order = rand() % 5 + 1;
+			std::cout << '[' << id_parent_order << ',' << id_child_order << ']' << std::endl;
+			auto [it, is_success_emplace] = m.emplace(id_parent_order, id_child_order);
+			//провверять на то, что такое уже было не нужно, это сделал emplace
+		}
+		std::cout << std::endl;
+		for (auto [key, value] : m)
+		{
+			std::cout << '[' << key << ',' << value << ']' << std::endl;
+		}
+
+		std::cout << std::endl;
+
+		int see_for_value;
+
+		std::map<int, int> m1; //создаем вторую мапу для хранения ячеек которые мы уже посещали
+		
+		for (auto [key, value] : m) 
+		{
+			auto it = m.find(key);
+			while (true)
+			{
+				if (it == m.end())
+				{
+					break;
+				}
+
+				see_for_value = it->second;
+
+				std::cout << '[' << it->first << ',' << it->second << ']';
+				
+				m1.emplace(it->first, it->second);
+				
+				it = m.find(see_for_value);
+				
+				if (it != m.end() && m1.find(it->first) != m1.end())
+				{
+					break;
+				}
+			}
+			std::cout << std::endl;
+			m1.clear();
+		}
+
+		std::cout << std::endl;
+	}
+
+	void at()
+	{
+		std::map<int, double> m;
+		m.emplace(4, 5.2);
+		m.emplace(7, 8.6);
+		assert(m.at(4) == 5.2); //кинет исключение если 4 не было
+		assert(m[4] == 5.2);//создаст 4 если ее не было
+		
+		try
+		{
+			std::cout << m.at(5) << std::endl;
+		}
+		catch (std::exception exc) 
+		{
+			std::cout << "Caught exception: " << exc.what() << std::endl;
+		}
+		
+		m.at(4) = 3.85;
+		m[4] = 8.999;
+	}
+
+	void iterators()
+	{
+		std::map<int, double> m;
+		m.emplace(2, 5.);
+		m.emplace(1, 4.);
+		m.emplace(3, 6.);
+
+		auto it = m.begin();
+		
+		assert(it->first == 1 && it->second == 4.);
+
+		//std::cout << it->first << ' ' << it->second << std::endl;
+		++it;
+		assert(it->first == 2 && it->second == 5.);
+
+		++it;
+		assert(it->first == 3 && it->second == 6.);
+
+		++it;
+		assert(it == m.end());
+	}
+
+	void reverse_iterators()
+	{
+		std::map<int, double> m;
+		m.emplace(2, 5.);
+		m.emplace(1, 4.);
+		m.emplace(3, 6.);
+
+		auto it = m.rbegin();
+
+		assert(it->first == 3 && it->second == 6.);
+
+		//std::cout << it->first << ' ' << it->second << std::endl;
+		++it;
+		assert(it->first == 2 && it->second == 5.);
+
+		++it;
+		assert(it->first == 1 && it->second == 4.);
+
+		++it;
+		assert(it == m.rend());
+
+		for (auto it = m.begin(); it != m.end(); ++it)
+		{
+			std::cout << it->first << ' ' << it->second << std::endl;
+		}
+	}
+
+	void count()
+	{
+		std::map<int, double> m;
+		m.emplace(2, 5.);
+		m.emplace(1, 4.);
+		m.emplace(1, 6.);
+
+		assert(m.count(1) == 1);
+		assert(m.count(6) == 0);
+	}
+
+	int map_emplace(int nof_operations)
+	{
+		std::map<int, char> map;
+		for (int i = 0; i < nof_operations; ++i) 
+		{
+			map.emplace(i, 'a');
+		}
+		return map.size();
+	}
+
+	void map_emplace_hint(int nof_operations)
+	{
+		std::map<int, char> map;
+		auto it = map.begin();
+		for (int i = 0; i < nof_operations; ++i) 
+		{
+			map.emplace_hint(it, i, 'b');
+			it = map.end();
+		}
+	}
+
+	void map_emplace_hint_wrong(int nof_operations)
+	{
+		std::map<int, char> map;
+		auto it = map.begin();
+		for (int i = nof_operations; i > 0; --i) 
+		{
+			map.emplace_hint(it, i, 'c');
+			it = map.end();
+		}
+	}
+
+	void insert()
+	{
+		std::map<int, double> m;
+		m.emplace(2, 5.);
+		m.emplace(1, 4.);
+		m.emplace(1, 6.);
+
+		m.insert(std::pair(3, 5.));
+		m.insert(std::pair{ 4, 6. });
+		m.insert({ 5, 7. });
+	}
+
+	void insert_or_assign()
+	{
+		std::map<int, int> m;
+		m.emplace(2, 5);
+		m.emplace(1, 4);
+		m.emplace(1, 6);
+
+		m.insert_or_assign(3, 5); 
+		m.insert_or_assign(2, 6); //в отличиие от emplace - заменит существующую пару
+	}
+
+	void insert_or_assign_struct()
+	{
+		std::map<int, Test> m;
+		m.emplace(2, Test(7, 8));
+		m.insert({ 3,Test(6,9) });
+		m.insert_or_assign(3, Test(8, 4));
+		m[4] = (Test(1, 0));
+		//std::cout << m[9]._x << std::endl;
+	}
+
+	void try_emplace()
+	{
+		std::map<int, Test> m;
+		m.emplace(5, Test(4,5));
+		m.emplace(5, Test(8,9));
+		m.try_emplace(5, 6, 8);
+	}
+
+	void greater()
+	{
+		std::map<int, double> m;
+		std::map<int, double,std::greater<>> m1;
+		m.emplace(5, 6);
+		m1.emplace(5, 6);
+
+		m.emplace(6, 8);
+		m1.emplace(6, 8);
+		
+		m.emplace(4, 8);
+		m1.emplace(4, 8);
+
+		for (auto [key, value] : m)
+		{
+			std::cout << key << ' ' << value << std::endl;
+		}
+
+		std::cout << std::endl;
+		
+		for (auto [key, value] : m1)
+		{
+			std::cout << key << ' ' << value << std::endl;
+		}
+	}
+
+	void TestAll()
+	{
+		//emplace();
+		//emplace_and_check();
+		//emplace_twice();
+		//emplace_twice_and_check();
+		//emplace_string_key();
+		//emplace_key_double_value_string();
+		//emplace_key_char_value_vector();
+		//emplace_key_int_value_struct();
+		//find();
+		//clear();
+		//erase_by_key();
+		//erase_by_iterator();
+		//TestEmplaceErase();
+		//TestEmplaceErase1();
+		//operator_squares();
+		//TestEmplaceErase2();
+		//TestOnlineMap();
+		//TestSequence();
+		//at();
+		//iterators();
+		//reverse_iterators();
+		//count();
+		//auto t1 = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+		//map_emplace_hint(100000);
+		//auto t2 = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+		//map_emplace_hint_wrong(100000);
+		//auto t3 = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+		//map_emplace(100000);
+		//auto t4 = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+		//std::cout << t2 - t1 << std::endl;
+		//std::cout << t3 - t2 << std::endl;
+		//std::cout << t4 - t3 << std::endl;
+		//insert();
+		//insert_or_assign();
+		//insert_or_assign_struct();
+		//try_emplace();
+		greater();
 	}
 
 	/*
@@ -327,7 +648,7 @@ namespace StlMap
 	insert
 	insert_or_assign
 	try_emplace
-	less
+	greater
 
 	equal_range
 	extract
