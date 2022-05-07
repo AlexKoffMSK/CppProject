@@ -83,6 +83,10 @@
 #endif
 #include "STL/Vector/StlVectorExamples.h"
 #include "STL/Map/STLMapExamples.h"
+#include "FileSystem/FileSystemBasic.h"
+#include "FileSystem/FoldersContentMatcher.h"
+#include "ParallelThreads/Future.h"
+#include "ParallelThreads/OnlineThreadsProcessor.h"
 
 #ifdef INCLUDES
 #pragma endregion
@@ -95,7 +99,9 @@ int main(int argc, char* argv[])
 	
 	srand(time(0));
 	
-	StlMap::Test();
+	FileSystem::PrintFoldersContentMatching(FileSystem::kPath1,FileSystem::kPath2);
+	
+	//FileSystem::Go();
 
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры

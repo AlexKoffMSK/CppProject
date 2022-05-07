@@ -3,6 +3,7 @@
 
 #include <string>
 #include <array>
+#include <iostream>
 
 class SHA256 {
 
@@ -52,6 +53,7 @@ private:
 //мой апдейт
 static std::string SHA256FromGitHub(std::string string_for_sha) //или inline
 {
+	//std::cout << '[' << string_for_sha << ']' << std::endl;
 	SHA256 sha;
 	sha.update(string_for_sha);
 	return SHA256::toString(sha.digest());

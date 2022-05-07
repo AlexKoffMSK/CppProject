@@ -117,7 +117,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>EnableAllWarnings</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;PRINT_LOGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -126,6 +126,7 @@
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -183,6 +184,8 @@
     <ClInclude Include="DynamicMemoryManager.h" />
     <ClInclude Include="EnumExamples.h" />
     <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="FileSystem\FileSystemBasic.h" />
+    <ClInclude Include="FileSystem\FoldersContentMatcher.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="GameMatrix\GameStructures.h" />
     <ClInclude Include="Geometry.h" />
@@ -218,7 +221,9 @@
     <ClInclude Include="OpenCV\MouseTest.h" />
     <ClInclude Include="OpenCV\OpenCVTest.h" />
     <ClInclude Include="Operators.h" />
+    <ClInclude Include="ParallelThreads\Future.h" />
     <ClInclude Include="ParallelThreads\Mutexes.h" />
+    <ClInclude Include="ParallelThreads\OnlineThreadsProcessor.h" />
     <ClInclude Include="ParallelThreads\ParallelThreads.h" />
     <ClInclude Include="ParallelThreads\RingBuffer.h" />
     <ClInclude Include="ParallelThreads\RingBufferTest.h" />
@@ -282,6 +287,5 @@
     <None Include="TextFiles\File1.tsv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>
