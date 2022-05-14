@@ -87,10 +87,12 @@
 #include "FileSystem/FoldersContentMatcher.h"
 #include "ParallelThreads/Future.h"
 #include "ParallelThreads/OnlineThreadsProcessor.h"
+#include "STL/String/STLStringExamples.h"
 
 #ifdef INCLUDES
 #pragma endregion
 #endif
+
 //первый аргумент - это то, сколько аргументов в функцию мы передали argc - arguments count
 //второй аргумент - это массив указателей на строки, указатель на массив строк
 int main(int argc, char* argv[])
@@ -100,8 +102,10 @@ int main(int argc, char* argv[])
 	srand(time(0));
 	
 	FileSystem::PrintFoldersContentMatching(FileSystem::kPath1,FileSystem::kPath2);
-	
 	//FileSystem::Go();
+
+
+	//StlString::TestAll();
 
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры

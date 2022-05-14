@@ -320,6 +320,9 @@
     <ClInclude Include="ParallelThreads\OnlineThreadsProcessor.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="STL\String\STLStringExamples.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Pictures\Bitmap.bmp">

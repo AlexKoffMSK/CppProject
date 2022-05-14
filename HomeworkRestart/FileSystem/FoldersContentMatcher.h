@@ -10,8 +10,13 @@
 
 namespace FileSystem
 {
-	const std::filesystem::path kPath1 = "C:\\Users\\AlekseyRozhkov\\source\\repos\\CppProject\\HomeworkRestart\\FileSystem\\Data1";
-	const std::filesystem::path kPath2 = "C:\\Users\\AlekseyRozhkov\\source\\repos\\CppProject\\HomeworkRestart\\FileSystem\\Data2";
+	//D:\PhotoVideoAll\UrgentSort\2021-08-29
+	//D:\PhotoVideoAll\2021AugustCrimea\2021-08-29
+	//const std::filesystem::path kPath1 = "C:\\Users\\AlekseyRozhkov\\source\\repos\\CppProject\\HomeworkRestart\\FileSystem\\Data1";
+	//const std::filesystem::path kPath2 = "C:\\Users\\AlekseyRozhkov\\source\\repos\\CppProject\\HomeworkRestart\\FileSystem\\Data2";
+
+	const std::filesystem::path kPath1 = "D:\\PhotoVideoAll\\UrgentSort\\2021-08-29";
+	const std::filesystem::path kPath2 = "D:\\PhotoVideoAll\\2021AugustCrimea\\2021-08-29";
 
 	struct FileNameAndHash
 	{
@@ -120,7 +125,6 @@ namespace FileSystem
 		int ind1=0;
 		int ind2=0;
 
-
 		while (ind1 < file_names_hashes1.size() || ind1 < file_names_hashes2.size())
 		{
 			if (ind1 == file_names_hashes1.size())
@@ -157,21 +161,23 @@ namespace FileSystem
 			}
 		}
 
-		std::cout <<"====================1===========================" << std::endl;
-
+		std::cout <<"====================Files that only exists in first directory===========================" << std::endl;
+		//файлы, которые есть только в первой папке
 		for (auto v : files_in_1)
 		{
 			std::cout << v._name << std::endl;
 		}
 
-		std::cout <<"====================2===========================" << std::endl;
+		std::cout <<"====================Files that only exists in second directory==========================" << std::endl;
+		//файлы, которые есть только во второй папке
 
 		for (auto v : files_in_2)
 		{
 			std::cout << v._name << std::endl;
 		}
 
-		std::cout<< "===================both=========================" << std::endl;
+		std::cout<< "====================Files that exists in both directories===============================" << std::endl;
+		//файлы, которые есть в обеих папках
 
 		for (auto v : files_in_both)
 		{
@@ -255,12 +261,4 @@ namespace FileSystem
 		th2.join();
 		th3.join();
 	}
-
-
-
-
-
-
-
-
 }
