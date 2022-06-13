@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <cassert>
+#include <vector>
 
 namespace StlString
 {
@@ -236,7 +237,7 @@ namespace StlString
 	void Test2()
 	{
 		//хелло
-		//цикл 20 раз - на каждой итерации генерится число от 0 до 1, если 0 - то мы должны запушшить случайный символ в случайное место в строке, иначе удалить случайный символ
+		//цикл 20 раз - на каждой итерации генерится число от 0 до 1, если 0 - то мы должны запушить случайный символ в случайное место в строке, иначе удалить случайный символ
 		std::string str = "Hello";
 
 		for (int i = 0; i < 40; ++i)
@@ -244,15 +245,25 @@ namespace StlString
 			int x = (rand() % 2);
 			if (x == 0)
 			{
-				//str.insert(2, 1, '!'); //в какую позицию, сколько раз вставить, что вставить
-				//str.insert(rand() % str.size(), 1, (char)(rand()% 255+1));
-				str.insert(rand() % str.size(), 1, rand() % ('z' - 'a' + 1) + 'a');
-				std::cout << str << std::endl;
+				if (str.empty())
+				{
+					str.insert(0,1,rand() % ('z' - 'a' + 1) + 'a');
+				}
+				else
+				{
+					//str.insert(2, 1, '!'); //в какую позицию, сколько раз вставить, что вставить
+					//str.insert(rand() % str.size(), 1, (char)(rand()% 255+1));
+					str.insert(rand() % str.size(), 1, rand() % ('z' - 'a' + 1) + 'a');
+					std::cout << str << std::endl;
+				}
 			}
 			else
 			{
-				str.erase(rand() % str.size(), 1);
-				std::cout << str << std::endl;
+				if (!str.empty())
+				{
+					str.erase(rand() % str.size(), 1);
+					std::cout << str << std::endl;
+				}
 			}
 		}
 	}
@@ -301,6 +312,211 @@ namespace StlString
 		std::cout << str.substr(str.find_first_of('l'), str.rfind('l') - str.find_first_of('l') + 1) << std::endl;
 	}
 	
+	void starts_with()
+	{
+		//starts_with() возвращает bool, сравнивает начала строк
+		std::string str = "Hello_world_all_strings";
+		assert(str.starts_with("Hello"));
+		assert(!str.starts_with("Hello1"));
+	}
+
+	void ends_with()
+	{
+		std::string str = "Hello_world_all_strings";
+		assert(str.ends_with("strings"));
+		assert(!str.ends_with("atrings"));
+	}
+
+	void replace_by_characters()
+	{
+		std::string str = "Hello_world_all_strings";
+		str.replace(6, 5, 2, '?'); 
+		//первый арг - смещение в исходной строке откуда начать замену, второй - сколько символов заменить, последние два - это = НА ЧТО ЗАМЕНИТЬ - 
+		//в текущем случае - заменить слово world на 2 знака вопроса. Функция меняет исходную строку.
+		//std::cout << str << std::endl;
+		assert(str == "Hello_??_all_strings");
+
+		str = "Hello_world_all_strings";
+		str.replace(12, 3, 3, '?');
+		assert(str == "Hello_world_???_strings");
+
+		str = "Hello_world_all_strings";
+		str.replace(12, 3, 5, '?');
+		assert(str == "Hello_world_?????_strings");
+	}
+
+	void replace_by_string()
+	{
+		std::string str = "Hello_world_all_strings";
+		str.replace(6, 5, "strin");
+		assert(str == "Hello_strin_all_strings");
+		
+		str = "Hello_world_all_strings";
+		str.replace(6, 5, "string");
+		assert(str == "Hello_string_all_strings");
+
+		str = "Hello_world_all_strings";
+		str.replace(6, 5, "str");
+		assert(str == "Hello_str_all_strings");
+
+		str = "Hello_world_all_strings";
+		str.replace(6, 5, "string",3); //заменит строкой из которой возьмет первые 3 символа
+		assert(str == "Hello_str_all_strings");
+
+		std::string pattern = "strings";
+
+		str = "Hello_world_all_strings";
+		str.replace(6, 5, pattern,2,3);
+		assert(str == "Hello_rin_all_strings");
+
+		str = "Hello_world_all_strings";
+		str.replace(6, 5, pattern);
+		assert(str == "Hello_strings_all_strings");
+	}
+
+	void iteratorsIterate()
+	{
+		std::string str = "Hello_world_all_strings";
+
+		for (auto it = str.begin(); it != str.end(); ++it)
+		{
+			std::cout << *it;
+		}
+
+		std::cout << std::endl;
+
+		for (int i = 0; i < str.size(); ++i)
+		{
+			std::cout << str[i];
+		}
+
+		std::cout << std::endl;
+
+		for (auto ch : str)
+		{
+			std::cout << ch;
+		}
+
+		std::cout << std::endl;
+	}
+
+	void IteratorsTest()
+	{
+		std::string str = "Hello_world_all_strings";
+		auto it = str.begin();
+		it += 3;
+		assert(*it == 'l');
+		it -= 2;
+		assert(*it == 'e');
+	}
+
+	bool IsCharEquals_l(char ch)
+	{
+		std::cout << '!' << ch << std::endl;
+		return ch == 'l';
+	}
+
+	void erase_if()
+	{
+		std::string str = "Hello_world_all_strings";
+		std::cout << "Start" << std::endl;
+		std::erase_if(str, IsCharEquals_l);
+		std::cout << "End" << std::endl;
+		assert(str == "Heo_word_a_strings");
+	}
+
+	void Test4()
+	{
+		std::string str = "Hello_world_all_strings";
+		//удалить из нее символ, который встречается больше всех остальных
+		std::string str_sorted = str;
+		
+		//реализация - поиск максимальной длины одинаковой последовательности в отсортиированном массиве.
+		std::sort(str_sorted.begin(), str_sorted.end());
+		//H___adegilllllnoorrsstw
+		int amount = 1;										   
+		int cur_max=1;										   
+		char ch = str_sorted[0];							   
+															   
+		for (int i = 1; i < str_sorted.size(); ++i)			   
+		{													   
+			if (str_sorted[i] == str_sorted[i - 1])			   
+			{												   
+				amount++;									   
+				if (amount > cur_max)						   
+				{											   
+					cur_max = amount;						   
+					ch = str_sorted[i];						   
+				}											   
+			}												   
+			else											   
+			{												   
+				amount = 1;									   
+			}												   
+		}
+		std::erase_if(str, [ch](char cha) {return cha == ch; });
+		std::cout << str << std::endl;
+	}
+
+	void Test4Short()
+	{
+		std::string str = "Hello_world_all_strings";
+		std::map<char, int> mch;
+		int max_amount=1;
+		char max_char;
+		for (auto ch : str)
+		{
+			mch[ch]++;
+			if (mch[ch] > max_amount)
+			{
+				max_amount = mch[ch];
+				max_char = ch;
+			}
+		}
+		std::cout << max_char << '-' << max_amount << std::endl;
+		std::erase_if(str, [max_char](char cha) {return cha == max_char; });
+		std::cout << str << std::endl;
+	}
+
+	void compare()
+	{
+		std::string str = "Hello_world_all_strings";
+		std::cout << str.compare(6, 5, "wprld") << std::endl;
+		assert(str.compare(6, 5, "wprld") < 0);//первая строка - str - меньше второй "wprld", поэтому отрицательное число
+		assert(str.compare(6, 5, "world") == 0);//первая строка - str - равна второй "world", поэтому 0
+		assert(str.compare(6, 5, "warld") > 0); //первая строка - str - больше второй "warld", поэтому положительное число
+
+		assert(str.compare(6, 3, "wor!!", 3) == 0);
+
+		assert(str.compare("Hello_world_all_strings") == 0);
+		assert(str.compare("Hella_world_all_strings") > 0);
+		assert(str.compare("Hyllo_world_all_strings") < 0);
+	}
+
+	void copy()
+	{
+		std::string str = "Hello_world_all_strings";
+		
+		char arr[10];
+		
+		str.copy(arr, 5, 6);
+		
+		std::cout << arr << std::endl;
+	}
+
+	void resize()
+	{
+		std::string str = "Hello";
+		assert(str.size() == 5);
+
+		str.resize(2);
+		assert(str == "He");
+
+		str.resize(7,'t');
+		assert(str.size() == 7);
+		assert(str == "Hettttt");
+	}
+
 	void TestAll()
 	{
 		//OperatorSquare();
@@ -320,7 +536,19 @@ namespace StlString
 		//Test2();
 		//find();
 		//substr();
-		Test3();
+		//Test3();
+		//starts_with();
+		//ends_with();
+		//replace_by_characters();
+		//replace_by_string();
+		//iteratorsIterate();
+		//IteratorsTest();
+		//erase_if();
+		//Test4();
+		//Test4Short();
+		//compare();
+		//copy();
+		resize();
 	}
 	/*
 	[]
@@ -344,7 +572,7 @@ namespace StlString
 	substr
 	starts with (20)
 	ends with (20)
-	contains (23)
+	contains (23) - нет в студии
 	replace
 	iterators
 	erase_if (20)

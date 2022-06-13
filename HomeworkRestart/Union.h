@@ -130,7 +130,7 @@ namespace Union
 		{
 			std::cout << std::hex <<(unsigned int) u1._arr[i] << ' ';
 		}
-		std::cout << endl;
+		std::cout << std::endl;
 	}
 
 	struct OrderIdAndAccount

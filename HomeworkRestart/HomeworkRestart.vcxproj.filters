@@ -323,6 +323,21 @@
     <ClInclude Include="STL\String\STLStringExamples.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="STL\Set\STLSetExamples.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="STL\Stack\STLStack.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionPointerReplace.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="AlgoTasks\Sequences.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="AlgoTasks\SimpleArrays.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Pictures\Bitmap.bmp">
@@ -360,5 +375,6 @@
     <None Include="BinanceDataAPI\avgPrice.json" />
     <None Include="BinanceDataAPI\curl.exe" />
     <None Include="BinanceDataAPI\klines.json" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

@@ -79,8 +79,6 @@
 #include "OpenCV/OpenCVTest.h"
 #include "Polymorphism/Polymorphism_2.h"
 #include "RandomTasks.h"
-#include "AlgoTasks/Loops.h"
-#endif
 #include "STL/Vector/StlVectorExamples.h"
 #include "STL/Map/STLMapExamples.h"
 #include "FileSystem/FileSystemBasic.h"
@@ -88,6 +86,13 @@
 #include "ParallelThreads/Future.h"
 #include "ParallelThreads/OnlineThreadsProcessor.h"
 #include "STL/String/STLStringExamples.h"
+#include "STL/Set/STLSetExamples.h"
+#include "STL/Stack/STLStack.h"
+#include "FunctionPointerReplace.h"
+#endif
+#include "AlgoTasks/Loops.h"
+#include "AlgoTasks/Sequences.h"
+#include "AlgoTasks/SimpleArrays.h"
 
 #ifdef INCLUDES
 #pragma endregion
@@ -101,11 +106,15 @@ int main(int argc, char* argv[])
 	
 	srand(time(0));
 	
-	FileSystem::PrintFoldersContentMatching(FileSystem::kPath1,FileSystem::kPath2);
+	//FileSystem::PrintFoldersContentMatching(FileSystem::kPath1,FileSystem::kPath2);
 	//FileSystem::Go();
 
-
 	//StlString::TestAll();
+	//STLSet::TestAll();
+	//STLStack::TestAll();
+	//AlgoTasks::Loops::Task44();
+	//AlgoTasks::Sequences::Task8();
+	AlgoTasks::SimpleArrays::Task21();
 
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры
@@ -114,7 +123,7 @@ int main(int argc, char* argv[])
 
 /*Путь к успеху!
 + Массивы, переменные, условия, циклы
-+ Сортировки - остался q_sort - на потом
++ Сортировки базовые (пузырь, вставка, выборка, слияние и быстрая сортировка
 + Работа с указателями и памятью
 При работе с указателями важно:
 - чтобы и слева и справа от оператора присваивания (=) был одинаковый тип данных, либо тип данных справа должен иметь возможность быть неявно преобразован к типу данных слева (int a = 3.14)
@@ -129,26 +138,55 @@ int main(int argc, char* argv[])
 + 4.операторы (кастомные операторы внутри класса)
 (1-4 - инкапсуляция)
 +- работа с CommonLanguageInterface, .net
-+- работа с текстовыми файлами
+++ работа с текстовыми файлами
 +- работа с бинарными файлами
 +- списки: односвязный, двухсвязный
+
 Написать свои контейнеры:
 +- очередь через массив
 + список
 + бинарное дерево
 + бинарное дерево поиска (ассоциативный массив),
-/////
++ хэш-таблица метод открытой адресации.
 +- граф
 +- Наследование,полиморфизм
-+ хэш-таблица Сделан метод цепочек.
++ хэш-таблица Сделан метод цепочек
+
+- vector
+- map
+- string
+- set
+- stack
+- queue
+- dequeue
+- list
+- unordered map
+- unordered set
+- multimap
+- multiset
+- array
+- bitset
+
+Контейнеры STL:
++ vector
++ map
++ string
++ set
+- stack
+- queue
+- dequeue
+- list
+- unordered map
+- unordered set
+- array
+- bitset
+- multimap
+- multiset
+
 - Работа с сетью:
 	- сделать игру (проект А)- на сервере игровое поле, игрок управляется из клиента
 	- чат
 	- биржа
-+ хэш-таблица метод открытой адресации.
-- вектор
-- стринга
-- стек, очередь через список
 - написать MachineLearning NeuralNet AI
 - красно-черное дерево и много других клевых структур!!
 +- Многопоточность, параллельные вычисления

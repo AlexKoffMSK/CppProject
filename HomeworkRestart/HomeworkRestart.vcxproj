@@ -162,6 +162,8 @@
     <ClInclude Include="Algorithm.h" />
     <ClInclude Include="AlgoTasks\Conditions.h" />
     <ClInclude Include="AlgoTasks\Loops.h" />
+    <ClInclude Include="AlgoTasks\Sequences.h" />
+    <ClInclude Include="AlgoTasks\SimpleArrays.h" />
     <ClInclude Include="BinanceDataAPI\DataFromInternet.h" />
     <ClInclude Include="BitOperations\BitOperations.h" />
     <ClInclude Include="BitOperations\BitOperationsBasic.h" />
@@ -186,6 +188,7 @@
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="FileSystem\FileSystemBasic.h" />
     <ClInclude Include="FileSystem\FoldersContentMatcher.h" />
+    <ClInclude Include="FunctionPointerReplace.h" />
     <ClInclude Include="Functions.h" />
     <ClInclude Include="GameMatrix\GameStructures.h" />
     <ClInclude Include="Geometry.h" />
@@ -248,6 +251,8 @@
     <ClInclude Include="Sorts.h" />
     <ClInclude Include="StdAlgorithms\StdAlgorithms.h" />
     <ClInclude Include="STL\Map\STLMapExamples.h" />
+    <ClInclude Include="STL\Set\STLSetExamples.h" />
+    <ClInclude Include="STL\Stack\STLStack.h" />
     <ClInclude Include="STL\String\STLStringExamples.h" />
     <ClInclude Include="STL\Vector\StlVectorExamples.h" />
     <ClInclude Include="Structures.h" />
@@ -285,8 +290,21 @@
     <None Include="BinaryFiles\FileVec.bin" />
     <None Include="BinaryFiles\HomeworkRestart.bin" />
     <None Include="GameMatrix\Levels\Level1_settings.json" />
+    <None Include="packages.config" />
     <None Include="TextFiles\File1.tsv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\boost.1.79.0\build\boost.targets" Condition="Exists('..\packages\boost.1.79.0\build\boost.targets')" />
+    <Import Project="..\packages\boost_timer-vc143.1.79.0\build\boost_timer-vc143.targets" Condition="Exists('..\packages\boost_timer-vc143.1.79.0\build\boost_timer-vc143.targets')" />
+    <Import Project="..\packages\boost_chrono-vc143.1.79.0\build\boost_chrono-vc143.targets" Condition="Exists('..\packages\boost_chrono-vc143.1.79.0\build\boost_chrono-vc143.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\boost.1.79.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.79.0\build\boost.targets'))" />
+    <Error Condition="!Exists('..\packages\boost_timer-vc143.1.79.0\build\boost_timer-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost_timer-vc143.1.79.0\build\boost_timer-vc143.targets'))" />
+    <Error Condition="!Exists('..\packages\boost_chrono-vc143.1.79.0\build\boost_chrono-vc143.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost_chrono-vc143.1.79.0\build\boost_chrono-vc143.targets'))" />
+  </Target>
 </Project>
