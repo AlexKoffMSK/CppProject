@@ -338,6 +338,9 @@
     <ClInclude Include="AlgoTasks\SimpleArrays.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="AlgoTasks\NotSimpleArrays.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Pictures\Bitmap.bmp">

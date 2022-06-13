@@ -93,6 +93,7 @@
 #include "AlgoTasks/Loops.h"
 #include "AlgoTasks/Sequences.h"
 #include "AlgoTasks/SimpleArrays.h"
+#include "AlgoTasks/NotSimpleArrays.h"
 
 #ifdef INCLUDES
 #pragma endregion
@@ -114,7 +115,7 @@ int main(int argc, char* argv[])
 	//STLStack::TestAll();
 	//AlgoTasks::Loops::Task44();
 	//AlgoTasks::Sequences::Task8();
-	AlgoTasks::SimpleArrays::Task21();
+	AlgoTasks::NotSimpleArrays::Task4();
 
 	std::cout << "Process is over!" << std::endl;
 	getchar(); //ожидание ввода с клавиатуры

@@ -162,6 +162,7 @@
     <ClInclude Include="Algorithm.h" />
     <ClInclude Include="AlgoTasks\Conditions.h" />
     <ClInclude Include="AlgoTasks\Loops.h" />
+    <ClInclude Include="AlgoTasks\NotSimpleArrays.h" />
     <ClInclude Include="AlgoTasks\Sequences.h" />
     <ClInclude Include="AlgoTasks\SimpleArrays.h" />
     <ClInclude Include="BinanceDataAPI\DataFromInternet.h" />

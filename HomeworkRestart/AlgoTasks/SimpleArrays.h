@@ -401,7 +401,7 @@ namespace AlgoTasks::SimpleArrays
 		}
 	}
 
-	void Task21_3()
+	void Task21_3() //слияние отсортированных массивов, если cout заменить на push_back
 	{
 		std::vector<int> vec1 = GenerateSortedArray(10, 10);
 		std::vector<int> vec2 = GenerateSortedArray(10, 10);
