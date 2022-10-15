@@ -85,19 +85,39 @@
 #include "FileSystem/FoldersContentMatcher.h"
 #include "ParallelThreads/Future.h"
 #include "ParallelThreads/OnlineThreadsProcessor.h"
-#include "STL/String/STLStringExamples.h"
-#include "STL/Set/STLSetExamples.h"
-#include "STL/Stack/STLStack.h"
+#include "STL/String/String.h"
+#include "STL/Set/Set.h"
+#include "STL/Stack/Stack.h"
 #include "FunctionPointerReplace.h"
 #endif
 #include "AlgoTasks/Loops.h"
 #include "AlgoTasks/Sequences.h"
 #include "AlgoTasks/SimpleArrays.h"
 #include "AlgoTasks/NotSimpleArrays.h"
+#include "SharedMemory/SharedMemoryClient.h"
+#include "SharedMemory/SharedMemoryServer.h"
+#include "SharedMemory/SharedMemoryTest.h"
+#include "SharedMemory/SharedMemoryTest1.h"
+#include "SharedMemory/SharedMemoryTest2.h"
+#include "STL/Deque/Deque.h"
+#include "STL/Array/Array.h"
+#include "STL/List/List.h"
+#include "STL/BitSet/BitSet.h"
+#include "Test/Classess.h"
+#include "STL/MultiMap/MultiMap.h"
+#include "STL/Queue/Queue.h"
 
 #ifdef INCLUDES
 #pragma endregion
 #endif
+
+
+void YoureFucked(int x)
+{
+	std::cout << "You're fucked!" << std::endl;
+}
+
+
 
 //первый аргумент - это то, сколько аргументов в функцию мы передали argc - arguments count
 //второй аргумент - это массив указателей на строки, указатель на массив строк
@@ -105,6 +125,9 @@ int main(int argc, char* argv[])
 {
 	//Console.SetConsolePositionAndSize(10, 10, 900, 1400);
 	
+	signal(SIGSEGV, &YoureFucked);
+	signal(SIGINT, &YoureFucked);
+
 	srand(time(0));
 	
 	//FileSystem::PrintFoldersContentMatching(FileSystem::kPath1,FileSystem::kPath2);
@@ -113,12 +136,26 @@ int main(int argc, char* argv[])
 	//StlString::TestAll();
 	//STLSet::TestAll();
 	//STLStack::TestAll();
+	//StlDeque::TestTest();
 	//AlgoTasks::Loops::Task44();
 	//AlgoTasks::Sequences::Task8();
-	AlgoTasks::NotSimpleArrays::Task4();
+	//SharedMemory2::Test(argc,argv);
+	
+	//AlgoTasks::NotSimpleArrays::Task18();
+	//STLArray::Run();
+	//STLList::Run();
+
+	//STLBitSet::Run();
+
+	//TestInheritance::Test();
+
+	//STLMultiMap::Run();
+
+	STLQueue::Run();
+
 
 	std::cout << "Process is over!" << std::endl;
-	getchar(); //ожидание ввода с клавиатуры
+	//getchar(); //ожидание ввода с клавиатуры
 }
 
 
@@ -152,7 +189,6 @@ int main(int argc, char* argv[])
 +- граф
 +- Наследование,полиморфизм
 + хэш-таблица Сделан метод цепочек
-
 - vector
 - map
 - string
@@ -168,21 +204,51 @@ int main(int argc, char* argv[])
 - array
 - bitset
 
-Контейнеры STL:
+Контейнеры STL 
 + vector
 + map
 + string
 + set
-- stack
++ stack
++ deque
++ array
++ list
++ bitset
++- multimap
 - queue
-- dequeue
-- list
+- multiset
 - unordered map
 - unordered set
-- array
-- bitset
-- multimap
-- multiset
+
+Алгоритмы STL:
++ partition (stable partition)
++ find_if
++ sort
+- max_element
+- count (count_if)
+- copy
+- move
+- fillф	
+- transform
+- remove_if
+- rotate
+- shift
+- shuffle
+- partial_sort
+- n_element
+- lower_bound
+- merge
+- includes
+- set_union
+- equal
+- is_permitation
+- next_permitation
+- accumulate
+
+Паттерны проектирования:
+-...
+
+Static inline
 
 - Работа с сетью:
 	- сделать игру (проект А)- на сервере игровое поле, игрок управляется из клиента
@@ -210,12 +276,17 @@ int main(int argc, char* argv[])
 
 +- лямбда-функции
 + исключения
--+ алгоритмы стандартной библиотеки
 
 - mutable mutex симафор
 
 + как умножить разделить на два битовыми операциями
 + битовые операции
+
+Важное про ожидаемое значение при инкрементировании
+int a = n++; //в а будет старое значение n
+int b = ++n; //в b будет новое значение n
+
+Важное про скорость при инкрементировании
 
 Важное про структурирование данных:
 Если неважна отсортированность:

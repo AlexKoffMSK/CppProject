@@ -26,7 +26,7 @@ void MakeVecForSorts()
 		vec.push_back(std::rand()%10+2);
 	}
 
-	std::random_shuffle(vec.begin(), vec.end());
+	//std::random_shuffle(vec.begin(), vec.end());
 
 	//SortsVisualisation::BubbleSort(vec);
 	//SortsVisualisation::SelectionSort(vec);
@@ -35,7 +35,7 @@ void MakeVecForSorts()
 	//Snake::SnakeGameRun();
 	//Snake::Test222();
 	//SortsVisualisation::QuickSort(vec);
-	//SortsVisualisation::MergeSort(vec);
+	SortsVisualisation::MergeSort(vec);
 	
 
 	getchar();
@@ -43,9 +43,9 @@ void MakeVecForSorts()
 
 int main()
 {
-	//MakeVecForSorts();
+	MakeVecForSorts();
 	//LinRegPlot::TestLinReg();
 	//LinRegPlot::TestPrice();
 	//srand(time(0));
-	Physics::Drawer();
+	//Physics::Drawer();
 }

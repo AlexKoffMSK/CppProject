@@ -299,10 +299,10 @@
     <ClInclude Include="AlgoTasks\Loops.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="STL\Vector\StlVectorExamples.h">
+    <ClInclude Include="STL\Vector\Vector.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="STL\Map\STLMapExamples.h">
+    <ClInclude Include="STL\Map\Map.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="OldEasyTasks.h">
@@ -320,13 +320,13 @@
     <ClInclude Include="ParallelThreads\OnlineThreadsProcessor.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="STL\String\STLStringExamples.h">
+    <ClInclude Include="STL\String\String.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="STL\Set\STLSetExamples.h">
+    <ClInclude Include="STL\Set\Set.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="STL\Stack\STLStack.h">
+    <ClInclude Include="STL\Stack\Stack.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="FunctionPointerReplace.h">
@@ -339,6 +339,42 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="AlgoTasks\NotSimpleArrays.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedMemory\SharedMemoryServer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedMemory\SharedMemoryClient.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedMemory\SharedMemoryTest.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedMemory\SharedMemoryTest1.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedMemory\SharedMemoryTest2.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="STL\Deque\Deque.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="STL\Array\Array.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="STL\List\List.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="STL\BitSet\BitSet.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Test\Classess.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="STL\MultiMap\MultiMap.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="STL\Queue\Queue.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
