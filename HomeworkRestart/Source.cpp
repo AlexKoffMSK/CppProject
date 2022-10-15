@@ -214,7 +214,7 @@ int main(int argc, char* argv[])
 + array
 + list
 + bitset
-+- multimap
++ multimap
 - queue
 - multiset
 - unordered map
