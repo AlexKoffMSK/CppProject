@@ -377,6 +377,12 @@
     <ClInclude Include="STL\Queue\Queue.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="STL\MultiSet\MultiSet.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="STL\UnorderedMap\UnorderedMap.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Pictures\Bitmap.bmp">

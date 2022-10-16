@@ -106,6 +106,8 @@
 #include "Test/Classess.h"
 #include "STL/MultiMap/MultiMap.h"
 #include "STL/Queue/Queue.h"
+#include "STL/MultiSet/MultiSet.h"
+#include "STL/UnorderedMap/UnorderedMap.h"
 
 #ifdef INCLUDES
 #pragma endregion
@@ -151,8 +153,11 @@ int main(int argc, char* argv[])
 
 	//STLMultiMap::Run();
 
-	STLQueue::Run();
+	//STLQueue::Run();
+	
+	//STLMultiSet::Run();
 
+	STLUnorderedMap::Run();
 
 	std::cout << "Process is over!" << std::endl;
 	//getchar(); //ожидание ввода с клавиатуры
@@ -215,8 +220,8 @@ int main(int argc, char* argv[])
 + list
 + bitset
 + multimap
-- queue
-- multiset
++ queue
++ multiset
 - unordered map
 - unordered set
 

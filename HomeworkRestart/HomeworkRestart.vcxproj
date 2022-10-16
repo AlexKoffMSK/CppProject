@@ -263,10 +263,12 @@
     <ClInclude Include="STL\List\List.h" />
     <ClInclude Include="STL\Map\Map.h" />
     <ClInclude Include="STL\MultiMap\MultiMap.h" />
+    <ClInclude Include="STL\MultiSet\MultiSet.h" />
     <ClInclude Include="STL\Queue\Queue.h" />
     <ClInclude Include="STL\Set\Set.h" />
     <ClInclude Include="STL\Stack\Stack.h" />
     <ClInclude Include="STL\String\String.h" />
+    <ClInclude Include="STL\UnorderedMap\UnorderedMap.h" />
     <ClInclude Include="STL\Vector\Vector.h" />
     <ClInclude Include="Structures.h" />
     <ClInclude Include="Classes\VectorWithinEvens.h" />

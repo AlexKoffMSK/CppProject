@@ -87,7 +87,6 @@ namespace STLMultiMap
 
 		assert(mmap.erase(1) == 3);
 
-		std::multimap<int, int>::iterator it;
 		auto data = mmap.equal_range(2);
 
 		for (std::multimap<int, int>::iterator it = data.first; it != data.second; it++)
