@@ -130,8 +130,8 @@ int main(int argc, char* argv[])
 	signal(SIGSEGV, &YoureFucked);
 	signal(SIGINT, &YoureFucked);
 
-	srand(time(0));
-	
+	//srand(time(0));
+
 	//FileSystem::PrintFoldersContentMatching(FileSystem::kPath1,FileSystem::kPath2);
 	//FileSystem::Go();
 
@@ -221,7 +221,7 @@ int main(int argc, char* argv[])
 + bitset
 + multimap
 + queue
-+ multiset
++ multiset - доп потребность узнать - как из плюсов передать данные в (например) питон для отрисовки графики (файл, память, вызов функции питона из плюсов)
 - unordered map
 - unordered set
 
