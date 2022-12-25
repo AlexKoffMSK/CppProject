@@ -24,6 +24,22 @@ namespace MoveSemantics
 		const int e = 3; // e - lavlaue, 3 rvalue
 	}
 
+	void Test11()
+	{
+		int a = 10;
+		int* p_a = &a;
+		int& ref_a = a;
+
+		*p_a = 15;
+		ref_a = 20;
+
+		int&& rv = 30;
+		rv = 15;
+
+		std::cout << rv;
+
+	}
+
 	class IntWithCopyNotyfier
 	{
 	public:

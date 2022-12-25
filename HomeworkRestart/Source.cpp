@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <chrono>
+#include <cassert>
+
 #ifdef INCLUDES
 #include <sys/types.h>
 #include <winsock.h>
@@ -11,7 +13,6 @@
 #include "WorkWithTextFiles.h"
 #include "DataStructures/Queue.h"
 #include "Sequences.h"
-#include "Functions.h"
 #include "ConsoleFunctions.h"
 #include "Sorts.h"
 #include "DynamicMemory.h"
@@ -60,7 +61,6 @@
 #include "Templates.h"
 #include "Hash/HashTableOpenAddress.h"
 #include "VariadicTemplates.h"
-//#include "MoveSemantics/LvalueRvalue.h"
 //#include "MoveSemantics/MoveSemanticsClass.h"
 #include "SmartPointers/UniquePtr.h"
 #include "SmartPointers/SharedPtr.h"
@@ -70,6 +70,8 @@
 #include "BinanceDataAPI/DataFromInternet.h"
 #include "LambdaFunctions.h"
 #include "Exceptions.h"
+#include "Functions.h"
+#include "MoveSemantics/LvalueRvalue.h"
 #include "StdAlgorithms/StdAlgorithms.h"
 #include "Polymorphism/VirtualDestructor.h"
 #include "Polymorphism/VirtualConstructor.h"
@@ -157,7 +159,8 @@ int main(int argc, char* argv[])
 	
 	//STLMultiSet::Run();
 
-	STLUnorderedMap::Run();
+	//STLUnorderedMap::Run3();
+	TestTest();
 
 	std::cout << "Process is over!" << std::endl;
 	//getchar(); //ожидание ввода с клавиатуры

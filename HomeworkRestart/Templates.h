@@ -102,7 +102,8 @@ namespace Templates
 		}
 	}
 
-	template <class T> void F()
+	template <class T> 
+	void F()
 	{
 		T a{};
 		std::cout << typeid(a).name() << std::endl;
